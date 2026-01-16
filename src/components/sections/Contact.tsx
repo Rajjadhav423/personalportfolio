@@ -17,8 +17,8 @@ const contactInfo = [
   {
     icon: IconMail,
     label: "Email",
-    value: "2021bit057@sggs.ac.in",
-    href: "mailto:2021bit057@sggs.ac.in",
+    value: "jadhavrz423@gmail.com",
+    href: "mailto:jadhavrz423@gmail.com",
     color: "cyan",
   },
   {
@@ -31,8 +31,8 @@ const contactInfo = [
   {
     icon: IconBrandLinkedin,
     label: "LinkedIn",
-    value: "rajeshjadhav057",
-    href: "https://linkedin.com/in/rajeshjadhav057",
+    value: "Rajesh Jadhav",
+    href: "https://www.linkedin.com/in/rajeshjadhav057",
     color: "blue",
   },
   {

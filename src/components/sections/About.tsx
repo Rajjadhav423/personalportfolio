@@ -21,10 +21,10 @@ export function About() {
           {/* Left - Stats */}
           <div className="grid grid-cols-2 gap-3 sm:gap-6 order-2 md:order-1">
             {[
-              { value: "4+", label: "Projects Completed" },
-              { value: "2+", label: "Years Experience" },
+              { value: "4+", label: "Projects Built" },
+              { value: "1+", label: "Year Experience" },
               { value: "3", label: "Salesforce Certs" },
-              { value: "7.94", label: "CGPA" },
+              { value: "3x", label: "Certified Dev" },
             ].map((stat, idx) => (
               <motion.div
                 key={idx}
@@ -56,13 +56,14 @@ export function About() {
           >
             <CardSpotlight className="p-6 rounded-2xl border-neutral-200 dark:border-white/10 bg-white/30 dark:bg-white/5 backdrop-blur-sm shadow-xl dark:shadow-2xl">
               <p className="text-neutral-700 dark:text-neutral-300 text-base sm:text-lg leading-relaxed mb-4 relative z-20">
-                Aspiring <span className="text-cyan-600 dark:text-cyan-400 font-bold">Software Developer</span> with hands-on experience in full-stack web development, Salesforce CRM platform development, and machine learning research.
+                Hi! I'm <span className="text-cyan-600 dark:text-cyan-400 font-bold">Rajesh Jadhav</span>, an aspiring <span className="font-semibold text-neutral-900 dark:text-white">Full Stack Developer</span> and Machine Learning enthusiast with a passion for creating cutting-edge software solutions.
               </p>
               <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base leading-relaxed mb-4 relative z-20">
-                Proficient in <span className="font-semibold text-neutral-900 dark:text-neutral-100">JavaScript/TypeScript</span>, <span className="font-semibold text-neutral-900 dark:text-neutral-100">React.js</span>, <span className="font-semibold text-neutral-900 dark:text-neutral-100">Next.js</span>, <span className="font-semibold text-neutral-900 dark:text-neutral-100">Node.js</span>, <span className="font-semibold text-neutral-900 dark:text-neutral-100">Salesforce Apex</span>, and <span className="font-semibold text-neutral-900 dark:text-neutral-100">Python</span>.
+                 Currently a <span className="font-semibold text-neutral-900 dark:text-white">Software Engineer at Koshine Tech Labs</span>, I specialize in <span className="font-semibold text-neutral-900 dark:text-white">Java</span>, <span className="font-semibold text-neutral-900 dark:text-white">Python</span>, and MERN stack development. 
+                 I am a <span className="font-semibold text-purple-600 dark:text-purple-400">3x Certified Salesforce Developer</span> committed to building scalable, efficient, and innovative web applications.
               </p>
               <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base leading-relaxed relative z-20">
-                Demonstrated ability to deliver scalable solutions through internships and academic projects, with expertise in <span className="font-semibold text-neutral-900 dark:text-neutral-100">AI integration</span>, <span className="font-semibold text-neutral-900 dark:text-neutral-100">cloud technologies</span>, and <span className="font-semibold text-neutral-900 dark:text-neutral-100">CRM automation workflows</span>.
+                My mission is to push the boundaries of technology—merging conversational AI with seamless user experiences and streamlining complex workflows through code. I am a fast learner, problem-solver, and ready to make an impact.
               </p>
             </CardSpotlight>
 

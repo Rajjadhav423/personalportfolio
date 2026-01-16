@@ -17,7 +17,7 @@ const skillCategories = [
   },
   {
     title: "Backend Technologies",
-    skills: ["Node.js", "Express.js", "RESTful APIs", "GraphQL", "Microservices"],
+    skills: ["Node.js", "Express.js", "Apache Kafka", "RESTful APIs", "Microservices"],
     color: "pink",
   },
   {
@@ -27,12 +27,12 @@ const skillCategories = [
   },
   {
     title: "Databases & Storage",
-    skills: ["MongoDB", "MySQL", "PostgreSQL", "Supabase", "Prisma ORM"],
+    skills: ["PostgreSQL", "MongoDB", "MySQL", "Supabase", "Prisma ORM"],
     color: "green",
   },
   {
     title: "Cloud & DevOps",
-    skills: ["AWS", "Git", "GitHub", "Docker", "CI/CD", "OAuth", "JWT", "JIRA", "Postman"],
+    skills: ["AWS", "Git", "GitHub", "Slack Integration", "Docker", "CI/CD", "OAuth", "JWT"],
     color: "orange",
   },
   {
