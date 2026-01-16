@@ -96,7 +96,7 @@ export function Hero() {
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
               <span className="hero-title-text">Hi, I&apos;m </span>
-              <span className="gradient-text block sm:inline">RAJESH JADHAV</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-900 dark:from-white dark:via-neutral-200 dark:to-neutral-400 block sm:inline tracking-tight">RAJESH JADHAV</span>
             </h1>
 
             <div className="text-lg sm:text-xl md:text-2xl hero-subtitle-text mb-4 md:mb-6 h-8 md:h-10">
@@ -170,50 +170,61 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative flex justify-center order-1 lg:order-2"
           >
-            <div className="relative">
-              {/* Animated Ring */}
-              <motion.div
-                className="absolute -inset-3 md:-inset-4 rounded-full"
-                style={{
-                  background: "linear-gradient(135deg, #06b6d4, #8b5cf6, #ec4899)",
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-              />
-              <motion.div
-                className="hero-profile-ring absolute -inset-2 md:-inset-3 rounded-full"
-              />
+            <div className="relative w-full max-w-[320px] mx-auto aspect-square flex items-center justify-center py-10">
+              {/* Background Glow */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 to-purple-500/30 rounded-full blur-[80px] animate-pulse" />
               
-              {/* Profile Image Placeholder */}
-              <div className="hero-profile-inner relative w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden flex items-center justify-center">
-                <div className="text-center">
-                  <span className="text-4xl sm:text-5xl md:text-6xl font-bold gradient-text">RJ</span>
-                  <p className="hero-profile-name text-xs md:text-sm mt-2">Rajesh Jadhav</p>
-                </div>
-              </div>
+              {/* Central Core */}
+              <motion.div 
+                className="relative z-10 w-32 h-32 md:w-40 md:h-40 bg-neutral-900/90 dark:bg-black/90 rounded-full border border-white/10 shadow-2xl flex items-center justify-center backdrop-blur-sm"
+                animate={{ y: [-10, 10] }}
+                transition={{ duration: 4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+              >
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/20 to-purple-500/20 animate-spin-slow" />
+                <span className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-400 to-purple-400">
+                  RJ
+                </span>
+              </motion.div>
 
-              {/* Floating Badges - Hidden on small mobile */}
+              {/* Orbiting Elements */}
+              {/* Orbit 1: React (Purple) */}
               <motion.div
-                className="hero-badge absolute -right-2 md:-right-4 top-1/4 px-2 md:px-3 py-1.5 md:py-2 rounded-lg border border-cyan-500/30 backdrop-blur-sm hidden sm:block"
-                animate={{ y: [-5, 5] }}
-                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+                className="absolute inset-0 z-0"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
-                <span className="text-cyan-600 dark:text-cyan-400 text-xs md:text-sm font-medium">Salesforce</span>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-6 w-12 h-12 bg-white dark:bg-neutral-800 rounded-2xl shadow-lg border border-purple-500/30 flex items-center justify-center transform hover:scale-110 transition-transform">
+                   <IconBrandGithub size={24} className="text-purple-500" />
+                </div>
               </motion.div>
+
+              {/* Orbit 2: Salesforce (Cyan) - Counter Rotation */}
               <motion.div
-                className="hero-badge absolute -left-2 md:-left-4 top-1/2 px-2 md:px-3 py-1.5 md:py-2 rounded-lg border border-purple-500/30 backdrop-blur-sm hidden sm:block"
-                animate={{ y: [5, -5] }}
-                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", delay: 0.5 }}
+                className="absolute inset-4 z-0"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
               >
-                <span className="text-purple-600 dark:text-purple-400 text-xs md:text-sm font-medium">Full Stack</span>
+                <div className="absolute bottom-0 right-0 w-14 h-14 bg-white dark:bg-neutral-800 rounded-full shadow-lg border border-cyan-500/30 flex items-center justify-center transform hover:scale-110 transition-transform">
+                  <IconBrandLinkedin size={28} className="text-cyan-500" />
+                </div>
               </motion.div>
+
+              {/* Orbit 3: AI/Brain (Pink) */}
               <motion.div
-                className="hero-badge absolute -right-4 md:-right-8 bottom-1/4 px-2 md:px-3 py-1.5 md:py-2 rounded-lg border border-pink-500/30 backdrop-blur-sm hidden sm:block"
-                animate={{ y: [-5, 5] }}
-                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", delay: 1 }}
+                className="absolute inset-10 z-0"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
               >
-                <span className="text-pink-600 dark:text-pink-400 text-xs md:text-sm font-medium">ML/AI</span>
+                <div className="absolute top-1/2 left-0 -translate-x-6 w-10 h-10 bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-pink-500/30 flex items-center justify-center transform hover:scale-110 transition-transform">
+                  <IconMail size={20} className="text-pink-500" />
+                </div>
               </motion.div>
+
+               {/* Decorative Orbital Rings */}
+               <div className="absolute inset-0 rounded-full border border-cyan-500/10 pointer-events-none" />
+               <div className="absolute inset-4 rounded-full border border-purple-500/10 pointer-events-none" />
+               <div className="absolute inset-10 rounded-full border border-pink-500/10 pointer-events-none" />
+
             </div>
           </motion.div>
         </div>
