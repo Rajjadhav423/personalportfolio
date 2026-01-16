@@ -19,6 +19,7 @@ export const portfolioData = {
     phone: "+91-9322850587",
     linkedin: "https://www.linkedin.com/in/rajeshjadhav057",
     github: "https://github.com/Rajjadhav423",
+    medium: "https://medium.com/@jadhavrz423",
   },
   
   stats: [

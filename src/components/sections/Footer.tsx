@@ -6,6 +6,7 @@ import {
   IconBrandGithub,
   IconMail,
   IconHeart,
+  IconBrandMedium,
 } from "@tabler/icons-react";
 import { portfolioData } from "@/data/portfolio";
 import Link from "next/link";
@@ -20,6 +21,11 @@ const socialLinks = [
     icon: IconBrandGithub,
     href: "https://github.com/Rajjadhav423",
     label: "GitHub",
+  },
+  {
+    icon: IconBrandMedium,
+    href: portfolioData.personal.medium,
+    label: "Medium",
   },
   {
     icon: IconMail,

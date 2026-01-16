@@ -3,18 +3,29 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { 
+  IconMenu2, 
+  IconX, 
+  IconUser, 
+  IconCode, 
+  IconBriefcase, 
+  IconRocket, 
+  IconSchool, 
+  IconArticle, 
+  IconMail,
+  IconChevronRight
+} from "@tabler/icons-react";
 import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
 
 const navItems = [
-  { name: "About", link: "/#about" },
-  { name: "Skills", link: "/#skills" },
-  { name: "Experience", link: "/#experience" },
-  { name: "Projects", link: "/#projects" },
-  { name: "Education", link: "/#education" },
-  { name: "Blog", link: "/blog" },
-  { name: "Contact", link: "/#contact" },
+  { name: "About", link: "/#about", icon: IconUser },
+  { name: "Skills", link: "/#skills", icon: IconCode },
+  { name: "Experience", link: "/#experience", icon: IconBriefcase },
+  { name: "Projects", link: "/#projects", icon: IconRocket },
+  { name: "Education", link: "/#education", icon: IconSchool },
+  { name: "Blog", link: "/blog", icon: IconArticle },
+  { name: "Contact", link: "/#contact", icon: IconMail },
 ];
 
 export function FloatingNav() {
@@ -116,7 +127,7 @@ export function FloatingNav() {
           </div>
         </div>
 
-        {/* Mobile Menu Dropdown */}
+        {/* Mobile Menu Dropdown - Enhanced */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
@@ -124,30 +135,60 @@ export function FloatingNav() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="nav-mobile-menu md:hidden mt-4 rounded-2xl overflow-hidden"
+              className="md:hidden mt-4 rounded-2xl overflow-hidden border border-white/10 dark:border-white/10 bg-gradient-to-br from-white/95 via-slate-50/95 to-cyan-50/95 dark:from-zinc-900/95 dark:via-zinc-900/95 dark:to-zinc-800/95 backdrop-blur-xl shadow-2xl shadow-cyan-500/10"
             >
               <div className="flex flex-col py-2">
-                {navItems.map((item, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                  >
-                    <Link
-                      href={item.link}
-                      onClick={handleNavClick}
-                      className={cn(
-                        "block px-6 py-4 text-base font-medium transition-all duration-300 border-l-2",
-                        activeSection === item.link.replace("/#", "")
-                          ? "text-cyan-600 dark:text-cyan-400 border-cyan-500 bg-cyan-500/10"
-                          : "nav-mobile-link border-transparent"
-                      )}
+                {navItems.map((item, idx) => {
+                  const Icon = item.icon;
+                  const isActive = activeSection === item.link.replace("/#", "");
+                  return (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 }}
                     >
-                      {item.name}
-                    </Link>
-                  </motion.div>
-                ))}
+                      <Link
+                        href={item.link}
+                        onClick={handleNavClick}
+                        className={cn(
+                          "flex items-center justify-between px-6 py-4 text-base font-medium transition-all duration-300 group",
+                          isActive
+                            ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/10 text-cyan-600 dark:text-cyan-400"
+                            : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100/50 dark:hover:bg-white/5"
+                        )}
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className={cn(
+                            "p-2 rounded-lg transition-all duration-300",
+                            isActive 
+                              ? "bg-cyan-500/20 text-cyan-600 dark:text-cyan-400" 
+                              : "bg-zinc-100 dark:bg-white/10 text-zinc-500 dark:text-zinc-400 group-hover:bg-cyan-500/10 group-hover:text-cyan-600 dark:group-hover:text-cyan-400"
+                          )}>
+                            <Icon size={20} />
+                          </div>
+                          <span>{item.name}</span>
+                        </div>
+                        <IconChevronRight 
+                          size={18} 
+                          className={cn(
+                            "transition-all duration-300",
+                            isActive 
+                              ? "text-cyan-500 translate-x-0 opacity-100" 
+                              : "text-zinc-400 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+                          )} 
+                        />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* Footer */}
+              <div className="px-6 py-4 border-t border-zinc-200/50 dark:border-white/10 bg-gradient-to-r from-purple-500/5 to-cyan-500/5">
+                <p className="text-xs text-center text-zinc-500 dark:text-zinc-500">
+                  © Rajesh Jadhav
+                </p>
               </div>
             </motion.div>
           )}

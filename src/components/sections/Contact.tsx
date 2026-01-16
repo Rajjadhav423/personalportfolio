@@ -12,6 +12,7 @@ import {
   IconBrandLinkedin,
   IconBrandGithub,
   IconSend,
+  IconBrandMedium,
 } from "@tabler/icons-react";
 
 const contactInfo = [
@@ -43,6 +44,13 @@ const contactInfo = [
     href: portfolioData.personal.github,
     color: "gray",
   },
+  {
+    icon: IconBrandMedium,
+    label: "Medium",
+    value: "Medium Profile",
+    href: portfolioData.personal.medium,
+    color: "orange",
+  },
 ];
 
 export function Contact() {
@@ -70,7 +78,7 @@ export function Contact() {
           subtitle="Let's work together on your next project"
         />
 
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -131,7 +139,7 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="order-1 lg:order-2"
+            className="order-1 lg:order-2 lg:mt-32"
           >
             <CardSpotlight className="p-4 sm:p-6 md:p-8">
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 relative z-20">
