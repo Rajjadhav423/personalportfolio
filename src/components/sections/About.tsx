@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 
+import { portfolioData } from "@/data/portfolio";
+
 export function About() {
   return (
     <section id="about" className="py-16 md:py-24 section-gradient relative overflow-hidden">
@@ -20,12 +22,7 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left - Stats */}
           <div className="grid grid-cols-2 gap-3 sm:gap-6 order-2 md:order-1">
-            {[
-              { value: "4+", label: "Projects Built" },
-              { value: "1+", label: "Year Experience" },
-              { value: "3", label: "Salesforce Certs" },
-              { value: "3x", label: "Certified Dev" },
-            ].map((stat, idx) => (
+            {portfolioData.stats.map((stat, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
@@ -56,7 +53,7 @@ export function About() {
           >
             <CardSpotlight className="p-6 rounded-2xl border-neutral-200 dark:border-white/10 bg-white/30 dark:bg-white/5 backdrop-blur-sm shadow-xl dark:shadow-2xl">
               <p className="text-neutral-700 dark:text-neutral-300 text-base sm:text-lg leading-relaxed mb-4 relative z-20">
-                Hi! I'm <span className="text-cyan-600 dark:text-cyan-400 font-bold">Rajesh Jadhav</span>, an aspiring <span className="font-semibold text-neutral-900 dark:text-white">Full Stack Developer</span> and Machine Learning enthusiast with a passion for creating cutting-edge software solutions.
+                Hi! I'm <span className="text-cyan-600 dark:text-cyan-400 font-bold">{portfolioData.personal.name}</span>, an aspiring <span className="font-semibold text-neutral-900 dark:text-white">Full Stack Developer</span> and Machine Learning enthusiast with a passion for creating cutting-edge software solutions.
               </p>
               <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base leading-relaxed mb-4 relative z-20">
                  Currently a <span className="font-semibold text-neutral-900 dark:text-white">Software Engineer at Koshine Tech Labs</span>, I specialize in <span className="font-semibold text-neutral-900 dark:text-white">Java</span>, <span className="font-semibold text-neutral-900 dark:text-white">Python</span>, and MERN stack development. 

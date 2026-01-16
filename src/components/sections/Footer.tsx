@@ -7,6 +7,7 @@ import {
   IconMail,
   IconHeart,
 } from "@tabler/icons-react";
+import { portfolioData } from "@/data/portfolio";
 
 const socialLinks = [
   {
@@ -116,7 +117,7 @@ export function Footer() {
           className="text-center"
         >
           <p className="text-zinc-500 dark:text-zinc-500 text-xs sm:text-sm flex items-center justify-center gap-1 flex-wrap">
-            <span>© {new Date().getFullYear()} Rajesh Jadhav.</span>
+            <span>© {new Date().getFullYear()} {portfolioData.personal.name}.</span>
             <span className="flex items-center gap-1">
               Made with
               <IconHeart size={14} className="text-red-500 animate-pulse" />

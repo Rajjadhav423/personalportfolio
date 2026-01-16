@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { portfolioData } from "@/data/portfolio";
+import React from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -9,13 +11,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Rajesh Jadhav | Software Developer & Full Stack Engineer",
-  description: "Aspiring Software Developer with hands-on experience in full-stack web development, Salesforce CRM platform development, and machine learning research. Proficient in JavaScript/TypeScript, React.js, Next.js, Node.js, Salesforce Apex, and Python.",
+  title: `${portfolioData.personal.name} | ${portfolioData.personal.role}`,
+  description: portfolioData.personal.description,
   keywords: ["Software Developer", "Full Stack Engineer", "Salesforce Developer", "React.js", "Next.js", "Node.js", "Python", "Machine Learning"],
-  authors: [{ name: "Rajesh Jadhav" }],
+  authors: [{ name: portfolioData.personal.name }],
   openGraph: {
-    title: "Rajesh Jadhav | Software Developer & Full Stack Engineer",
-    description: "Aspiring Software Developer with expertise in full-stack development, Salesforce, and ML research.",
+    title: `${portfolioData.personal.name} | ${portfolioData.personal.role}`,
+    description: portfolioData.personal.description,
     type: "website",
   },
 };

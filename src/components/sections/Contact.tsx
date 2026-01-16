@@ -1,5 +1,6 @@
 "use client";
 
+import { portfolioData } from "@/data/portfolio";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -17,29 +18,29 @@ const contactInfo = [
   {
     icon: IconMail,
     label: "Email",
-    value: "jadhavrz423@gmail.com",
-    href: "mailto:jadhavrz423@gmail.com",
+    value: portfolioData.personal.email,
+    href: `mailto:${portfolioData.personal.email}`,
     color: "cyan",
   },
   {
     icon: IconPhone,
     label: "Phone",
-    value: "+91-9322850587",
-    href: "tel:+919322850587",
+    value: portfolioData.personal.phone,
+    href: `tel:${portfolioData.personal.phone}`,
     color: "purple",
   },
   {
     icon: IconBrandLinkedin,
     label: "LinkedIn",
-    value: "Rajesh Jadhav",
-    href: "https://www.linkedin.com/in/rajeshjadhav057",
+    value: portfolioData.personal.name,
+    href: portfolioData.personal.linkedin,
     color: "blue",
   },
   {
     icon: IconBrandGithub,
     label: "GitHub",
-    value: "Rajjadhav423",
-    href: "https://github.com/Rajjadhav423",
+    value: "GitHub Profile",
+    href: portfolioData.personal.github,
     color: "gray",
   },
 ];
@@ -53,7 +54,7 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoLink = `mailto:2021bit057@sggs.ac.in?subject=Portfolio Contact from ${formData.name}&body=${formData.message}%0D%0A%0D%0AFrom: ${formData.email}`;
+    const mailtoLink = `mailto:${portfolioData.personal.email}?subject=Portfolio Contact from ${formData.name}&body=${formData.message}%0D%0A%0D%0AFrom: ${formData.email}`;
     window.location.href = mailtoLink;
   };
 

@@ -37,18 +37,16 @@ const PARTICLE_DATA = [
 
 const emptySubscribe = () => () => {};
 
+import { portfolioData } from "@/data/portfolio";
+
+// ... existing imports
+
 export function Hero() {
   const mounted = useSyncExternalStore(
     emptySubscribe,
     () => true,
     () => false
   );
-
-  const roles = [
-    "Software Developer",
-    "Full Stack Engineer",
-    "Salesforce Developer",
-  ];
 
   return (
     <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-grid pt-20 md:pt-0">
@@ -103,34 +101,33 @@ export function Hero() {
               Hi, I'm <span className="inline-block hover:animate-wave origin-bottom-right cursor-default"></span>
               <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0EA5E9] to-[#6366F1] dark:from-cyan-400 dark:to-purple-500 drop-shadow-sm block mt-2">
-                RAJESH JADHAV
+                {portfolioData.personal.name.toUpperCase()}
               </span>
             </motion.h1>
 
             <div className="text-lg sm:text-xl md:text-2xl hero-subtitle-text mb-4 md:mb-6 h-8 md:h-10">
-              <TypewriterEffect words={roles} />
+              <TypewriterEffect words={portfolioData.personal.roles} />
             </div>
 
             <p className="hero-description-text text-sm md:text-lg mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0 px-4 sm:px-0">
-              Aspiring Software Developer with hands-on experience in full-stack web development, 
-              Salesforce CRM platform development, and machine learning research.
+              {portfolioData.personal.description}
             </p>
 
             {/* Contact Info - Stacked on mobile */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 justify-center lg:justify-start mb-6 md:mb-8">
               <a
-                href="mailto:2021bit057@sggs.ac.in"
+                href={`mailto:${portfolioData.personal.email}`}
                 className="hero-contact-link flex items-center justify-center sm:justify-start gap-2 transition-colors px-3 py-2 rounded-lg"
               >
                 <IconMail size={18} />
-                <span className="text-xs md:text-sm">2021bit057@sggs.ac.in</span>
+                <span className="text-xs md:text-sm">{portfolioData.personal.email}</span>
               </a>
               <a
-                href="tel:+919322850587"
+                href={`tel:${portfolioData.personal.phone}`}
                 className="hero-contact-link flex items-center justify-center sm:justify-start gap-2 transition-colors px-3 py-2 rounded-lg"
               >
                 <IconPhone size={18} />
-                <span className="text-xs md:text-sm">+91-9322850587</span>
+                <span className="text-xs md:text-sm">{portfolioData.personal.phone}</span>
               </a>
             </div>
 

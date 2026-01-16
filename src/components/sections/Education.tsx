@@ -1,63 +1,10 @@
 "use client";
 
+import { portfolioData } from "@/data/portfolio";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { IconSchool, IconBook, IconCertificate } from "@tabler/icons-react";
-
-const certifications = [
-  {
-    title: "Salesforce Certified Administrator",
-    issuer: "Salesforce",
-    year: "2025",
-    icon: IconCertificate,
-    color: "cyan",
-  },
-  {
-    title: "Salesforce AI Associate",
-    issuer: "Salesforce",
-    year: "2025",
-    icon: IconCertificate,
-    color: "purple",
-  },
-  {
-    title: "Salesforce Agentforce",
-    issuer: "Salesforce",
-    year: "2025",
-    icon: IconCertificate,
-    color: "pink",
-  },
-  {
-    title: "Full Stack Web Development (MERN)",
-    issuer: "Certification Course",
-    year: "2024",
-    icon: IconBook,
-    color: "blue",
-  },
-  {
-    title: "Java Application Development",
-    issuer: "Innovative Products Workshop",
-    year: "2023",
-    icon: IconBook,
-    color: "orange",
-  },
-  {
-    title: "Introduction to Programming Using Python",
-    issuer: "Certification",
-    year: "Completed",
-    icon: IconBook,
-    color: "green",
-  },
-];
-
-const coursework = [
-  "Data Structures & Algorithms",
-  "Database Management",
-  "Software Engineering",
-  "Computer Networks",
-  "Machine Learning",
-  "Object Oriented Programming",
-];
 
 export function Education() {
   return (
@@ -88,21 +35,21 @@ export function Education() {
               </div>
               <div className="flex-1">
                 <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                  Bachelor of Technology in Information Technology
+                  {portfolioData.education.degree}
                 </h3>
                 <p className="text-cyan-600 dark:text-cyan-400 text-sm sm:text-base md:text-lg mb-2">
-                  SGGS Institute of Engineering and Technology, Nanded
+                  {portfolioData.education.university}
                 </p>
                 <div className="flex flex-wrap gap-2 sm:gap-4 text-neutral-600 dark:text-neutral-400 text-sm mb-4">
-                  <span>2021 – 2025</span>
-                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">CGPA: 7.94/10</span>
+                  <span>{portfolioData.education.year}</span>
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">{portfolioData.education.cgpa}</span>
                 </div>
                 
                 {/* Relevant Coursework */}
                 <div className="mt-4">
                   <h4 className="text-xs sm:text-sm text-neutral-500 mb-2 sm:mb-3">Relevant Coursework:</h4>
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {coursework.map((course, idx) => (
+                    {portfolioData.education.coursework.map((course, idx) => (
                       <motion.span
                         key={idx}
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -123,7 +70,9 @@ export function Education() {
 
         {/* Certifications Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {certifications.map((cert, idx) => (
+          {portfolioData.education.certifications.map((cert, idx) => {
+             const Icon = cert.title.includes("Salesforce") ? IconCertificate : IconBook;
+             return (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
@@ -141,7 +90,7 @@ export function Education() {
                     cert.color === 'orange' ? 'bg-orange-500/10 text-orange-400' :
                     'bg-green-500/10 text-green-400'
                   }`}>
-                    <cert.icon size={20} className="sm:w-6 sm:h-6" />
+                    <Icon size={20} className="sm:w-6 sm:h-6" />
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold text-neutral-900 dark:text-white text-sm sm:text-base mb-1 line-clamp-2">
@@ -162,7 +111,7 @@ export function Education() {
                 </div>
               </CardSpotlight>
             </motion.div>
-          ))}
+          )})}
         </div>
       </div>
     </section>

@@ -1,48 +1,9 @@
 "use client";
 
+import { portfolioData } from "@/data/portfolio";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
-
-const skillCategories = [
-  {
-    title: "Programming Languages",
-    skills: ["JavaScript", "TypeScript", "Python", "Java", "C++", "SQL", "HTML5", "CSS3"],
-    color: "cyan",
-  },
-  {
-    title: "Frontend Technologies",
-    skills: ["React.js", "Next.js", "LWC", "Tailwind CSS", "Bootstrap", "Responsive Design"],
-    color: "purple",
-  },
-  {
-    title: "Backend Technologies",
-    skills: ["Node.js", "Express.js", "Apache Kafka", "RESTful APIs", "Microservices"],
-    color: "pink",
-  },
-  {
-    title: "Salesforce Technologies",
-    skills: ["Apex", "Salesforce Admin", "jsforce", "SOQL/SOSL", "Lightning Platform"],
-    color: "blue",
-  },
-  {
-    title: "Databases & Storage",
-    skills: ["PostgreSQL", "MongoDB", "MySQL", "Supabase", "Prisma ORM"],
-    color: "green",
-  },
-  {
-    title: "Cloud & DevOps",
-    skills: ["AWS", "Git", "GitHub", "Slack Integration", "Docker", "CI/CD", "OAuth", "JWT"],
-    color: "orange",
-  },
-  {
-    title: "Machine Learning",
-    skills: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "TensorFlow", "scikit-learn"],
-    color: "red",
-  },
-];
-
-
 
 export function Skills() {
   return (
@@ -58,7 +19,7 @@ export function Skills() {
         />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((category, idx) => (
+          {portfolioData.skills.map((category, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}

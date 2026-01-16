@@ -1,37 +1,11 @@
 "use client";
 
+import { portfolioData } from "@/data/portfolio";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { IconBrandGithub, IconExternalLink } from "@tabler/icons-react";
-
-const projects = [
-  {
-    title: "Cloud Force CRM Manager (CFCRM)",
-    description: "AI-powered Salesforce CRM platform with Sales Cloud & Service Cloud support, natural language query assistant, schema visualization, multi-org management, and secure OAuth authentication.",
-    tech: ["Next.js", "jsforce", "Salesforce API", "AI Integration", "Tailwind CSS"],
-    date: "May 2025",
-    features: ["Natural Language Query", "Schema Visualization", "Multi-Org Management", "Real-time Analytics"],
-    gradient: "from-cyan-500 to-blue-500",
-  },
-  {
-    title: "Uber Clone - Ride Sharing App",
-    description: "Full-stack ride-sharing application with real-time booking, vehicle selection, fare estimation, live GPS tracking, and responsive React.js frontend.",
-    tech: ["React.js", "Node.js", "Socket.IO", "Google Maps API", "JWT"],
-    date: "November 2024",
-    features: ["Real-time Tracking", "Live Booking", "Fare Estimation", "Driver Matching"],
-    gradient: "from-purple-500 to-pink-500",
-  },
-  {
-    title: "StudyNotion - EdTech Platform",
-    description: "Educational platform for course creation, enrollment, content management, and progress tracking. Integrated secure Razorpay payments supporting 1000+ users.",
-    tech: ["MERN Stack", "Razorpay", "MongoDB", "Express.js", "React.js"],
-    date: "November 2023",
-    features: ["Course Management", "Payment Integration", "User Authentication", "Rating System"],
-    gradient: "from-orange-500 to-red-500",
-  },
-];
 
 export function Projects() {
   return (
@@ -48,7 +22,7 @@ export function Projects() {
         />
 
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-          {projects.map((project, idx) => (
+          {portfolioData.projects.map((project, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}

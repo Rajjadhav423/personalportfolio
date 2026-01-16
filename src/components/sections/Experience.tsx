@@ -6,47 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { IconMapPin, IconCalendar, IconChevronDown } from "@tabler/icons-react";
 
-const experiences = [
-  {
-    company: "Koshine Tech Labs",
-    role: "Software Engineer",
-    duration: "Nov 2025 – Present",
-    location: "Pune, India",
-    description: "Spearheading software and Salesforce development, designing scalable solutions and enterprise-grade applications.",
-    highlights: [
-      "Designing and optimizing scalable applications using MERN stack and Salesforce cloud-based technologies.",
-      "Contributing to 'Replydock', a multi-tenant platform integrating Slack and WhatsApp for seamless customer communication.",
-      "Implementing complex Salesforce automation workflows and custom LWC components for enterprise clients.",
-    ],
-    color: "cyan",
-  },
-  {
-    company: "Koshine Tech Labs",
-    role: "Software Developer Intern",
-    duration: "Feb 2025 – Oct 2025",
-    location: "Pune, India",
-    description: "Gained hands-on experience in cloud solutions, focusing on backend architecture and CRM capability enhancement.",
-    highlights: [
-      "Assisted in building 'CRUDSpace', a multi-org management tool with custom metadata editors.",
-      "Enhanced platform capabilities by integrating secure REST APIs and optimizing database queries.",
-      "Collaborated with senior developers to implement industry best practices in code quality and deployment pipelines.",
-    ],
-    color: "blue",
-  },
-  {
-    company: "BITS Pilani Goa Campus",
-    role: "Research Intern",
-    duration: "Jan 2025 – May 2025",
-    location: "Goa, India",
-    description: "Worked on predictive modeling and AI-driven capability research for sustainable chemistry applications.",
-    highlights: [
-      "Developed a 'Predictive Lignin Dissolution Model' using Large Language Models (LLMs) to advance sustainable chemistry research.",
-      "Designed a 'Thermodynamic Property Prediction Chatbot' leveraging conversational AI for real-time scientific data analysis.",
-      "Utilized Python, TensorFlow, and Scikit-learn to process experimental data and solve complex interdisciplinary problems.",
-    ],
-    color: "purple",
-  },
-];
+import { portfolioData } from "@/data/portfolio";
 
 export function Experience() {
   const [activeTab, setActiveTab] = useState(0);
@@ -68,7 +28,7 @@ export function Experience() {
         <div className="hidden lg:grid lg:grid-cols-[280px_1fr] gap-8">
           {/* Tab Navigation */}
           <div className="flex lg:flex-col gap-2">
-            {experiences.map((exp, idx) => (
+            {portfolioData.experiences.map((exp, idx) => (
               <motion.button
                 key={idx}
                 onClick={() => setActiveTab(idx)}
@@ -92,29 +52,29 @@ export function Experience() {
             <CardSpotlight key={activeTab} className="p-8">
               <div className="mb-6 relative z-20">
                 <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                  {experiences[activeTab].role}
+                  {portfolioData.experiences[activeTab].role}
                 </h3>
                 <p className="text-cyan-600 dark:text-cyan-400 text-lg mb-4">
-                  @ {experiences[activeTab].company}
+                  @ {portfolioData.experiences[activeTab].company}
                 </p>
                 <div className="flex flex-wrap gap-4 text-sm text-neutral-600 dark:text-neutral-400">
                   <span className="flex items-center gap-2">
                     <IconCalendar size={16} />
-                    {experiences[activeTab].duration}
+                    {portfolioData.experiences[activeTab].duration}
                   </span>
                   <span className="flex items-center gap-2">
                     <IconMapPin size={16} />
-                    {experiences[activeTab].location}
+                    {portfolioData.experiences[activeTab].location}
                   </span>
                 </div>
               </div>
 
               <p className="text-neutral-600 dark:text-neutral-400 mb-6 relative z-20">
-                {experiences[activeTab].description}
+                {portfolioData.experiences[activeTab].description}
               </p>
 
               <ul className="space-y-3 relative z-20">
-                {experiences[activeTab].highlights.map((highlight, idx) => (
+                {portfolioData.experiences[activeTab].highlights.map((highlight, idx) => (
                   <motion.li
                     key={idx}
                     initial={{ opacity: 0, x: 20 }}
@@ -133,7 +93,7 @@ export function Experience() {
 
         {/* Mobile Layout - Accordion Style */}
         <div className="lg:hidden space-y-4">
-          {experiences.map((exp, idx) => (
+          {portfolioData.experiences.map((exp, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
