@@ -42,15 +42,7 @@ const skillCategories = [
   },
 ];
 
-const colorMap: Record<string, { bg: string; border: string; text: string }> = {
-  cyan: { bg: "bg-cyan-500/10", border: "border-cyan-500/40", text: "text-cyan-700 dark:text-cyan-400" },
-  purple: { bg: "bg-purple-500/10", border: "border-purple-500/40", text: "text-purple-700 dark:text-purple-400" },
-  pink: { bg: "bg-pink-500/10", border: "border-pink-500/40", text: "text-pink-700 dark:text-pink-400" },
-  blue: { bg: "bg-blue-500/10", border: "border-blue-500/40", text: "text-blue-700 dark:text-blue-400" },
-  green: { bg: "bg-green-500/10", border: "border-green-500/40", text: "text-green-700 dark:text-green-400" },
-  orange: { bg: "bg-orange-500/10", border: "border-orange-500/40", text: "text-orange-700 dark:text-orange-400" },
-  red: { bg: "bg-red-500/10", border: "border-red-500/40", text: "text-red-700 dark:text-red-400" },
-};
+
 
 export function Skills() {
   return (
@@ -65,7 +57,7 @@ export function Skills() {
           subtitle="Technologies and tools I work with to bring ideas to life"
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={idx}
@@ -74,21 +66,22 @@ export function Skills() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               viewport={{ once: true }}
             >
-              <CardSpotlight className="p-4 sm:p-6 h-full">
-                <div className={`inline-flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full ${colorMap[category.color].bg} ${colorMap[category.color].border} border mb-3 md:mb-4 relative z-20`}>
-                  <span className={`text-xs sm:text-sm font-medium ${colorMap[category.color].text}`}>
+              <CardSpotlight className="h-full p-6 rounded-2xl border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black/50">
+                <div className="relative z-20">
+                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
                     {category.title}
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 relative z-20">
-                  {category.skills.map((skill, skillIdx) => (
-                    <span
-                      key={skillIdx}
-                      className="skill-badge px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm cursor-default"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill, skillIdx) => (
+                      <span
+                        key={skillIdx}
+                        className="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium bg-neutral-100 dark:bg-neutral-800/50 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:border-cyan-500/30 transition-colors cursor-default"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </CardSpotlight>
             </motion.div>

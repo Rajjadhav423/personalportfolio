@@ -21,21 +21,16 @@ export function GlowButton({
 }: GlowButtonProps) {
   const baseStyles = cn(
     "relative inline-flex items-center justify-center px-6 py-3 rounded-full font-medium text-sm",
-    "transition-all duration-300 overflow-hidden group",
+    "transition-all duration-300 overflow-hidden group border",
     variant === "primary"
-      ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white hover:shadow-lg hover:shadow-cyan-500/30"
-      : "border border-zinc-300 dark:border-white/20 text-zinc-700 dark:text-white hover:border-cyan-500/50 hover:text-cyan-600 dark:hover:text-cyan-400",
+      ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-sm hover:shadow-md"
+      : "bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-black dark:hover:text-white",
     className
   );
 
   const content = (
     <>
       <span className="relative z-10 flex items-center justify-center gap-2">{children}</span>
-      {variant === "primary" && (
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        />
-      )}
     </>
   );
 
