@@ -22,7 +22,7 @@ export function SectionHeading({ title, subtitle, className }: SectionHeadingPro
         <span className="gradient-text">{title}</span>
       </h2>
       {subtitle && (
-        <p className="text-zinc-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+        <p className="text-zinc-500 dark:text-zinc-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
           {subtitle}
         </p>
       )}

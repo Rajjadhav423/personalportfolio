@@ -60,7 +60,7 @@ export function SpotlightCard({
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
       className={cn(
-        "relative rounded-xl border border-white/10 bg-zinc-900/50 backdrop-blur-sm overflow-hidden",
+        "relative rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-zinc-900/50 backdrop-blur-sm overflow-hidden shadow-sm dark:shadow-none",
         className
       )}
     >

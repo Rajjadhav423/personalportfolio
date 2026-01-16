@@ -60,11 +60,11 @@ const coursework = [
 
 export function Education() {
   return (
-    <section id="education" className="py-16 md:py-24 relative overflow-hidden">
+    <section id="education" className="py-16 md:py-24 relative overflow-hidden bg-zinc-50 dark:bg-transparent">
       {/* Background */}
       <div className="absolute inset-0 bg-grid opacity-20" />
-      <div className="absolute top-1/4 right-1/4 w-48 md:w-96 h-48 md:h-96 bg-cyan-500/10 rounded-full blur-[100px] md:blur-[150px]" />
-      <div className="absolute bottom-1/4 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+      <div className="absolute top-1/4 right-1/4 w-48 md:w-96 h-48 md:h-96 bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+      <div className="absolute bottom-1/4 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -83,23 +83,23 @@ export function Education() {
           <SpotlightCard className="p-4 sm:p-6 md:p-8 max-w-4xl mx-auto">
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
               <div className="p-3 sm:p-4 rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 shrink-0">
-                <IconSchool size={32} className="text-cyan-400 sm:w-10 sm:h-10" />
+                <IconSchool size={32} className="text-cyan-600 dark:text-cyan-400 sm:w-10 sm:h-10" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-zinc-800 dark:text-white mb-2">
                   Bachelor of Technology in Information Technology
                 </h3>
-                <p className="text-cyan-400 text-sm sm:text-base md:text-lg mb-2">
+                <p className="text-cyan-600 dark:text-cyan-400 text-sm sm:text-base md:text-lg mb-2">
                   SGGS Institute of Engineering and Technology, Nanded
                 </p>
-                <div className="flex flex-wrap gap-2 sm:gap-4 text-zinc-400 text-sm mb-4">
+                <div className="flex flex-wrap gap-2 sm:gap-4 text-zinc-500 dark:text-zinc-400 text-sm mb-4">
                   <span>2021 – 2025</span>
-                  <span className="text-cyan-400 font-medium">CGPA: 7.94/10</span>
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">CGPA: 7.94/10</span>
                 </div>
                 
                 {/* Relevant Coursework */}
                 <div className="mt-4">
-                  <h4 className="text-xs sm:text-sm text-zinc-500 mb-2 sm:mb-3">Relevant Coursework:</h4>
+                  <h4 className="text-xs sm:text-sm text-zinc-400 dark:text-zinc-500 mb-2 sm:mb-3">Relevant Coursework:</h4>
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {coursework.map((course, idx) => (
                       <motion.span
@@ -108,7 +108,7 @@ export function Education() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: idx * 0.1 }}
                         viewport={{ once: true }}
-                        className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 text-zinc-300 text-xs sm:text-sm border border-white/10"
+                        className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm border border-zinc-200 dark:border-white/10"
                       >
                         {course}
                       </motion.span>
@@ -133,27 +133,27 @@ export function Education() {
               <SpotlightCard className="p-4 sm:p-6 h-full card-hover">
                 <div className="flex items-start gap-3 sm:gap-4">
                   <div className={`p-2 sm:p-3 rounded-lg shrink-0 ${
-                    cert.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-400' :
-                    cert.color === 'purple' ? 'bg-purple-500/10 text-purple-400' :
-                    cert.color === 'pink' ? 'bg-pink-500/10 text-pink-400' :
-                    cert.color === 'blue' ? 'bg-blue-500/10 text-blue-400' :
-                    cert.color === 'orange' ? 'bg-orange-500/10 text-orange-400' :
-                    'bg-green-500/10 text-green-400'
+                    cert.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400' :
+                    cert.color === 'purple' ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400' :
+                    cert.color === 'pink' ? 'bg-pink-500/10 text-pink-600 dark:text-pink-400' :
+                    cert.color === 'blue' ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400' :
+                    cert.color === 'orange' ? 'bg-orange-500/10 text-orange-600 dark:text-orange-400' :
+                    'bg-green-500/10 text-green-600 dark:text-green-400'
                   }`}>
                     <cert.icon size={20} className="sm:w-6 sm:h-6" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="font-semibold text-white text-sm sm:text-base mb-1 line-clamp-2">
+                    <h4 className="font-semibold text-zinc-800 dark:text-white text-sm sm:text-base mb-1 line-clamp-2">
                       {cert.title}
                     </h4>
-                    <p className="text-zinc-400 text-xs sm:text-sm mb-1 sm:mb-2">{cert.issuer}</p>
+                    <p className="text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mb-1 sm:mb-2">{cert.issuer}</p>
                     <span className={`text-xs font-medium ${
-                      cert.color === 'cyan' ? 'text-cyan-400' :
-                      cert.color === 'purple' ? 'text-purple-400' :
-                      cert.color === 'pink' ? 'text-pink-400' :
-                      cert.color === 'blue' ? 'text-blue-400' :
-                      cert.color === 'orange' ? 'text-orange-400' :
-                      'text-green-400'
+                      cert.color === 'cyan' ? 'text-cyan-600 dark:text-cyan-400' :
+                      cert.color === 'purple' ? 'text-purple-600 dark:text-purple-400' :
+                      cert.color === 'pink' ? 'text-pink-600 dark:text-pink-400' :
+                      cert.color === 'blue' ? 'text-blue-600 dark:text-blue-400' :
+                      cert.color === 'orange' ? 'text-orange-600 dark:text-orange-400' :
+                      'text-green-600 dark:text-green-400'
                     }`}>
                       {cert.year}
                     </span>

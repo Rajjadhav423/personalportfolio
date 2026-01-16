@@ -43,21 +43,21 @@ const skillCategories = [
 ];
 
 const colorMap: Record<string, { bg: string; border: string; text: string }> = {
-  cyan: { bg: "bg-cyan-500/10", border: "border-cyan-500/30", text: "text-cyan-400" },
-  purple: { bg: "bg-purple-500/10", border: "border-purple-500/30", text: "text-purple-400" },
-  pink: { bg: "bg-pink-500/10", border: "border-pink-500/30", text: "text-pink-400" },
-  blue: { bg: "bg-blue-500/10", border: "border-blue-500/30", text: "text-blue-400" },
-  green: { bg: "bg-green-500/10", border: "border-green-500/30", text: "text-green-400" },
-  orange: { bg: "bg-orange-500/10", border: "border-orange-500/30", text: "text-orange-400" },
-  red: { bg: "bg-red-500/10", border: "border-red-500/30", text: "text-red-400" },
+  cyan: { bg: "bg-cyan-500/10", border: "border-cyan-500/30", text: "text-cyan-600 dark:text-cyan-400" },
+  purple: { bg: "bg-purple-500/10", border: "border-purple-500/30", text: "text-purple-600 dark:text-purple-400" },
+  pink: { bg: "bg-pink-500/10", border: "border-pink-500/30", text: "text-pink-600 dark:text-pink-400" },
+  blue: { bg: "bg-blue-500/10", border: "border-blue-500/30", text: "text-blue-600 dark:text-blue-400" },
+  green: { bg: "bg-green-500/10", border: "border-green-500/30", text: "text-green-600 dark:text-green-400" },
+  orange: { bg: "bg-orange-500/10", border: "border-orange-500/30", text: "text-orange-600 dark:text-orange-400" },
+  red: { bg: "bg-red-500/10", border: "border-red-500/30", text: "text-red-600 dark:text-red-400" },
 };
 
 export function Skills() {
   return (
-    <section id="skills" className="py-16 md:py-24 section-gradient relative overflow-hidden">
+    <section id="skills" className="py-16 md:py-24 section-gradient relative overflow-hidden bg-white dark:bg-transparent">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-grid opacity-30" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -92,7 +92,7 @@ export function Skills() {
                       transition={{ duration: 0.3, delay: idx * 0.1 + skillIdx * 0.05 }}
                       viewport={{ once: true }}
                       whileHover={{ scale: 1.05 }}
-                      className="skill-badge px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm text-zinc-300 cursor-default"
+                      className="skill-badge px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 cursor-default"
                     >
                       {skill}
                     </motion.span>

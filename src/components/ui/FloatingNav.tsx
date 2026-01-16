@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
   { name: "About", link: "#about" },
@@ -66,8 +67,8 @@ export function FloatingNav() {
         className="fixed top-4 inset-x-0 z-50 px-4"
       >
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-center">
-          <div className="flex items-center justify-center space-x-1 px-4 py-3 rounded-full border border-white/10 bg-zinc-900/80 backdrop-blur-md shadow-lg max-w-2xl mx-auto">
+        <div className="hidden md:flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center space-x-1 px-4 py-3 rounded-full border border-zinc-200 dark:border-white/10 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md shadow-lg">
             {navItems.map((item, idx) => (
               <a
                 key={idx}
@@ -75,8 +76,8 @@ export function FloatingNav() {
                 className={cn(
                   "relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
                   activeSection === item.link.replace("#", "")
-                    ? "text-cyan-400"
-                    : "text-zinc-400 hover:text-white"
+                    ? "text-cyan-600 dark:text-cyan-400"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
                 )}
               >
                 {activeSection === item.link.replace("#", "") && (
@@ -90,23 +91,27 @@ export function FloatingNav() {
               </a>
             ))}
           </div>
+          <ThemeToggle />
         </div>
 
         {/* Mobile Navigation */}
         <div className="md:hidden flex justify-between items-center">
-          <a href="#" className="text-xl font-bold gradient-text px-4 py-2 rounded-full border border-white/10 bg-zinc-900/80 backdrop-blur-md">
+          <a href="#" className="text-xl font-bold gradient-text px-4 py-2 rounded-full border border-zinc-200 dark:border-white/10 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md">
             RJ
           </a>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-3 rounded-full border border-white/10 bg-zinc-900/80 backdrop-blur-md"
-          >
-            {mobileMenuOpen ? (
-              <IconX size={24} className="text-cyan-400" />
-            ) : (
-              <IconMenu2 size={24} className="text-zinc-400" />
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-3 rounded-full border border-zinc-200 dark:border-white/10 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md"
+            >
+              {mobileMenuOpen ? (
+                <IconX size={24} className="text-cyan-600 dark:text-cyan-400" />
+              ) : (
+                <IconMenu2 size={24} className="text-zinc-600 dark:text-zinc-400" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu Dropdown */}
@@ -117,7 +122,7 @@ export function FloatingNav() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden mt-4 rounded-2xl border border-white/10 bg-zinc-900/95 backdrop-blur-md shadow-xl overflow-hidden"
+              className="md:hidden mt-4 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-xl overflow-hidden"
             >
               <div className="flex flex-col py-2">
                 {navItems.map((item, idx) => (
@@ -131,8 +136,8 @@ export function FloatingNav() {
                     className={cn(
                       "px-6 py-4 text-base font-medium transition-all duration-300 border-l-2",
                       activeSection === item.link.replace("#", "")
-                        ? "text-cyan-400 border-cyan-400 bg-cyan-500/10"
-                        : "text-zinc-400 border-transparent hover:text-white hover:bg-white/5"
+                        ? "text-cyan-600 dark:text-cyan-400 border-cyan-500 bg-cyan-500/10"
+                        : "text-zinc-600 dark:text-zinc-400 border-transparent hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5"
                     )}
                   >
                     {item.name}
