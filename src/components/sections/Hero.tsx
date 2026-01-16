@@ -94,10 +94,18 @@ export function Hero() {
           >
 
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
-              <span className="hero-title-text">Hi, I&apos;m </span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-900 dark:from-white dark:via-neutral-200 dark:to-neutral-400 block sm:inline tracking-tight">RAJESH JADHAV</span>
-            </h1>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100 mb-6"
+            >
+              Hi, I'm <span className="inline-block hover:animate-wave origin-bottom-right cursor-default"></span>
+              <br className="hidden sm:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0EA5E9] to-[#6366F1] dark:from-cyan-400 dark:to-purple-500 drop-shadow-sm block mt-2">
+                RAJESH JADHAV
+              </span>
+            </motion.h1>
 
             <div className="text-lg sm:text-xl md:text-2xl hero-subtitle-text mb-4 md:mb-6 h-8 md:h-10">
               <TypewriterEffect words={roles} />
@@ -170,61 +178,127 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative flex justify-center order-1 lg:order-2"
           >
-            <div className="relative w-full max-w-[320px] mx-auto aspect-square flex items-center justify-center py-10">
+            <div className="relative w-full max-w-[500px] mx-auto mt-10 lg:mt-0 flex flex-col items-center justify-center">
               {/* Background Glow */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 to-purple-500/30 rounded-full blur-[80px] animate-pulse" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 to-purple-500/30 rounded-full blur-[100px] -z-10" />
               
-              {/* Central Core */}
-              <motion.div 
-                className="relative z-10 w-32 h-32 md:w-40 md:h-40 bg-neutral-900/90 dark:bg-black/90 rounded-full border border-white/10 shadow-2xl flex items-center justify-center backdrop-blur-sm"
-                animate={{ y: [-10, 10] }}
-                transition={{ duration: 4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-              >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/20 to-purple-500/20 animate-spin-slow" />
-                <span className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-cyan-400 to-purple-400">
-                  RJ
-                </span>
-              </motion.div>
+              {/* Vector Laptop Container */}
+              <div className="relative w-full aspect-[1.6]">
+                  <svg viewBox="0 0 800 500" className="w-full h-full drop-shadow-2xl">
+                     {/* --- LID (Outer Shell) --- */}
+                     {/* Gradient Defs */}
+                     <defs>
+                        <linearGradient id="lidGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                           <stop offset="0%" stopColor="#3d3d3d" />
+                           <stop offset="100%" stopColor="#262626" />
+                        </linearGradient>
+                        <linearGradient id="baseGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                           <stop offset="0%" stopColor="#d1d5db" />
+                           <stop offset="100%" stopColor="#9ca3af" />
+                        </linearGradient>
+                     </defs>
 
-              {/* Orbiting Elements */}
-              {/* Orbit 1: React (Purple) */}
-              <motion.div
-                className="absolute inset-0 z-0"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-6 w-12 h-12 bg-white dark:bg-neutral-800 rounded-2xl shadow-lg border border-purple-500/30 flex items-center justify-center transform hover:scale-110 transition-transform">
-                   <IconBrandGithub size={24} className="text-purple-500" />
-                </div>
-              </motion.div>
+                     {/* Lid Body */}
+                     <rect x="100" y="50" width="600" height="380" rx="24" fill="url(#lidGradient)" />
+                     
+                     {/* Screen Bezel (Black) */}
+                     <rect x="105" y="55" width="590" height="370" rx="20" fill="#000" />
+                     
+                     {/* Camera */}
+                     <circle cx="400" cy="70" r="3" fill="#333" />
+                     <circle cx="400" cy="70" r="1" fill="#111" />
 
-              {/* Orbit 2: Salesforce (Cyan) - Counter Rotation */}
-              <motion.div
-                className="absolute inset-4 z-0"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              >
-                <div className="absolute bottom-0 right-0 w-14 h-14 bg-white dark:bg-neutral-800 rounded-full shadow-lg border border-cyan-500/30 flex items-center justify-center transform hover:scale-110 transition-transform">
-                  <IconBrandLinkedin size={28} className="text-cyan-500" />
-                </div>
-              </motion.div>
+                     {/* --- HTML SCREEN CONTENT --- */}
+                     {/* This foreignObject sits perfectly exactly inside the Bezel */}
+                     <foreignObject x="115" y="85" width="570" height="330">
+                        <div className="w-full h-full bg-[#1e1e1e] rounded-md overflow-hidden flex flex-col font-mono text-xs relative">
+                           {/* Window Header */}
+                           <div className="h-6 bg-[#2d2d2d] flex items-center px-3 space-x-1.5 border-b border-[#404040]">
+                              <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                              <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                              <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+                              <div className="flex-1 text-center text-gray-500 text-[9px] opacity-80">portfolio — zsh</div>
+                           </div>
 
-              {/* Orbit 3: AI/Brain (Pink) */}
-              <motion.div
-                className="absolute inset-10 z-0"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              >
-                <div className="absolute top-1/2 left-0 -translate-x-6 w-10 h-10 bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-pink-500/30 flex items-center justify-center transform hover:scale-110 transition-transform">
-                  <IconMail size={20} className="text-pink-500" />
-                </div>
-              </motion.div>
+                           {/* Code Content */}
+                           <div className="flex-1 p-3 overflow-hidden text-gray-300 relative">
+                              <motion.div
+                                 animate={{ y: [0, -220] }}
+                                 transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                                 className="space-y-3"
+                              >
+                                 {/* Command Block 1 */}
+                                 <div>
+                                    <p className="flex gap-2">
+                                       <span className="text-green-500">➜</span> <span className="text-cyan-400">~</span> <span className="text-white">whoami</span>
+                                    </p>
+                                    <p className="text-yellow-300 pl-4">"Rajesh Jadhav"</p>
+                                    <p className="text-gray-500 pl-4 text-[10px]">Full Stack Developer</p>
+                                 </div>
+                                 
+                                 {/* Command Block 2 */}
+                                 <div>
+                                    <p className="flex gap-2">
+                                       <span className="text-green-500">➜</span> <span className="text-cyan-400">~</span> <span className="text-white">ls ./tech-stack</span>
+                                    </p>
+                                    <div className="grid grid-cols-3 gap-2 pl-4 text-[10px] text-cyan-300">
+                                       <span>React</span>
+                                       <span>NextJS</span>
+                                       <span>Salesforce</span>
+                                       <span>NodeJS</span>
+                                       <span>Python</span>
+                                       <span>AWS</span>
+                                    </div>
+                                 </div>
 
-               {/* Decorative Orbital Rings */}
-               <div className="absolute inset-0 rounded-full border border-cyan-500/10 pointer-events-none" />
-               <div className="absolute inset-4 rounded-full border border-purple-500/10 pointer-events-none" />
-               <div className="absolute inset-10 rounded-full border border-pink-500/10 pointer-events-none" />
+                                 {/* Command Block 3 */}
+                                 <div>
+                                    <p className="flex gap-2">
+                                       <span className="text-green-500">➜</span> <span className="text-cyan-400">~</span> <span className="text-white">git commit -m "Success"</span>
+                                    </p>
+                                    <div className="pl-4 text-gray-500 text-[10px]">
+                                       <p>[main 8f3a12] Success</p>
+                                       <p>3 files changed, 24 insertions(+)</p>
+                                       <p className="text-green-400">Commit successful.</p>
+                                    </div>
+                                 </div>
 
+                                 {/* Command Block 4 */}
+                                 <div>
+                                    <p className="flex gap-2">
+                                       <span className="text-green-500">➜</span> <span className="text-cyan-400">~</span> <span className="text-white">./deploy.sh</span>
+                                    </p>
+                                    <div className="pl-4 text-gray-500 text-[10px]">
+                                       <p>Building production bundle...</p>
+                                       <p>Optimizing assets...</p>
+                                       <p className="text-green-400">✔ Deployed to Vercel</p>
+                                    </div>
+                                 </div>
+                                 
+                                 {/* Cursor */}
+                                 <p className="flex gap-2">
+                                    <span className="text-green-500">➜</span> <span className="text-cyan-400">~</span> <span className="w-2 h-4 bg-gray-500 animate-pulse" />
+                                 </p>
+                              </motion.div>
+                           </div>
+                           
+                           {/* Screen Reflection Gradient */}
+                           <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none" />
+                        </div>
+                     </foreignObject>
+
+                     {/* --- BASE (Keyboard Deck) --- */}
+                     {/* Top of Base */}
+                     <path d="M50 430h700c10 0 18 8 18 18v12H32v-12c0-10 8-18 18-18z" fill="url(#baseGradient)" />
+                     {/* Front Edge of Base */}
+                     <path d="M32 460h736v6c0 8-7 14-15 14H47c-8 0-15-6-15-14v-6z" fill="#6b7280" />
+                     {/* Hinge Indentation */}
+                     <path d="M300 430 h200 v8 c0 5 -4 9 -9 9 h-182 c-5 0 -9 -4 -9 -9 v-8 z" fill="#1f2937" opacity="0.3" />
+
+                     {/* Trackpad */}
+                     <rect x="320" y="438" width="160" height="16" rx="2" fill="#e5e7eb" opacity="0.5" />
+                  </svg>
+              </div>
             </div>
           </motion.div>
         </div>
