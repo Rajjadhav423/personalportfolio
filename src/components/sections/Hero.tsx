@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import { TypewriterEffect } from "@/components/ui/TypewriterEffect";
 import { GlowButton } from "@/components/ui/GlowButton";
@@ -10,7 +11,39 @@ import {
   IconPhone,
 } from "@tabler/icons-react";
 
+// Pre-defined particle positions to avoid hydration mismatch
+const PARTICLE_DATA = [
+  { left: 10, top: 20, duration: 3.5, delay: 0.2 },
+  { left: 25, top: 15, duration: 4.0, delay: 0.8 },
+  { left: 40, top: 80, duration: 3.2, delay: 1.2 },
+  { left: 55, top: 35, duration: 4.5, delay: 0.5 },
+  { left: 70, top: 60, duration: 3.8, delay: 1.8 },
+  { left: 85, top: 25, duration: 4.2, delay: 0.3 },
+  { left: 15, top: 70, duration: 3.6, delay: 1.0 },
+  { left: 30, top: 45, duration: 4.1, delay: 1.5 },
+  { left: 50, top: 90, duration: 3.3, delay: 0.7 },
+  { left: 65, top: 10, duration: 4.3, delay: 1.3 },
+  { left: 80, top: 55, duration: 3.7, delay: 0.1 },
+  { left: 95, top: 75, duration: 4.0, delay: 1.7 },
+  { left: 5, top: 40, duration: 3.4, delay: 0.9 },
+  { left: 20, top: 85, duration: 4.4, delay: 1.1 },
+  { left: 35, top: 30, duration: 3.9, delay: 0.4 },
+  { left: 45, top: 65, duration: 4.2, delay: 1.6 },
+  { left: 60, top: 50, duration: 3.1, delay: 0.6 },
+  { left: 75, top: 95, duration: 4.5, delay: 1.4 },
+  { left: 90, top: 5, duration: 3.5, delay: 1.9 },
+  { left: 12, top: 55, duration: 4.0, delay: 0.0 },
+];
+
+const emptySubscribe = () => () => {};
+
 export function Hero() {
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
+
   const roles = [
     "Software Developer",
     "Full Stack Engineer",
@@ -25,28 +58,30 @@ export function Hero() {
         <div className="hero-glow-2 absolute bottom-1/4 right-1/4 w-48 md:w-96 h-48 md:h-96 rounded-full blur-[80px] md:blur-[120px] animate-pulse" />
       </div>
 
-      {/* Floating Particles - Hidden on mobile for performance */}
-      <div className="absolute inset-0 overflow-hidden hidden md:block">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="hero-particle absolute w-2 h-2 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [-20, 20],
-              opacity: [0.2, 0.8, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
+      {/* Floating Particles - Hidden on mobile for performance, only render after mount */}
+      {mounted && (
+        <div className="absolute inset-0 overflow-hidden hidden md:block">
+          {PARTICLE_DATA.map((particle, i) => (
+            <motion.div
+              key={i}
+              className="hero-particle absolute w-2 h-2 rounded-full"
+              style={{
+                left: `${particle.left}%`,
+                top: `${particle.top}%`,
+              }}
+              animate={{
+                y: [-20, 20],
+                opacity: [0.2, 0.8, 0.2],
+              }}
+              transition={{
+                duration: particle.duration,
+                repeat: Infinity,
+                delay: particle.delay,
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -57,18 +92,7 @@ export function Hero() {
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left order-2 lg:order-1"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs md:text-sm mb-4 md:mb-6"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-              </span>
-              Available for opportunities
-            </motion.div>
+
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
               <span className="hero-title-text">Hi, I&apos;m </span>
@@ -105,7 +129,7 @@ export function Hero() {
             {/* CTA Buttons - Full width on mobile */}
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center lg:justify-start px-4 sm:px-0">
               <GlowButton href="#contact" className="w-full sm:w-auto">
-                <IconMail size={18} className="mr-2" />
+                <IconMail size={18} />
                 Get in Touch
               </GlowButton>
               <GlowButton variant="secondary" href="#projects" className="w-full sm:w-auto">

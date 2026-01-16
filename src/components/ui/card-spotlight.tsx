@@ -1,30 +1,43 @@
 "use client";
 
 import { useMotionValue, motion, useMotionTemplate } from "motion/react";
-import React, { MouseEvent as ReactMouseEvent, useState } from "react";
-import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
+import React, { MouseEvent as ReactMouseEvent, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 export const CardSpotlight = ({
   children,
   radius = 350,
-  color = "#262626",
   className,
   ...props
 }: {
   radius?: number;
-  color?: string;
   children: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Check if dark mode is active
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkDarkMode();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
+
   function handleMouseMove({
     currentTarget,
     clientX,
     clientY,
   }: ReactMouseEvent<HTMLDivElement>) {
-    let { left, top } = currentTarget.getBoundingClientRect();
-
+    const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
   }
@@ -32,10 +45,16 @@ export const CardSpotlight = ({
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
+
+  // Different spotlight colors for light/dark mode
+  const spotlightColor = isDark 
+    ? "rgba(6, 182, 212, 0.15)" 
+    : "rgba(6, 182, 212, 0.1)";
+
   return (
     <div
       className={cn(
-        "group/spotlight p-10 rounded-md relative border border-neutral-800 bg-black dark:border-neutral-800",
+        "group/spotlight p-10 rounded-md relative border bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 transition-colors",
         className
       )}
       onMouseMove={handleMouseMove}
@@ -43,31 +62,19 @@ export const CardSpotlight = ({
       onMouseLeave={handleMouseLeave}
       {...props}
     >
+      {/* Spotlight gradient effect */}
       <motion.div
         className="pointer-events-none absolute z-0 -inset-px rounded-md opacity-0 transition duration-300 group-hover/spotlight:opacity-100"
         style={{
-          backgroundColor: color,
-          maskImage: useMotionTemplate`
+          background: useMotionTemplate`
             radial-gradient(
               ${radius}px circle at ${mouseX}px ${mouseY}px,
-              white,
+              ${spotlightColor},
               transparent 80%
             )
           `,
         }}
-      >
-        {isHovering && (
-          <CanvasRevealEffect
-            animationSpeed={5}
-            containerClassName="bg-transparent absolute inset-0 pointer-events-none"
-            colors={[
-              [59, 130, 246],
-              [139, 92, 246],
-            ]}
-            dotSize={3}
-          />
-        )}
-      </motion.div>
+      />
       {children}
     </div>
   );

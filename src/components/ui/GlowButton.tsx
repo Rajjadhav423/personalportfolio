@@ -30,7 +30,7 @@ export function GlowButton({
 
   const content = (
     <>
-      <span className="relative z-10">{children}</span>
+      <span className="relative z-10 flex items-center justify-center gap-2">{children}</span>
       {variant === "primary" && (
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
