@@ -79,10 +79,10 @@ export function Contact() {
             className="space-y-4 sm:space-y-6 order-2 lg:order-1"
           >
             <div className="mb-6 md:mb-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white mb-3 sm:mb-4">
                 Let&apos;s Connect
               </h3>
-              <p className="text-neutral-400 text-sm sm:text-base">
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
                 I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
               </p>
             </div>
@@ -113,7 +113,7 @@ export function Contact() {
                       </div>
                       <div className="min-w-0">
                         <p className="text-neutral-500 text-xs sm:text-sm">{info.label}</p>
-                        <p className="text-white group-hover:text-cyan-400 transition-colors text-sm sm:text-base truncate">
+                        <p className="text-neutral-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors text-sm sm:text-base truncate">
                           {info.value}
                         </p>
                       </div>
@@ -135,7 +135,7 @@ export function Contact() {
             <CardSpotlight className="p-4 sm:p-6 md:p-8">
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 relative z-20">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-neutral-400 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-400 mb-2">
                     Name
                   </label>
                   <input
@@ -150,7 +150,7 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-400 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-400 mb-2">
                     Email
                   </label>
                   <input
@@ -165,7 +165,7 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-neutral-400 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-neutral-700 dark:text-neutral-400 mb-2">
                     Message
                   </label>
                   <textarea

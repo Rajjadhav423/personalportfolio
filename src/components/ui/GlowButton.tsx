@@ -23,8 +23,8 @@ export function GlowButton({
     "relative inline-flex items-center justify-center px-6 py-3 rounded-full font-medium text-sm",
     "transition-all duration-300 overflow-hidden group border",
     variant === "primary"
-      ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent hover:bg-neutral-800 dark:hover:bg-neutral-200 shadow-sm hover:shadow-md"
-      : "bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-black dark:hover:text-white",
+      ? "bg-cyan-600 dark:bg-white text-white dark:text-neutral-900 border-transparent hover:bg-cyan-700 dark:hover:bg-neutral-200 shadow-sm hover:shadow-cyan-500/25"
+      : "bg-white dark:bg-black border-neutral-300 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-black dark:hover:text-white font-medium",
     className
   );
 
