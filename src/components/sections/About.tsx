@@ -2,13 +2,14 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
 export function About() {
   return (
-    <section id="about" className="py-16 md:py-24 section-gradient relative overflow-hidden bg-zinc-50 dark:bg-transparent">
+    <section id="about" className="py-16 md:py-24 section-gradient relative overflow-hidden bg-slate-50 dark:bg-zinc-950 transition-colors duration-300">
       {/* Background */}
-      <div className="absolute inset-0 bg-grid opacity-20" />
-      <div className="absolute top-0 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+      <div className="absolute inset-0 bg-grid opacity-30" />
+      <div className="absolute top-0 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-400/10 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -31,19 +32,16 @@ export function About() {
               { value: "3", label: "Salesforce Certs" },
               { value: "7.94", label: "CGPA" },
             ].map((stat, idx) => (
-              <motion.div
+              <SpotlightCard
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="p-4 sm:p-6 rounded-xl bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-white/10 text-center group hover:border-cyan-500/50 transition-all duration-300 shadow-sm dark:shadow-none"
+                className="p-4 sm:p-6 text-center group hover:border-cyan-500/50"
+                spotlightColor="rgba(6, 182, 212, 0.15)"
               >
                 <div className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1 sm:mb-2">
                   {stat.value}
                 </div>
-                <div className="text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm">{stat.label}</div>
-              </motion.div>
+                <div className="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm">{stat.label}</div>
+              </SpotlightCard>
             ))}
           </motion.div>
 
@@ -58,10 +56,10 @@ export function About() {
             <p className="text-zinc-700 dark:text-zinc-300 text-base sm:text-lg leading-relaxed">
               Aspiring <span className="text-cyan-600 dark:text-cyan-400 font-medium">Software Developer</span> with hands-on experience in full-stack web development, Salesforce CRM platform development, and machine learning research.
             </p>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm sm:text-base leading-relaxed">
+            <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed">
               Proficient in <span className="text-purple-600 dark:text-purple-400">JavaScript/TypeScript</span>, <span className="text-purple-600 dark:text-purple-400">React.js</span>, <span className="text-purple-600 dark:text-purple-400">Next.js</span>, <span className="text-purple-600 dark:text-purple-400">Node.js</span>, <span className="text-purple-600 dark:text-purple-400">Salesforce Apex</span>, and <span className="text-purple-600 dark:text-purple-400">Python</span>.
             </p>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm sm:text-base leading-relaxed">
+            <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed">
               Demonstrated ability to deliver scalable solutions through internships and academic projects, with expertise in <span className="text-pink-600 dark:text-pink-400">AI integration</span>, <span className="text-pink-600 dark:text-pink-400">cloud technologies</span>, and <span className="text-pink-600 dark:text-pink-400">CRM automation workflows</span>.
             </p>
 
@@ -74,7 +72,7 @@ export function About() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: idx * 0.1 }}
                   viewport={{ once: true }}
-                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-300 text-xs sm:text-sm"
+                  className="skill-badge px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-cyan-700 dark:text-cyan-300 text-xs sm:text-sm"
                 >
                   {tag}
                 </motion.span>

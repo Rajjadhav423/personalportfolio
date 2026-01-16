@@ -60,11 +60,11 @@ const coursework = [
 
 export function Education() {
   return (
-    <section id="education" className="py-16 md:py-24 relative overflow-hidden bg-zinc-50 dark:bg-transparent">
+    <section id="education" className="py-16 md:py-24 relative overflow-hidden bg-slate-50 dark:bg-zinc-950 transition-colors duration-300">
       {/* Background */}
       <div className="absolute inset-0 bg-grid opacity-20" />
-      <div className="absolute top-1/4 right-1/4 w-48 md:w-96 h-48 md:h-96 bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-[100px] md:blur-[150px]" />
-      <div className="absolute bottom-1/4 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+      <div className="absolute top-1/4 right-1/4 w-48 md:w-96 h-48 md:h-96 bg-cyan-400/10 dark:bg-cyan-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+      <div className="absolute bottom-1/4 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-400/10 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -92,14 +92,14 @@ export function Education() {
                 <p className="text-cyan-600 dark:text-cyan-400 text-sm sm:text-base md:text-lg mb-2">
                   SGGS Institute of Engineering and Technology, Nanded
                 </p>
-                <div className="flex flex-wrap gap-2 sm:gap-4 text-zinc-500 dark:text-zinc-400 text-sm mb-4">
+                <div className="flex flex-wrap gap-2 sm:gap-4 text-zinc-600 dark:text-zinc-400 text-sm mb-4">
                   <span>2021 – 2025</span>
                   <span className="text-cyan-600 dark:text-cyan-400 font-medium">CGPA: 7.94/10</span>
                 </div>
                 
                 {/* Relevant Coursework */}
                 <div className="mt-4">
-                  <h4 className="text-xs sm:text-sm text-zinc-400 dark:text-zinc-500 mb-2 sm:mb-3">Relevant Coursework:</h4>
+                  <h4 className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-500 mb-2 sm:mb-3">Relevant Coursework:</h4>
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {coursework.map((course, idx) => (
                       <motion.span
@@ -108,7 +108,7 @@ export function Education() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: idx * 0.1 }}
                         viewport={{ once: true }}
-                        className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm border border-zinc-200 dark:border-white/10"
+                        className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 text-zinc-700 dark:text-zinc-300 text-xs sm:text-sm border border-zinc-300 dark:border-white/10"
                       >
                         {course}
                       </motion.span>
@@ -146,7 +146,7 @@ export function Education() {
                     <h4 className="font-semibold text-zinc-800 dark:text-white text-sm sm:text-base mb-1 line-clamp-2">
                       {cert.title}
                     </h4>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm mb-1 sm:mb-2">{cert.issuer}</p>
+                    <p className="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm mb-1 sm:mb-2">{cert.issuer}</p>
                     <span className={`text-xs font-medium ${
                       cert.color === 'cyan' ? 'text-cyan-600 dark:text-cyan-400' :
                       cert.color === 'purple' ? 'text-purple-600 dark:text-purple-400' :

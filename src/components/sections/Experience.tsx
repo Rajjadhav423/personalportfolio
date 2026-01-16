@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { IconMapPin, IconCalendar, IconChevronDown } from "@tabler/icons-react";
 
 const experiences = [
@@ -38,11 +39,11 @@ export function Experience() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section id="experience" className="py-16 md:py-24 relative overflow-hidden bg-zinc-50 dark:bg-transparent">
+    <section id="experience" className="py-16 md:py-24 relative overflow-hidden bg-slate-50 dark:bg-zinc-950 transition-colors duration-300">
       {/* Background */}
       <div className="absolute inset-0 bg-grid opacity-20" />
-      <div className="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-[100px] md:blur-[150px]" />
-      <div className="absolute bottom-0 left-0 w-48 md:w-96 h-48 md:h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+      <div className="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-cyan-400/10 dark:bg-cyan-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+      <div className="absolute bottom-0 left-0 w-48 md:w-96 h-48 md:h-96 bg-purple-400/10 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -60,28 +61,25 @@ export function Experience() {
                 onClick={() => setActiveTab(idx)}
                 className={`text-left px-6 py-4 rounded-xl transition-all duration-300 ${
                   activeTab === idx
-                    ? "tab-active bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-l-2 border-cyan-500"
-                    : "border-l-2 border-transparent hover:bg-zinc-100 dark:hover:bg-white/5 hover:border-zinc-300 dark:hover:border-zinc-600"
+                    ? "tab-active"
+                    : "border-l-2 border-transparent hover:bg-white/50 dark:hover:bg-white/5 hover:border-zinc-300 dark:hover:border-zinc-600"
                 }`}
                 whileHover={{ x: 5 }}
               >
-                <span className={`block font-medium ${activeTab === idx ? "text-cyan-600 dark:text-cyan-400" : "text-zinc-500 dark:text-zinc-400"}`}>
+                <span className={`block font-medium ${activeTab === idx ? "text-cyan-600 dark:text-cyan-400" : "text-zinc-600 dark:text-zinc-400"}`}>
                   {exp.company}
                 </span>
-                <span className="text-sm text-zinc-400 dark:text-zinc-500">{exp.role}</span>
+                <span className="text-sm text-zinc-500 dark:text-zinc-500">{exp.role}</span>
               </motion.button>
             ))}
           </div>
 
           {/* Content */}
           <AnimatePresence mode="wait">
-            <motion.div
+            <SpotlightCard
               key={activeTab}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-2xl border border-zinc-200 dark:border-white/10 p-8 shadow-sm dark:shadow-none"
+              className="p-8"
+              spotlightColor="rgba(6, 182, 212, 0.1)"
             >
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-zinc-800 dark:text-white mb-2">
@@ -90,7 +88,7 @@ export function Experience() {
                 <p className="text-cyan-600 dark:text-cyan-400 text-lg mb-4">
                   @ {experiences[activeTab].company}
                 </p>
-                <div className="flex flex-wrap gap-4 text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="flex flex-wrap gap-4 text-sm text-zinc-600 dark:text-zinc-400">
                   <span className="flex items-center gap-2">
                     <IconCalendar size={16} />
                     {experiences[activeTab].duration}
@@ -102,7 +100,7 @@ export function Experience() {
                 </div>
               </div>
 
-              <p className="text-zinc-500 dark:text-zinc-400 mb-6">
+              <p className="text-zinc-600 dark:text-zinc-400 mb-6">
                 {experiences[activeTab].description}
               </p>
 
@@ -113,27 +111,24 @@ export function Experience() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.1 }}
-                    className="flex items-start gap-3 text-zinc-600 dark:text-zinc-300"
+                    className="flex items-start gap-3 text-zinc-700 dark:text-zinc-300"
                   >
                     <span className="mt-2 w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 shrink-0" />
                     {highlight}
                   </motion.li>
                 ))}
               </ul>
-            </motion.div>
+            </SpotlightCard>
           </AnimatePresence>
         </div>
 
         {/* Mobile Layout - Accordion Style */}
         <div className="lg:hidden space-y-4">
           {experiences.map((exp, idx) => (
-            <motion.div
+            <SpotlightCard
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-xl border border-zinc-200 dark:border-white/10 overflow-hidden shadow-sm dark:shadow-none"
+              className="overflow-hidden"
+              spotlightColor={exp.color === 'cyan' ? 'rgba(6, 182, 212, 0.1)' : 'rgba(139, 92, 246, 0.1)'}
             >
               <button
                 onClick={() => setActiveTab(activeTab === idx ? -1 : idx)}
@@ -146,7 +141,7 @@ export function Experience() {
                   <p className="text-cyan-600 dark:text-cyan-400 text-sm sm:text-base">
                     @ {exp.company}
                   </p>
-                  <div className="flex flex-wrap gap-2 sm:gap-4 mt-2 text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
+                  <div className="flex flex-wrap gap-2 sm:gap-4 mt-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                     <span className="flex items-center gap-1">
                       <IconCalendar size={14} />
                       {exp.duration}
@@ -161,7 +156,7 @@ export function Experience() {
                   animate={{ rotate: activeTab === idx ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <IconChevronDown size={24} className="text-zinc-400" />
+                  <IconChevronDown size={24} className="text-zinc-500 dark:text-zinc-400" />
                 </motion.div>
               </button>
               
@@ -175,14 +170,14 @@ export function Experience() {
                     className="overflow-hidden"
                   >
                     <div className="px-4 sm:px-6 pb-4 sm:pb-6 border-t border-zinc-200 dark:border-white/10 pt-4">
-                      <p className="text-zinc-500 dark:text-zinc-400 text-sm sm:text-base mb-4">
+                      <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base mb-4">
                         {exp.description}
                       </p>
                       <ul className="space-y-3">
                         {exp.highlights.map((highlight, hIdx) => (
                           <li
                             key={hIdx}
-                            className="flex items-start gap-3 text-zinc-600 dark:text-zinc-300 text-sm sm:text-base"
+                            className="flex items-start gap-3 text-zinc-700 dark:text-zinc-300 text-sm sm:text-base"
                           >
                             <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 shrink-0" />
                             {highlight}
@@ -193,7 +188,7 @@ export function Experience() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </SpotlightCard>
           ))}
         </div>
       </div>

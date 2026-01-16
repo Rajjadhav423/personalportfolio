@@ -37,9 +37,9 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative py-8 md:py-12 border-t border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-transparent">
+    <footer className="relative py-8 md:py-12 border-t border-zinc-200 dark:border-white/10 bg-slate-50 dark:bg-zinc-950 transition-colors duration-300">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-100 dark:from-zinc-950 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-100 dark:from-zinc-950 to-transparent" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
@@ -56,7 +56,7 @@ export function Footer() {
               <h3 className="text-xl sm:text-2xl font-bold gradient-text mb-1 sm:mb-2">
                 Rajesh Jadhav
               </h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm">
+              <p className="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm">
                 Software Developer | Full Stack Engineer
               </p>
             </motion.div>
@@ -75,10 +75,10 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 sm:p-3 rounded-full border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-cyan-500/10 dark:hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 group"
+                  className="p-2.5 sm:p-3 rounded-full border border-zinc-300 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 group shadow-sm dark:shadow-none"
                   aria-label={social.label}
                 >
-                  <social.icon size={18} className="sm:w-5 sm:h-5 text-zinc-500 dark:text-zinc-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400" />
+                  <social.icon size={18} className="sm:w-5 sm:h-5 text-zinc-600 dark:text-zinc-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400" />
                 </a>
               ))}
             </motion.div>
@@ -96,7 +96,7 @@ export function Footer() {
               <a
                 key={idx}
                 href={link.href}
-                className="text-zinc-500 dark:text-zinc-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors text-xs sm:text-sm"
+                className="text-zinc-600 dark:text-zinc-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors text-xs sm:text-sm"
               >
                 {link.name}
               </a>
@@ -115,7 +115,7 @@ export function Footer() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <p className="text-zinc-400 dark:text-zinc-500 text-xs sm:text-sm flex items-center justify-center gap-1 flex-wrap">
+          <p className="text-zinc-500 dark:text-zinc-500 text-xs sm:text-sm flex items-center justify-center gap-1 flex-wrap">
             <span>© {new Date().getFullYear()} Rajesh Jadhav.</span>
             <span className="flex items-center gap-1">
               Made with
