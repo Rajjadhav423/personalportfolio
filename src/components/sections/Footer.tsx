@@ -8,6 +8,7 @@ import {
   IconHeart,
 } from "@tabler/icons-react";
 import { portfolioData } from "@/data/portfolio";
+import Link from "next/link";
 
 const socialLinks = [
   {
@@ -28,12 +29,13 @@ const socialLinks = [
 ];
 
 const footerLinks = [
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
-  { name: "Education", href: "#education" },
-  { name: "Contact", href: "#contact" },
+  { name: "About", href: "/#about" },
+  { name: "Skills", href: "/#skills" },
+  { name: "Experience", href: "/#experience" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Education", href: "/#education" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export function Footer() {
@@ -94,13 +96,13 @@ export function Footer() {
             className="flex flex-wrap justify-center gap-4 sm:gap-6"
           >
             {footerLinks.map((link, idx) => (
-              <a
+              <Link
                 key={idx}
                 href={link.href}
                 className="text-zinc-600 dark:text-zinc-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors text-xs sm:text-sm"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </motion.div>
         </div>
@@ -117,12 +119,7 @@ export function Footer() {
           className="text-center"
         >
           <p className="text-zinc-500 dark:text-zinc-500 text-xs sm:text-sm flex items-center justify-center gap-1 flex-wrap">
-            <span>© {new Date().getFullYear()} {portfolioData.personal.name}.</span>
-            <span className="flex items-center gap-1">
-              Made with
-              <IconHeart size={14} className="text-red-500 animate-pulse" />
-              and lots of code.
-            </span>
+            <span>© {portfolioData.personal.name}. All rights reserved.</span>
           </p>
         </motion.div>
       </div>

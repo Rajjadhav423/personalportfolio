@@ -5,14 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { ThemeToggle } from "./ThemeToggle";
+import Link from "next/link";
 
 const navItems = [
-  { name: "About", link: "#about" },
-  { name: "Skills", link: "#skills" },
-  { name: "Experience", link: "#experience" },
-  { name: "Projects", link: "#projects" },
-  { name: "Education", link: "#education" },
-  { name: "Contact", link: "#contact" },
+  { name: "About", link: "/#about" },
+  { name: "Skills", link: "/#skills" },
+  { name: "Experience", link: "/#experience" },
+  { name: "Projects", link: "/#projects" },
+  { name: "Education", link: "/#education" },
+  { name: "Blog", link: "/blog" },
+  { name: "Contact", link: "/#contact" },
 ];
 
 export function FloatingNav() {
@@ -37,7 +39,7 @@ export function FloatingNav() {
       setLastScrollY(currentScrollY);
 
       // Determine active section
-      const sections = navItems.map(item => item.link.replace("#", ""));
+      const sections = navItems.filter(item => item.link.startsWith("/#")).map(item => item.link.replace("/#", ""));
       for (const section of sections.reverse()) {
         const element = document.getElementById(section);
         if (element) {
@@ -70,17 +72,17 @@ export function FloatingNav() {
         <div className="hidden md:flex items-center justify-center gap-4">
           <div className="nav-bar flex items-center justify-center space-x-1 px-4 py-3 rounded-full">
             {navItems.map((item, idx) => (
-              <a
+              <Link
                 key={idx}
                 href={item.link}
                 className={cn(
                   "relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
-                  activeSection === item.link.replace("#", "")
+                  activeSection === item.link.replace("/#", "")
                     ? "text-cyan-600 dark:text-cyan-400"
                     : "nav-link"
                 )}
               >
-                {activeSection === item.link.replace("#", "") && (
+                {activeSection === item.link.replace("/#", "") && (
                   <motion.div
                     layoutId="activeSection"
                     className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full"
@@ -88,7 +90,7 @@ export function FloatingNav() {
                   />
                 )}
                 <span className="relative z-10">{item.name}</span>
-              </a>
+              </Link>
             ))}
           </div>
           <ThemeToggle />
@@ -126,22 +128,25 @@ export function FloatingNav() {
             >
               <div className="flex flex-col py-2">
                 {navItems.map((item, idx) => (
-                  <motion.a
+                  <motion.div
                     key={idx}
-                    href={item.link}
-                    onClick={handleNavClick}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.05 }}
-                    className={cn(
-                      "px-6 py-4 text-base font-medium transition-all duration-300 border-l-2",
-                      activeSection === item.link.replace("#", "")
-                        ? "text-cyan-600 dark:text-cyan-400 border-cyan-500 bg-cyan-500/10"
-                        : "nav-mobile-link border-transparent"
-                    )}
                   >
-                    {item.name}
-                  </motion.a>
+                    <Link
+                      href={item.link}
+                      onClick={handleNavClick}
+                      className={cn(
+                        "block px-6 py-4 text-base font-medium transition-all duration-300 border-l-2",
+                        activeSection === item.link.replace("/#", "")
+                          ? "text-cyan-600 dark:text-cyan-400 border-cyan-500 bg-cyan-500/10"
+                          : "nav-mobile-link border-transparent"
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>

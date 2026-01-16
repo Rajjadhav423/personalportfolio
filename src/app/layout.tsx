@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { portfolioData } from "@/data/portfolio";
 import React from "react";
+import { FloatingNav } from "@/components/ui/FloatingNav";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`}>
         <ThemeProvider>
+          <FloatingNav />
           {children}
         </ThemeProvider>
       </body>
