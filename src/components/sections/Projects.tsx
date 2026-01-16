@@ -56,32 +56,33 @@ export function Projects() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               viewport={{ once: true }}
             >
-              <CardSpotlight className="h-full flex flex-col p-0 overflow-hidden">
-                {/* Project Header */}
-                <div className={`h-32 sm:h-40 md:h-48 bg-gradient-to-br ${project.gradient} opacity-30 group-hover/spotlight:opacity-40 transition-opacity duration-300`} />
-                
-                <div className="p-4 sm:p-6 flex flex-col flex-grow relative z-20">
-                  {/* Date Badge */}
-                  <div className="flex justify-between items-start mb-3 md:mb-4">
-                    <span className="px-2 sm:px-3 py-1 text-xs rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/40">
+              <CardSpotlight className="h-full flex flex-col p-6 rounded-2xl overflow-hidden border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black/50">
+                <div className="flex flex-col flex-grow relative z-20">
+                  {/* Header: Date & Status */}
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
                       {project.date}
                     </span>
+                    <div className="h-px flex-grow mx-4 bg-neutral-200 dark:bg-neutral-800" />
+                    <div className="flex gap-1.5">
+                      <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+                    </div>
                   </div>
 
                   {/* Title & Description */}
-                  <h3 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white mb-2 md:mb-3 group-hover/spotlight:text-cyan-600 dark:group-hover/spotlight:text-cyan-400 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white mb-3 group-hover/spotlight:text-cyan-600 dark:group-hover/spotlight:text-cyan-400 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-sm mb-3 md:mb-4 flex-grow line-clamp-3 sm:line-clamp-none">
+                  <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed mb-6 flex-grow">
                     {project.description}
                   </p>
 
                   {/* Features */}
-                  <div className="hidden sm:flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {project.features.slice(0, 3).map((feature, fIdx) => (
                       <span
                         key={fIdx}
-                        className="text-xs px-2 py-1 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700"
+                        className="text-xs px-2.5 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800/50 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700/50"
                       >
                         {feature}
                       </span>
@@ -89,17 +90,17 @@ export function Projects() {
                   </div>
 
                   {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 md:mb-6">
+                  <div className="flex flex-wrap gap-2 mb-6 pt-4 border-t border-neutral-100 dark:border-neutral-800">
                     {project.tech.slice(0, 4).map((tech, tIdx) => (
                       <span
                         key={tIdx}
-                        className="text-xs px-2 py-1 rounded-full bg-gradient-to-r from-cyan-500/15 to-purple-500/15 text-cyan-300 border border-cyan-500/40"
+                        className="text-xs font-medium px-2.5 py-1 rounded-full bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 shadow-sm"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.tech.length > 4 && (
-                      <span className="text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                      <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-500">
                         +{project.tech.length - 4}
                       </span>
                     )}
