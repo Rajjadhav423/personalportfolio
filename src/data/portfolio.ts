@@ -14,7 +14,7 @@ export const portfolioData = {
       p2: "Currently a Software Engineer at Koshine Tech Labs, I specialize in Java, Python, and MERN stack development. I am a 3x Certified Salesforce Developer committed to building scalable, efficient, and innovative web applications.",
       p3: "My mission is to push the boundaries of technology—merging conversational AI with seamless user experiences and streamlining complex workflows through code. I am a fast learner, problem-solver, and ready to make an impact."
     },
-    location: "Nanded, Maharashtra, India",
+    location: "Pune, Maharashtra, India",
     email: "jadhavrz423@gmail.com",
     phone: "+91-9322850587",
     linkedin: "https://www.linkedin.com/in/rajeshjadhav057",
