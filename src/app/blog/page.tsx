@@ -54,9 +54,9 @@ export default function BlogPage() {
                     <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
                       {post.summary}
                     </p>
-                    <div className="flex gap-2 pt-2">
+                    <div className="flex flex-wrap gap-2 pt-2">
                         {post.tags?.map(tag => (
-                            <span key={tag} className="text-xs px-2 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                            <span key={tag} className="text-xs px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
                                 {tag}
                             </span>
                         ))}

@@ -49,45 +49,47 @@ export function Experience() {
 
           {/* Content */}
           <AnimatePresence mode="wait">
-            <CardSpotlight key={activeTab} className="p-8">
-              <div className="mb-6 relative z-20">
-                <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                  {portfolioData.experiences[activeTab].role}
-                </h3>
-                <p className="text-cyan-600 dark:text-cyan-400 text-lg mb-4">
-                  @ {portfolioData.experiences[activeTab].company}
-                </p>
-                <div className="flex flex-wrap gap-4 text-sm text-neutral-600 dark:text-neutral-400">
-                  <span className="flex items-center gap-2">
-                    <IconCalendar size={16} />
-                    {portfolioData.experiences[activeTab].duration}
-                  </span>
-                  <span className="flex items-center gap-2">
-                    <IconMapPin size={16} />
-                    {portfolioData.experiences[activeTab].location}
-                  </span>
+            {activeTab >= 0 && portfolioData.experiences[activeTab] && (
+              <CardSpotlight key={activeTab} className="p-8">
+                <div className="mb-6 relative z-20">
+                  <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
+                    {portfolioData.experiences[activeTab].role}
+                  </h3>
+                  <p className="text-cyan-600 dark:text-cyan-400 text-lg mb-4">
+                    @ {portfolioData.experiences[activeTab].company}
+                  </p>
+                  <div className="flex flex-wrap gap-4 text-sm text-neutral-600 dark:text-neutral-400">
+                    <span className="flex items-center gap-2">
+                      <IconCalendar size={16} />
+                      {portfolioData.experiences[activeTab].duration}
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <IconMapPin size={16} />
+                      {portfolioData.experiences[activeTab].location}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              <p className="text-neutral-600 dark:text-neutral-400 mb-6 relative z-20">
-                {portfolioData.experiences[activeTab].description}
-              </p>
+                <p className="text-neutral-600 dark:text-neutral-400 mb-6 relative z-20">
+                  {portfolioData.experiences[activeTab].description}
+                </p>
 
-              <ul className="space-y-3 relative z-20">
-                {portfolioData.experiences[activeTab].highlights.map((highlight, idx) => (
-                  <motion.li
-                    key={idx}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
-                  >
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
-                    {highlight}
-                  </motion.li>
-                ))}
-              </ul>
-            </CardSpotlight>
+                <ul className="space-y-3 relative z-20">
+                  {portfolioData.experiences[activeTab].highlights.map((highlight, idx) => (
+                    <motion.li
+                      key={idx}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
+                    >
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                      {highlight}
+                    </motion.li>
+                  ))}
+                </ul>
+              </CardSpotlight>
+            )}
           </AnimatePresence>
         </div>
 
