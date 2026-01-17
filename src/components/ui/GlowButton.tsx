@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
@@ -9,7 +8,9 @@ interface GlowButtonProps {
   className?: string;
   href?: string;
   onClick?: () => void;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "sm" | "md" | "lg";
+  fullWidth?: boolean;
 }
 
 export function GlowButton({
@@ -18,45 +19,72 @@ export function GlowButton({
   href,
   onClick,
   variant = "primary",
+  size = "md",
+  fullWidth = false,
 }: GlowButtonProps) {
-  const baseStyles = cn(
-    "relative inline-flex items-center justify-center px-6 py-3 rounded-full font-medium text-sm",
-    "transition-all duration-300 overflow-hidden group border",
-    variant === "primary"
-      ? "bg-cyan-600 dark:bg-white text-white dark:text-neutral-900 border-transparent hover:bg-cyan-700 dark:hover:bg-neutral-200 shadow-sm hover:shadow-cyan-500/25"
-      : "bg-white dark:bg-black border-neutral-300 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-black dark:hover:text-white font-medium",
-    className
-  );
+  const sizeStyles = {
+    sm: "px-4 py-2 text-xs",
+    md: "px-5 py-2.5 text-sm",
+    lg: "px-7 py-3.5 text-sm",
+  };
 
-  const content = (
-    <>
-      <span className="relative z-10 flex items-center justify-center gap-2">{children}</span>
-    </>
+  const variantStyles = {
+    // PRIMARY: Neumorphic raised style
+    primary: cn(
+      "bg-slate-100 dark:bg-slate-800",
+      "text-slate-800 dark:text-slate-100",
+      "font-semibold",
+      "shadow-[5px_5px_10px_rgba(0,0,0,0.1),-5px_-5px_10px_rgba(255,255,255,0.9)]",
+      "dark:shadow-[5px_5px_10px_rgba(0,0,0,0.4),-5px_-5px_10px_rgba(60,60,60,0.2)]",
+      "active:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.1),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]",
+      "dark:active:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.3),inset_-3px_-3px_6px_rgba(60,60,60,0.2)]"
+    ),
+    // SECONDARY: Neumorphic inset style
+    secondary: cn(
+      "bg-slate-100 dark:bg-slate-800",
+      "text-slate-700 dark:text-slate-200",
+      "font-semibold",
+      "shadow-[inset_3px_3px_6px_rgba(0,0,0,0.08),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]",
+      "dark:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.25),inset_-3px_-3px_6px_rgba(60,60,60,0.15)]",
+      "active:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.12),inset_-4px_-4px_8px_rgba(255,255,255,0.9)]",
+      "dark:active:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.35),inset_-4px_-4px_8px_rgba(60,60,60,0.2)]"
+    ),
+    // GHOST: Flat minimal
+    ghost: cn(
+      "bg-transparent",
+      "text-slate-700 dark:text-slate-300",
+      "font-medium",
+      "border border-slate-200 dark:border-slate-700",
+      "hover:bg-slate-50 dark:hover:bg-slate-800/50"
+    ),
+  };
+
+  const baseStyles = cn(
+    "inline-flex items-center justify-center gap-2",
+    "rounded-2xl",
+    "transition-shadow duration-150",
+    sizeStyles[size],
+    variantStyles[variant],
+    fullWidth && "w-full",
+    className
   );
 
   if (href) {
     return (
-      <motion.a
+      <a
         href={href}
         className={baseStyles}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
         target={href.startsWith("http") ? "_blank" : undefined}
         rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
       >
-        {content}
-      </motion.a>
+        {children}
+      </a>
     );
   }
 
   return (
-    <motion.button
-      onClick={onClick}
-      className={baseStyles}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      {content}
-    </motion.button>
+    <button onClick={onClick} className={baseStyles}>
+      {children}
+    </button>
   );
 }

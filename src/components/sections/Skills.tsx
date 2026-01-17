@@ -8,7 +8,7 @@ import { CardSpotlight } from "@/components/ui/card-spotlight";
 export function Skills() {
   return (
     <section id="skills" className="py-16 md:py-24 section-gradient relative overflow-hidden">
-      {/* Background Elements */}
+      {/* Background - Matching Hero color scheme */}
       <div className="absolute inset-0 bg-grid opacity-30" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-purple-400/10 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
 
@@ -18,6 +18,7 @@ export function Skills() {
           subtitle="Technologies and tools I work with to bring ideas to life"
         />
 
+        {/* Skills Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {portfolioData.skills.map((category, idx) => (
             <motion.div
@@ -37,7 +38,12 @@ export function Skills() {
                     {category.skills.map((skill, skillIdx) => (
                       <span
                         key={skillIdx}
-                        className="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium bg-neutral-100 dark:bg-neutral-800/50 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:border-cyan-500/30 transition-colors cursor-default"
+                        className="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium 
+                          bg-neutral-50 dark:bg-neutral-800/70 
+                          text-neutral-700 dark:text-neutral-300 
+                          border border-neutral-200 dark:border-neutral-700/50 
+                          hover:border-neutral-300 dark:hover:border-neutral-600 
+                          transition-colors cursor-default"
                       >
                         {skill}
                       </span>
