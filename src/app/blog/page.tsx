@@ -12,10 +12,11 @@ export const metadata = {
 
 export default function BlogPage() {
   const posts = getBlogPosts().sort((a, b) => {
+    // Sort by Oldest First (Ascending)
     if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-      return -1;
+      return 1;
     }
-    return 1;
+    return -1;
   });
 
   return (
@@ -34,10 +35,10 @@ export default function BlogPage() {
 
         <div className="grid gap-6">
           {posts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`}>
-              <CardSpotlight className="p-6 md:p-8 hover:border-cyan-500/50 transition-colors group bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-white/10">
-                <article className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div className="space-y-2">
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="block h-full">
+              <CardSpotlight className="h-full p-6 md:p-8 hover:border-cyan-500/50 transition-colors group bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-white/10 flex flex-col justify-between">
+                <article className="flex flex-col md:flex-row gap-4 h-full">
+                  <div className="space-y-4 flex-1">
                     <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
                       <IconCalendar size={16} />
                       <time dateTime={post.publishedAt}>
@@ -48,13 +49,17 @@ export default function BlogPage() {
                         })}
                       </time>
                     </div>
-                    <h2 className="text-xl md:text-2xl font-bold text-zinc-800 dark:text-zinc-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                      {post.title}
-                    </h2>
-                    <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
-                      {post.summary}
-                    </p>
-                    <div className="flex flex-wrap gap-2 pt-2">
+                    
+                    <div className="space-y-2">
+                        <h2 className="text-xl md:text-2xl font-bold text-zinc-800 dark:text-zinc-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors line-clamp-2">
+                        {post.title}
+                        </h2>
+                        <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-2">
+                        {post.summary}
+                        </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 pt-1">
                         {post.tags?.map(tag => (
                             <span key={tag} className="text-xs px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
                                 {tag}
@@ -62,8 +67,11 @@ export default function BlogPage() {
                         ))}
                     </div>
                   </div>
-                  <div className="flex items-center text-cyan-600 dark:text-cyan-400 font-medium text-sm mt-2 md:mt-0 group-hover:translate-x-1 transition-transform">
-                    Read Article <IconArrowRight size={16} className="ml-1" />
+
+                  <div className="flex md:flex-col justify-end md:justify-center items-end md:items-end min-w-max mt-4 md:mt-0 pl-0 md:pl-4 border-t md:border-t-0 md:border-l border-zinc-100 dark:border-white/5 pt-4 md:pt-0">
+                    <span className="flex items-center text-cyan-600 dark:text-cyan-400 font-medium text-sm group-hover:translate-x-1 transition-transform bg-cyan-50 dark:bg-cyan-900/20 px-4 py-2 rounded-lg">
+                        Read Article <IconArrowRight size={16} className="ml-2" />
+                    </span>
                   </div>
                 </article>
               </CardSpotlight>

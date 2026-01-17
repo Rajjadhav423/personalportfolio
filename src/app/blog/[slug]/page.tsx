@@ -63,7 +63,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         </Link>
 
         <header className="mb-10">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400 mb-6">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400 mb-6 pb-2 leading-tight">
             {post.metadata.title}
           </h1>
 
@@ -91,7 +91,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           </div>
         </header>
 
-        <div className="prose prose-zinc dark:prose-invert prose-lg max-w-none prose-headings:text-zinc-800 dark:prose-headings:text-zinc-100 prose-a:text-cyan-600 dark:prose-a:text-cyan-400 hover:prose-a:text-cyan-500 prose-strong:text-zinc-900 dark:prose-strong:text-zinc-100">
+        <div className="prose prose-zinc dark:prose-invert prose-lg max-w-none prose-headings:font-extrabold prose-headings:text-zinc-800 dark:prose-headings:text-zinc-100 prose-a:text-cyan-600 dark:prose-a:text-cyan-400 hover:prose-a:text-cyan-500 prose-strong:font-black prose-strong:text-cyan-600 dark:prose-strong:text-cyan-400 prose-img:rounded-xl prose-img:shadow-lg prose-img:border prose-img:border-zinc-200 dark:prose-img:border-zinc-800">
           <PortfolioMDXRemote source={post.content} />
         </div>
       </article>
