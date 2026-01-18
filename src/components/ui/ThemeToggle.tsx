@@ -2,100 +2,51 @@
 
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconSun, IconMoon, IconDeviceDesktop, IconChevronDown } from "@tabler/icons-react";
-import { useState, useEffect, useRef } from "react";
-
-const themes = [
-  { value: "light", label: "Light", icon: IconSun },
-  { value: "dark", label: "Dark", icon: IconMoon },
-  { value: "system", label: "System", icon: IconDeviceDesktop },
-];
+import { IconSun, IconMoon } from "@tabler/icons-react";
+import { useState, useEffect } from "react";
 
 export function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   if (!mounted) {
     return (
-      <div className="w-10 h-10 rounded-full bg-zinc-800/50 animate-pulse" />
+      <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 animate-pulse" />
     );
   }
 
-  const currentTheme = themes.find((t) => t.value === theme) || themes[2];
-  const CurrentIcon = resolvedTheme === "dark" ? IconMoon : IconSun;
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <div className="relative" ref={dropdownRef}>
-      <motion.button
-        onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-3 py-2 rounded-full border border-white/10 dark:border-white/10 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md hover:border-cyan-500/50 transition-all duration-300 group"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        <CurrentIcon size={18} className="text-amber-500 dark:text-cyan-400" />
-        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300 hidden sm:inline">
-          {currentTheme.label}
-        </span>
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-white/50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 backdrop-blur-sm shadow-sm hover:border-cyan-500/50 dark:hover:border-cyan-400/50 transition-colors group overflow-hidden"
+      aria-label="Toggle theme"
+    >
+      <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          animate={{ rotate: open ? 180 : 0 }}
+          key={isDark ? "dark" : "light"}
+          initial={{ y: -20, opacity: 0, rotate: -90 }}
+          animate={{ y: 0, opacity: 1, rotate: 0 }}
+          exit={{ y: 20, opacity: 0, rotate: 90 }}
           transition={{ duration: 0.2 }}
         >
-          <IconChevronDown size={14} className="text-zinc-500" />
+          {isDark ? (
+            <IconMoon className="w-5 h-5 text-cyan-400" />
+          ) : (
+             <IconSun className="w-5 h-5 text-amber-500" />
+          )}
         </motion.div>
-      </motion.button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.15 }}
-            className="absolute right-0 mt-2 py-2 w-36 rounded-xl border border-white/10 dark:border-white/10 bg-white dark:bg-zinc-900 backdrop-blur-md shadow-xl overflow-hidden z-50"
-          >
-            {themes.map((t) => (
-              <button
-                key={t.value}
-                onClick={() => {
-                  setTheme(t.value);
-                  setOpen(false);
-                }}
-                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-all ${
-                  theme === t.value
-                    ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400"
-                    : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-white/5"
-                }`}
-              >
-                <t.icon size={16} />
-                <span>{t.label}</span>
-                {theme === t.value && (
-                  <motion.div
-                    layoutId="activeTheme"
-                    className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-500"
-                  />
-                )}
-              </button>
-            ))}
-          </motion.div>
-        )}
       </AnimatePresence>
-    </div>
+      
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+    </motion.button>
   );
 }
