@@ -11,6 +11,7 @@ interface GlowButtonProps {
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 export function GlowButton({
@@ -21,6 +22,7 @@ export function GlowButton({
   variant = "primary",
   size = "md",
   fullWidth = false,
+  disabled = false,
 }: GlowButtonProps) {
   const sizeStyles = {
     sm: "px-4 py-2 text-xs",
@@ -66,6 +68,7 @@ export function GlowButton({
     sizeStyles[size],
     variantStyles[variant],
     fullWidth && "w-full",
+    disabled && "opacity-60 cursor-not-allowed",
     className
   );
 
@@ -83,7 +86,7 @@ export function GlowButton({
   }
 
   return (
-    <button onClick={onClick} className={baseStyles}>
+    <button onClick={onClick} className={baseStyles} disabled={disabled}>
       {children}
     </button>
   );

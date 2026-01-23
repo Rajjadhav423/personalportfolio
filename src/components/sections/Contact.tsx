@@ -1,11 +1,12 @@
 "use client";
 
 import { portfolioData } from "@/data/portfolio";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlowButton } from "@/components/ui/GlowButton";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
+import emailjs from "@emailjs/browser";
 import {
   IconMail,
   IconPhone,
@@ -13,7 +14,15 @@ import {
   IconBrandGithub,
   IconSend,
   IconBrandMedium,
+  IconCheck,
+  IconX,
+  IconLoader2,
 } from "@tabler/icons-react";
+
+// EmailJS credentials from environment variables
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
 const contactInfo = [
   {
@@ -53,17 +62,44 @@ const contactInfo = [
   },
 ];
 
+type FormStatus = "idle" | "loading" | "success" | "error";
+
 export function Contact() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoLink = `mailto:${portfolioData.personal.email}?subject=Portfolio Contact from ${formData.name}&body=${formData.message}%0D%0A%0D%0AFrom: ${formData.email}`;
-    window.location.href = mailtoLink;
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current!,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      
+      // Reset status after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatus("error");
+      setErrorMessage("Failed to send message. Please try again or email me directly.");
+      
+      // Reset status after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
 
   return (
@@ -142,7 +178,7 @@ export function Contact() {
             className="order-1 lg:order-2 lg:mt-32"
           >
             <CardSpotlight className="p-4 sm:p-6 md:p-8">
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 relative z-20">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 relative z-20">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-400 mb-2">
                     Name
@@ -150,11 +186,13 @@ export function Contact() {
                   <input
                     type="text"
                     id="name"
+                    name="from_name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="input-field w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base"
                     placeholder="Your name"
                     required
+                    disabled={status === "loading"}
                   />
                 </div>
 
@@ -165,11 +203,13 @@ export function Contact() {
                   <input
                     type="email"
                     id="email"
+                    name="from_email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="input-field w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base"
                     placeholder="your@email.com"
                     required
+                    disabled={status === "loading"}
                   />
                 </div>
 
@@ -179,18 +219,60 @@ export function Contact() {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     rows={4}
                     className="input-field w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg resize-none text-sm sm:text-base"
                     placeholder="Your message..."
                     required
+                    disabled={status === "loading"}
                   />
                 </div>
 
-                <GlowButton className="w-full">
-                  <IconSend size={18} className="mr-2" />
-                  Send Message
+                {/* Status Messages */}
+                <AnimatePresence>
+                  {status === "success" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400"
+                    >
+                      <IconCheck size={18} />
+                      <span className="text-sm">Message sent successfully! I'll get back to you soon.</span>
+                    </motion.div>
+                  )}
+                  {status === "error" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400"
+                    >
+                      <IconX size={18} />
+                      <span className="text-sm">{errorMessage}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <GlowButton className="w-full" disabled={status === "loading"}>
+                  {status === "loading" ? (
+                    <>
+                      <IconLoader2 size={18} className="mr-2 animate-spin" />
+                      Sending...
+                    </>
+                  ) : status === "success" ? (
+                    <>
+                      <IconCheck size={18} className="mr-2" />
+                      Sent!
+                    </>
+                  ) : (
+                    <>
+                      <IconSend size={18} className="mr-2" />
+                      Send Message
+                    </>
+                  )}
                 </GlowButton>
               </form>
             </CardSpotlight>
