@@ -1,0 +1,83 @@
+---
+title: Introduction to Docker
+order: 1
+summary: What is Docker and why should you learn it? Understanding containerization fundamentals.
+---
+
+# Introduction to Docker
+
+Welcome to my Docker learning journey! This series documents everything I learn about Docker - from the very basics to advanced production concepts.
+
+## What is Docker?
+
+Docker is a platform that enables developers to **package applications into containers** - standardized executable components that combine application source code with all the operating system (OS) libraries and dependencies required to run that code in any environment.
+
+> **Note:** Docker is not the concept of containerization itself, but a tool that ensures containerization is accessible and easy to use.
+
+## Why Learn Docker?
+
+Here's why Docker has become essential for modern development:
+
+### 1. Consistency Across Environments
+> "It works on my machine" - Every developer, ever
+
+Docker eliminates this problem. Your application runs the same way everywhere - development, staging, and production.
+
+### 2. Isolation
+Each container is isolated from others. You can run multiple applications with different dependencies on the same machine without conflicts.
+
+### 3. Efficiency
+Containers are lightweight compared to virtual machines. They share the host OS kernel, making them faster to start and more resource-efficient.
+
+### 4. Scalability
+Docker makes it easy to scale applications horizontally by spinning up multiple container instances.
+
+## Docker vs Virtual Machines
+
+| Aspect | Docker Containers | Virtual Machines |
+|--------|------------------|------------------|
+| **Size** | Megabytes | Gigabytes |
+| **Startup** | Seconds | Minutes |
+| **OS** | Shares host kernel | Full OS per VM |
+| **Isolation** | Process-level | Hardware-level |
+| **Performance** | Near-native | Overhead from hypervisor |
+
+## Key Docker Concepts
+
+Before diving deeper, let's understand the core concepts:
+
+- **Image**: A read-only template with instructions for creating a container
+- **Container**: A runnable instance of an image
+- **Dockerfile**: A text file with instructions to build an image
+- **Registry**: A storage for Docker images (like Docker Hub)
+- **Volume**: Persistent data storage for containers
+- **Network**: Enables communication between containers
+
+## What We'll Cover
+
+Throughout this series, we'll explore:
+
+1. ✅ **Introduction** (You are here!)
+2. 🧠 **Containerization Fundamentals**
+3. 📦 **Installation & Setup**
+4. 🖼️ **Images & Containers**
+5. 📝 **Dockerfile Basics**
+6. 🔗 **Docker Compose**
+7. 🌐 **Networking**
+8. 💾 **Volumes & Storage**
+9. 🏭 **Production Best Practices**
+
+## Let's Get Started!
+
+In the next chapter, we'll dive deep into **Containerization Fundamentals** to understand what actually happens under the hood. Ready? 🚀
+
+## References
+
+1. **Docker Overview (Official)**  
+   [docs.docker.com/get-started/overview](https://docs.docker.com/get-started/overview/)
+
+2. **Docker vs Virtual Machines**  
+   [docker.com/resources/what-container](https://www.docker.com/resources/what-container/)
+
+3. **Docker Glossary**  
+   [docs.docker.com/glossary](https://docs.docker.com/glossary/)
