@@ -737,7 +737,6 @@ html.dark .prose li {
 .prose table {
   display: block;
   overflow-x: auto;
-  white-space: nowrap;
   width: 100%;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -746,6 +745,14 @@ html.dark .prose li {
   border-radius: 8px;
   border: 1px solid #e4e4e7;
   -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) {
+  .prose table {
+    display: table;
+    overflow-x: visible;
+    white-space: normal;
+  }
 }
 
 html.dark .prose table {
