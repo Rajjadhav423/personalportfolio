@@ -24,7 +24,7 @@ export function DocsLayout({ series, currentChapter, routePath, children }: Docs
   const nextChapter = currentIndex < series.chapters.length - 1 ? series.chapters[currentIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-zinc-950">
+    <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 w-full overflow-x-hidden">
       {/* Mobile Sidebar Toggle */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -58,7 +58,7 @@ export function DocsLayout({ series, currentChapter, routePath, children }: Docs
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         {/* Breadcrumb */}
-        <div className="mb-6 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+        <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
           <Link href="/blog" className="hover:text-cyan-600 dark:hover:text-cyan-400">
             Blog
           </Link>
@@ -86,7 +86,7 @@ export function DocsLayout({ series, currentChapter, routePath, children }: Docs
 
           {/* Main Content */}
           <main className="flex-1 min-w-0">
-            <article className="prose prose-zinc dark:prose-invert max-w-none prose-headings:scroll-mt-24 prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-code:bg-zinc-100 dark:prose-code:bg-zinc-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none">
+            <article className="prose prose-zinc dark:prose-invert max-w-none break-words prose-headings:scroll-mt-24 prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-code:bg-zinc-100 dark:prose-code:bg-zinc-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:max-w-[calc(100vw-3rem)] sm:prose-pre:max-w-none">
               {children}
             </article>
 
