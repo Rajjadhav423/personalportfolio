@@ -15,6 +15,7 @@ const navItems = [
   { name: "Education", link: "/#education" },
   { name: "Blog", link: "/blog" },
   { name: "Contact", link: "/#contact" },
+  { name: "Resume", link: "/Resume/rajesh_Resume.pdf" },
 ];
 
 export function FloatingNav() {
@@ -94,6 +95,7 @@ export function FloatingNav() {
                       ? "text-cyan-600 dark:text-cyan-400"
                       : "nav-link"
                   )}
+                  target={item.link.endsWith(".pdf") ? "_blank" : undefined}
                 >
                   {activeSection === item.link.replace("/#", "") && (
                     <motion.div
@@ -167,6 +169,7 @@ export function FloatingNav() {
                       <Link
                         href={item.link}
                         onClick={handleNavClick}
+                        target={item.link.endsWith(".pdf") ? "_blank" : undefined}
                         className="group flex items-center py-3"
                       >
                         <span className={cn(

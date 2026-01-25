@@ -13,6 +13,7 @@ import {
   IconBrandLinkedin,
   IconBrandGithub,
   IconSend,
+  IconBrandLeetcode,
   IconBrandMedium,
   IconCheck,
   IconX,
@@ -52,6 +53,13 @@ const contactInfo = [
     value: "GitHub Profile",
     href: portfolioData.personal.github,
     color: "gray",
+  },
+  {
+    icon: IconBrandLeetcode,
+    label: "LeetCode",
+    value: "LeetCode Profile",
+    href: "https://leetcode.com/u/jadhavraj423/",
+    color: "orange",
   },
   {
     icon: IconBrandMedium,

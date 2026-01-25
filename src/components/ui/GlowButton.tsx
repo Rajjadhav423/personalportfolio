@@ -7,6 +7,7 @@ interface GlowButtonProps {
   children: ReactNode;
   className?: string;
   href?: string;
+  target?: string;
   onClick?: () => void;
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
@@ -18,12 +19,15 @@ export function GlowButton({
   children,
   className,
   href,
+  target,
   onClick,
   variant = "primary",
   size = "md",
   fullWidth = false,
   disabled = false,
 }: GlowButtonProps) {
+  // ... (styles)
+
   const sizeStyles = {
     sm: "px-4 py-2 text-xs",
     md: "px-5 py-2.5 text-sm",
@@ -73,12 +77,15 @@ export function GlowButton({
   );
 
   if (href) {
+    const isExternal = href.startsWith("http");
+    const finalTarget = target || (isExternal ? "_blank" : undefined);
+    
     return (
       <a
         href={href}
         className={baseStyles}
-        target={href.startsWith("http") ? "_blank" : undefined}
-        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        target={finalTarget}
+        rel={finalTarget === "_blank" ? "noopener noreferrer" : undefined}
       >
         {children}
       </a>

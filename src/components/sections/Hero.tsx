@@ -7,6 +7,8 @@ import { GlowButton } from "@/components/ui/GlowButton";
 import {
   IconBrandLinkedin,
   IconBrandGithub,
+  IconBrandLeetcode,
+  IconFileText,
   IconMail,
   IconPhone,
 } from "@tabler/icons-react";
@@ -140,6 +142,10 @@ export function Hero() {
               <GlowButton variant="secondary" href="#projects" className="w-full sm:w-auto">
                 View Projects
               </GlowButton>
+              <GlowButton variant="secondary" href="/Resume/rajesh_Resume.pdf" target="_blank" className="w-full sm:w-auto">
+                <IconFileText size={18} />
+                Resume
+              </GlowButton>
             </div>
 
             {/* Social Links */}
@@ -164,6 +170,14 @@ export function Hero() {
                 className="hero-social-link p-3 rounded-full transition-all duration-300"
               >
                 <IconBrandGithub size={22} />
+              </a>
+              <a
+                href="https://leetcode.com/u/jadhavraj423/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-social-link p-3 rounded-full transition-all duration-300"
+              >
+                <IconBrandLeetcode size={22} />
               </a>
             </motion.div>
           </motion.div>
