@@ -3,18 +3,37 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import type { DocMetadata } from "@/lib/docs";
-import { IconChevronRight, IconBook } from "@tabler/icons-react";
+import type { DocSeries, DocModule } from "@/lib/docs";
+import { IconBook, IconChevronDown, IconBrandDocker } from "@tabler/icons-react";
+import { useState } from "react";
 
 interface DocsSidebarProps {
-  seriesSlug: string;
-  seriesTitle: string;
-  chapters: DocMetadata[];
-  routePath: string; // Add this prop
+  series: DocSeries;
+  routePath: string;
 }
 
-export function DocsSidebar({ seriesSlug, seriesTitle, chapters, routePath }: DocsSidebarProps) {
+const getModuleIcon = (slug: string) => {
+  const iconMap: Record<string, JSX.Element> = {
+    docker: <IconBrandDocker size={18} />,
+    "intro-to-devops": <IconBook size={18} />,
+  };
+  return iconMap[slug] || <IconBook size={18} />;
+};
+
+export function DocsSidebar({ series, routePath }: DocsSidebarProps) {
   const pathname = usePathname();
+  const [expandedModules, setExpandedModules] = useState<string[]>(
+    // Expand all modules by default
+    series.modules.map((m) => m.slug)
+  );
+
+  const toggleModule = (moduleSlug: string) => {
+    setExpandedModules((prev) =>
+      prev.includes(moduleSlug)
+        ? prev.filter((s) => s !== moduleSlug)
+        : [...prev, moduleSlug]
+    );
+  };
 
   return (
     <aside className="w-64 flex-shrink-0">
@@ -26,37 +45,68 @@ export function DocsSidebar({ seriesSlug, seriesTitle, chapters, routePath }: Do
             className="flex items-center gap-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
           >
             <IconBook size={20} />
-            {seriesTitle}
+            {series.title}
           </Link>
         </div>
 
-        {/* Chapters */}
-        <nav className="space-y-0.5">
-          {chapters.map((chapter, index) => {
-            const chapterPath = `/blog/${routePath}/${chapter.slug}`;
-            const isActive = pathname === chapterPath;
+        {/* Modules */}
+        <nav className="space-y-2">
+          {series.modules.map((module) => {
+            const isExpanded = expandedModules.includes(module.slug);
 
             return (
-              <Link
-                key={chapter.slug}
-                href={chapterPath}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                  isActive
-                    ? "text-cyan-600 dark:text-cyan-400 font-medium"
-                    : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+              <div key={module.slug}>
+                {/* Module Header */}
+                <button
+                  onClick={() => toggleModule(module.slug)}
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors"
+                >
+                  {getModuleIcon(module.slug)}
+                  <span className="flex-1 text-left">{module.title}</span>
+                  <IconChevronDown
+                    size={16}
+                    className={cn(
+                      "text-zinc-400 transition-transform",
+                      isExpanded && "rotate-180"
+                    )}
+                  />
+                </button>
+
+                {/* Module Chapters */}
+                {isExpanded && (
+                  <div className="ml-4 mt-1 space-y-0.5 border-l border-zinc-200 dark:border-zinc-700 pl-3">
+                    {module.chapters.map((chapter, index) => {
+                      const chapterPath = `/blog/${routePath}/${module.slug}/${chapter.slug}`;
+                      const isActive = pathname === chapterPath;
+
+                      return (
+                        <Link
+                          key={chapter.slug}
+                          href={chapterPath}
+                          className={cn(
+                            "flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors",
+                            isActive
+                              ? "text-cyan-600 dark:text-cyan-400 font-medium bg-cyan-50 dark:bg-cyan-950/30"
+                              : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              "text-xs font-medium",
+                              isActive
+                                ? "text-cyan-600 dark:text-cyan-400"
+                                : "text-zinc-400 dark:text-zinc-500"
+                            )}
+                          >
+                            {index + 1}.
+                          </span>
+                          <span className="flex-1">{chapter.title}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
                 )}
-              >
-                <span className={cn(
-                  "flex items-center justify-center w-5 h-5 rounded text-xs font-medium",
-                  isActive
-                    ? "text-cyan-600 dark:text-cyan-400"
-                    : "text-zinc-400 dark:text-zinc-500"
-                )}>
-                  {index + 1}.
-                </span>
-                <span className="flex-1">{chapter.title}</span>
-              </Link>
+              </div>
             );
           })}
         </nav>

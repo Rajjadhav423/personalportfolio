@@ -1,5 +1,5 @@
 import { getBlogPosts } from "@/lib/blog";
-import { getAllSeries } from "@/lib/docs";
+import { getAllSeries, getSeriesChapterCount } from "@/lib/docs";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import Link from "next/link";
@@ -62,7 +62,7 @@ export default function BlogPage() {
                           {s.title}
                         </h3>
                         <span className="text-xs px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-medium whitespace-nowrap">
-                          {s.chapters.length} chapters
+                          {getSeriesChapterCount(s)} chapters
                         </span>
                       </div>
                       <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">

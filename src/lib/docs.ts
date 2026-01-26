@@ -9,12 +9,21 @@ export type DocMetadata = {
   slug: string;
 };
 
+export type DocModule = {
+  title: string;
+  description?: string;
+  icon?: string;
+  slug: string;
+  order: number;
+  chapters: DocMetadata[];
+};
+
 export type DocSeries = {
   title: string;
   description: string;
   icon?: string;
   slug: string;
-  chapters: DocMetadata[];
+  modules: DocModule[];
 };
 
 function getMDXFiles(dir: string) {
@@ -27,16 +36,16 @@ function readMDXFile(filePath: string) {
   return matter(rawContent);
 }
 
-// Get all chapters for a specific series (e.g., "docker")
-export function getSeriesChapters(seriesSlug: string): DocMetadata[] {
-  const seriesDir = path.join(process.cwd(), 'src', 'content', 'series', seriesSlug);
+// Get all chapters for a specific module within a series
+export function getModuleChapters(seriesSlug: string, moduleSlug: string): DocMetadata[] {
+  const moduleDir = path.join(process.cwd(), 'src', 'content', 'series', seriesSlug, moduleSlug);
   
-  if (!fs.existsSync(seriesDir)) return [];
+  if (!fs.existsSync(moduleDir)) return [];
   
-  const mdxFiles = getMDXFiles(seriesDir);
+  const mdxFiles = getMDXFiles(moduleDir);
   
   const chapters = mdxFiles.map((file) => {
-    const { data } = readMDXFile(path.join(seriesDir, file));
+    const { data } = readMDXFile(path.join(moduleDir, file));
     const slug = path.basename(file, path.extname(file));
     
     return {
@@ -51,14 +60,42 @@ export function getSeriesChapters(seriesSlug: string): DocMetadata[] {
   return chapters.sort((a, b) => a.order - b.order);
 }
 
+// Get module metadata
+export function getModuleMetadata(seriesSlug: string, moduleSlug: string): DocModule | null {
+  const metaPath = path.join(
+    process.cwd(),
+    'src',
+    'content',
+    'series',
+    seriesSlug,
+    moduleSlug,
+    '_meta.json'
+  );
+  
+  if (!fs.existsSync(metaPath)) return null;
+  
+  const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+  const chapters = getModuleChapters(seriesSlug, moduleSlug);
+  
+  return {
+    title: meta.title,
+    description: meta.description,
+    icon: meta.icon,
+    slug: moduleSlug,
+    order: meta.order || 0,
+    chapters,
+  };
+}
+
 // Get a specific chapter content
-export function getChapter(seriesSlug: string, chapterSlug: string) {
+export function getChapter(seriesSlug: string, moduleSlug: string, chapterSlug: string) {
   const filePath = path.join(
     process.cwd(),
     'src',
     'content',
     'series',
     seriesSlug,
+    moduleSlug,
     `${chapterSlug}.mdx`
   );
   
@@ -77,28 +114,32 @@ export function getChapter(seriesSlug: string, chapterSlug: string) {
   };
 }
 
-// Get series metadata
+// Get series metadata with all modules
 export function getSeriesMetadata(seriesSlug: string): DocSeries | null {
-  const metaPath = path.join(
-    process.cwd(),
-    'src',
-    'content',
-    'series',
-    seriesSlug,
-    '_meta.json'
-  );
+  const seriesDir = path.join(process.cwd(), 'src', 'content', 'series', seriesSlug);
+  const metaPath = path.join(seriesDir, '_meta.json');
   
   if (!fs.existsSync(metaPath)) return null;
   
   const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
-  const chapters = getSeriesChapters(seriesSlug);
+  
+  // Get all module folders
+  const moduleFolders = fs.readdirSync(seriesDir).filter((item) => {
+    const itemPath = path.join(seriesDir, item);
+    return fs.statSync(itemPath).isDirectory();
+  });
+  
+  const modules = moduleFolders
+    .map((folder) => getModuleMetadata(seriesSlug, folder))
+    .filter((module): module is DocModule => module !== null)
+    .sort((a, b) => a.order - b.order);
   
   return {
     title: meta.title,
     description: meta.description,
     icon: meta.icon,
     slug: seriesSlug,
-    chapters,
+    modules,
   };
 }
 
@@ -116,4 +157,17 @@ export function getAllSeries(): DocSeries[] {
   return folders
     .map((folder) => getSeriesMetadata(folder))
     .filter((series): series is DocSeries => series !== null);
+}
+
+// Helper: Get total chapter count for a series
+export function getSeriesChapterCount(series: DocSeries): number {
+  return series.modules.reduce((total, module) => total + module.chapters.length, 0);
+}
+
+// Legacy compatibility: Get all chapters flat (for old code)
+export function getSeriesChapters(seriesSlug: string): DocMetadata[] {
+  const series = getSeriesMetadata(seriesSlug);
+  if (!series) return [];
+  
+  return series.modules.flatMap((module) => module.chapters);
 }

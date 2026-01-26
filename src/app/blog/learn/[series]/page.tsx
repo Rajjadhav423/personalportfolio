@@ -1,9 +1,10 @@
-import { getSeriesMetadata, getAllSeries } from "@/lib/docs";
+import { getSeriesMetadata, getAllSeries, getSeriesChapterCount } from "@/lib/docs";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
-import { IconBook, IconArrowRight, IconClock } from "@tabler/icons-react";
+import { IconBook, IconArrowRight, IconClock, IconChevronDown } from "@tabler/icons-react";
 import { portfolioData } from "@/data/portfolio";
+import ModuleAccordion from "./ModuleAccordion";
 
 interface PageProps {
   params: Promise<{
@@ -40,6 +41,10 @@ export default async function SeriesLandingPage({ params }: PageProps) {
     notFound();
   }
 
+  const totalChapters = getSeriesChapterCount(series);
+  const firstModule = series.modules[0];
+  const firstChapter = firstModule?.chapters[0];
+
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 bg-slate-50 dark:bg-zinc-950 relative overflow-hidden">
       {/* Background Effects */}
@@ -59,8 +64,8 @@ export default async function SeriesLandingPage({ params }: PageProps) {
 
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-cyan-500/10 text-cyan-500 mb-6 text-3xl">
-            {series.icon || "📚"}
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-cyan-500/10 text-cyan-500 mb-6">
+            <IconBook size={32} />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">
             {series.title}
@@ -71,20 +76,24 @@ export default async function SeriesLandingPage({ params }: PageProps) {
           <div className="flex items-center justify-center gap-4 mt-6 text-sm text-zinc-500 dark:text-zinc-400">
             <span className="flex items-center gap-1">
               <IconBook size={16} />
-              {series.chapters.length} Chapters
+              {series.modules.length} Modules
+            </span>
+            <span className="flex items-center gap-1">
+              <IconBook size={16} />
+              {totalChapters} Chapters
             </span>
             <span className="flex items-center gap-1">
               <IconClock size={16} />
-              ~{series.chapters.length * 10} min read
+              ~{totalChapters * 10} min read
             </span>
           </div>
         </div>
 
         {/* Start Learning Button */}
-        {series.chapters.length > 0 && (
+        {firstModule && firstChapter && (
           <div className="text-center mb-12">
             <Link
-              href={`/blog/learn/${seriesSlug}/${series.chapters[0].slug}`}
+              href={`/blog/learn/${seriesSlug}/${firstModule.slug}/${firstChapter.slug}`}
               className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-medium rounded-lg transition-colors"
             >
               Start Learning
@@ -93,43 +102,24 @@ export default async function SeriesLandingPage({ params }: PageProps) {
           </div>
         )}
 
-        {/* Chapters List */}
+        {/* Modules List */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-6">
-            Chapters
-          </h2>
-          {series.chapters.map((chapter, index) => (
-            <Link key={chapter.slug} href={`/blog/learn/${seriesSlug}/${chapter.slug}`} className="block">
-              <CardSpotlight className="p-5 hover:border-cyan-500/50 transition-colors group bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm border-zinc-200 dark:border-white/10">
-                <div className="flex items-center gap-4">
-                  <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-bold text-sm">
-                    {index + 1}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                      {chapter.title}
-                    </h3>
-                    {chapter.summary && (
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400 truncate">
-                        {chapter.summary}
-                      </p>
-                    )}
-                  </div>
-                  <IconArrowRight
-                    size={18}
-                    className="text-zinc-400 group-hover:text-cyan-500 group-hover:translate-x-1 transition-all"
-                  />
-                </div>
-              </CardSpotlight>
-            </Link>
+          {series.modules.map((module, moduleIndex) => (
+            <ModuleAccordion
+              key={module.slug}
+              module={module}
+              moduleIndex={moduleIndex}
+              seriesSlug={seriesSlug}
+              isFirstModule={moduleIndex === 0}
+            />
           ))}
         </div>
 
         {/* Empty State */}
-        {series.chapters.length === 0 && (
+        {series.modules.length === 0 && (
           <div className="text-center py-12">
             <p className="text-zinc-500 dark:text-zinc-400">
-              No chapters yet. Check back soon!
+              No modules yet. Check back soon!
             </p>
           </div>
         )}

@@ -1,0 +1,21 @@
+{
+  "title": "DevOps Engineering",
+  "description": "Master the art of DevOps engineering. From understanding the core philosophy to mastering tools like Docker, Kubernetes, CI/CD, and Cloud Infrastructure.",
+  "icon": "🚀",
+  "publishedAt": "2026-01-23",
+  "tags": ["DevOps", "Docker", "CI/CD", "Cloud", "Automation"],
+  "modules": [
+    {
+      "slug": "intro-to-devops",
+      "title": "Introduction to DevOps",
+      "icon": "📚",
+      "order": 1
+    },
+    {
+      "slug": "docker",
+      "title": "Docker",
+      "icon": "🐳",
+      "order": 2
+    }
+  ]
+}

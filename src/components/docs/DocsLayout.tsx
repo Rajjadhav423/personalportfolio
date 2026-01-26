@@ -3,25 +3,35 @@
 import Link from "next/link";
 import { DocsSidebar } from "./DocsSidebar";
 import { TableOfContents } from "./TableOfContents";
-import type { DocMetadata, DocSeries } from "@/lib/docs";
+import type { DocMetadata, DocSeries, DocModule } from "@/lib/docs";
 import { IconArrowLeft, IconArrowRight, IconMenu2, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface DocsLayoutProps {
   series: DocSeries;
+  currentModule: DocModule;
   currentChapter: DocMetadata;
-  routePath: string; // The URL path prefix (e.g., "learn-docker")
+  routePath: string;
   children: React.ReactNode;
 }
 
-export function DocsLayout({ series, currentChapter, routePath, children }: DocsLayoutProps) {
+export function DocsLayout({ series, currentModule, currentChapter, routePath, children }: DocsLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
-  // Find previous and next chapters
-  const currentIndex = series.chapters.findIndex((c) => c.slug === currentChapter.slug);
-  const prevChapter = currentIndex > 0 ? series.chapters[currentIndex - 1] : null;
-  const nextChapter = currentIndex < series.chapters.length - 1 ? series.chapters[currentIndex + 1] : null;
+  // Find previous and next chapters (across modules)
+  const allChapters: { module: DocModule; chapter: DocMetadata }[] = [];
+  series.modules.forEach((module) => {
+    module.chapters.forEach((chapter) => {
+      allChapters.push({ module, chapter });
+    });
+  });
+  
+  const currentIndex = allChapters.findIndex(
+    (item) => item.module.slug === currentModule.slug && item.chapter.slug === currentChapter.slug
+  );
+  const prevItem = currentIndex > 0 ? allChapters[currentIndex - 1] : null;
+  const nextItem = currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1] : null;
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 w-full overflow-x-hidden">
@@ -48,12 +58,7 @@ export function DocsLayout({ series, currentChapter, routePath, children }: Docs
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <DocsSidebar
-          seriesSlug={series.slug}
-          seriesTitle={series.title}
-          chapters={series.chapters}
-          routePath={routePath}
-        />
+        <DocsSidebar series={series} routePath={routePath} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
@@ -70,18 +75,15 @@ export function DocsLayout({ series, currentChapter, routePath, children }: Docs
             {series.title}
           </Link>
           <span>/</span>
+          <span className="text-zinc-600 dark:text-zinc-300">{currentModule.title}</span>
+          <span>/</span>
           <span className="text-zinc-900 dark:text-zinc-100">{currentChapter.title}</span>
         </div>
 
         <div className="flex gap-10">
           {/* Desktop Sidebar */}
           <div className="hidden lg:block">
-            <DocsSidebar
-              seriesSlug={series.slug}
-              seriesTitle={series.title}
-              chapters={series.chapters}
-              routePath={routePath}
-            />
+            <DocsSidebar series={series} routePath={routePath} />
           </div>
 
           {/* Main Content */}
@@ -92,32 +94,32 @@ export function DocsLayout({ series, currentChapter, routePath, children }: Docs
 
             {/* Navigation */}
             <nav className="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800 flex justify-between">
-              {prevChapter ? (
+              {prevItem ? (
                 <Link
-                  href={`/blog/${routePath}/${prevChapter.slug}`}
+                  href={`/blog/${routePath}/${prevItem.module.slug}/${prevItem.chapter.slug}`}
                   className="group flex flex-col items-start"
                 >
                   <span className="text-xs text-zinc-500 dark:text-zinc-400 mb-1 flex items-center gap-1">
                     <IconArrowLeft size={12} /> Previous
                   </span>
                   <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400">
-                    {prevChapter.title}
+                    {prevItem.chapter.title}
                   </span>
                 </Link>
               ) : (
                 <div />
               )}
 
-              {nextChapter ? (
+              {nextItem ? (
                 <Link
-                  href={`/blog/${routePath}/${nextChapter.slug}`}
+                  href={`/blog/${routePath}/${nextItem.module.slug}/${nextItem.chapter.slug}`}
                   className="group flex flex-col items-end"
                 >
                   <span className="text-xs text-zinc-500 dark:text-zinc-400 mb-1 flex items-center gap-1">
                     Next <IconArrowRight size={12} />
                   </span>
                   <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400">
-                    {nextChapter.title}
+                    {nextItem.chapter.title}
                   </span>
                 </Link>
               ) : (

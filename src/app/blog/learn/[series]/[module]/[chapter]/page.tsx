@@ -1,4 +1,4 @@
-import { getSeriesMetadata, getChapter, getAllSeries, getSeriesChapters } from "@/lib/docs";
+import { getSeriesMetadata, getModuleMetadata, getChapter, getAllSeries } from "@/lib/docs";
 import { DocsLayout } from "@/components/docs";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -10,21 +10,24 @@ import { mdxComponents } from "@/components/docs/MDXComponents";
 interface PageProps {
   params: Promise<{
     series: string;
+    module: string;
     chapter: string;
   }>;
 }
 
 export async function generateStaticParams() {
   const allSeries = getAllSeries();
-  const params: { series: string; chapter: string }[] = [];
+  const params: { series: string; module: string; chapter: string }[] = [];
 
   for (const series of allSeries) {
-    const chapters = getSeriesChapters(series.slug);
-    for (const chapter of chapters) {
-      params.push({
-        series: series.slug,
-        chapter: chapter.slug,
-      });
+    for (const module of series.modules) {
+      for (const chapter of module.chapters) {
+        params.push({
+          series: series.slug,
+          module: module.slug,
+          chapter: chapter.slug,
+        });
+      }
     }
   }
 
@@ -32,33 +35,40 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const { series: seriesSlug, chapter: chapterSlug } = await params;
+  const { series: seriesSlug, module: moduleSlug, chapter: chapterSlug } = await params;
   const series = getSeriesMetadata(seriesSlug);
-  const chapter = getChapter(seriesSlug, chapterSlug);
+  const module = getModuleMetadata(seriesSlug, moduleSlug);
+  const chapter = getChapter(seriesSlug, moduleSlug, chapterSlug);
 
-  if (!series || !chapter) {
+  if (!series || !module || !chapter) {
     return { title: "Not Found" };
   }
 
   return {
-    title: `${chapter.metadata.title} | ${series.title} | ${portfolioData.personal.name}`,
+    title: `${chapter.metadata.title} | ${module.title} | ${series.title} | ${portfolioData.personal.name}`,
     description: chapter.metadata.summary,
   };
 }
 
 export default async function ChapterPage({ params }: PageProps) {
-  const { series: seriesSlug, chapter: chapterSlug } = await params;
+  const { series: seriesSlug, module: moduleSlug, chapter: chapterSlug } = await params;
   const series = getSeriesMetadata(seriesSlug);
-  const chapter = getChapter(seriesSlug, chapterSlug);
+  const module = getModuleMetadata(seriesSlug, moduleSlug);
+  const chapter = getChapter(seriesSlug, moduleSlug, chapterSlug);
 
-  if (!series || !chapter) {
+  if (!series || !module || !chapter) {
     notFound();
   }
 
   const routePath = `learn/${seriesSlug}`;
 
   return (
-    <DocsLayout series={series} currentChapter={chapter.metadata} routePath={routePath}>
+    <DocsLayout 
+      series={series} 
+      currentModule={module} 
+      currentChapter={chapter.metadata} 
+      routePath={routePath}
+    >
       <MDXRemote
         source={chapter.content}
         components={mdxComponents}
