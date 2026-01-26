@@ -13,7 +13,7 @@ interface DocsSidebarProps {
 }
 
 const getModuleIcon = (slug: string) => {
-  const iconMap: Record<string, JSX.Element> = {
+  const iconMap: Record<string, React.ReactNode> = {
     docker: <IconBrandDocker size={18} />,
     "intro-to-devops": <IconBook size={18} />,
   };

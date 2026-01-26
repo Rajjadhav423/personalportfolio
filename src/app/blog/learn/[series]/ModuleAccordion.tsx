@@ -14,7 +14,7 @@ interface ModuleAccordionProps {
 }
 
 const getModuleIcon = (slug: string) => {
-  const iconMap: Record<string, JSX.Element> = {
+  const iconMap: Record<string, React.ReactNode> = {
     docker: <IconBrandDocker size={24} className="text-cyan-500" />,
     "intro-to-devops": <IconBook size={24} className="text-cyan-500" />,
   };
