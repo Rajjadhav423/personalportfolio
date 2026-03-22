@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { CardSpotlight } from "@/components/ui/card-spotlight";
-import { IconArrowRight, IconChevronDown, IconBook, IconBrandDocker } from "@tabler/icons-react";
 import { DocModule } from "@/lib/docs";
+import { IconArrowRight, IconBook, IconBrandDocker, IconChevronDown } from "@tabler/icons-react";
 
 interface ModuleAccordionProps {
   module: DocModule;
@@ -15,10 +14,10 @@ interface ModuleAccordionProps {
 
 const getModuleIcon = (slug: string) => {
   const iconMap: Record<string, React.ReactNode> = {
-    docker: <IconBrandDocker size={24} className="text-cyan-500" />,
-    "intro-to-devops": <IconBook size={24} className="text-cyan-500" />,
+    docker: <IconBrandDocker size={20} className="text-[#d4a35f]" />,
+    "intro-to-devops": <IconBook size={20} className="text-[#d4a35f]" />,
   };
-  return iconMap[slug] || <IconBook size={24} className="text-cyan-500" />;
+  return iconMap[slug] || <IconBook size={20} className="text-[#d4a35f]" />;
 };
 
 export default function ModuleAccordion({
@@ -30,69 +29,69 @@ export default function ModuleAccordion({
   const [isOpen, setIsOpen] = useState(isFirstModule);
 
   return (
-    <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
-      {/* Accordion Header */}
+    <div className="border border-[#3b2f23] bg-[#15110d]/80">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-5 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group"
+        className="group grid w-full gap-4 p-5 text-left transition-colors hover:bg-[#18130f] md:grid-cols-[3.5rem_1fr_auto] md:items-center md:p-6"
       >
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-cyan-500/10">
-            {getModuleIcon(module.slug)}
-          </div>
-          <div className="text-left">
-            <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-              {module.title}
-            </h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
-              {module.chapters.length} chapter{module.chapters.length !== 1 ? 's' : ''}
-            </p>
-          </div>
+        <div className="flex h-14 w-14 items-center justify-center border border-[#3b2f23] bg-[#19130f]">
+          {getModuleIcon(module.slug)}
         </div>
-        <IconChevronDown
-          size={20}
-          className={`text-zinc-400 transition-transform duration-300 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
+
+        <div>
+          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#8f806c]">
+            Module {String(moduleIndex + 1).padStart(2, "0")}
+          </div>
+          <h2 className="mt-2 text-2xl font-semibold text-[#f5efe3]">{module.title}</h2>
+          <p className="mt-2 text-sm text-[#b9ad9b]">
+            {module.chapters.length} chapter{module.chapters.length !== 1 ? "s" : ""}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between gap-4 md:block">
+          <div className="text-xs uppercase tracking-[0.18em] text-[#8f806c]">
+            {isOpen ? "Collapse" : "Expand"}
+          </div>
+          <IconChevronDown
+            size={20}
+            className={`mt-2 text-[#d4a35f] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          />
+        </div>
       </button>
 
-      {/* Accordion Content */}
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-5 pb-5 pt-2 space-y-3 border-t border-zinc-100 dark:border-zinc-800/50">
-          {module.chapters.map((chapter, index) => (
-            <Link
-              key={chapter.slug}
-              href={`/blog/learn/${seriesSlug}/${module.slug}/${chapter.slug}`}
-              className="block"
-            >
-              <div className="p-4 rounded-lg border border-zinc-200 dark:border-zinc-700/50 hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all group bg-white dark:bg-zinc-900/50 hover:shadow-md">
-                <div className="flex items-center gap-4">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-bold text-sm shrink-0">
+        <div className="border-t border-[#3b2f23] px-5 pb-5 pt-4 md:px-6 md:pb-6">
+          <div className="space-y-3">
+            {module.chapters.map((chapter, index) => (
+              <Link
+                key={chapter.slug}
+                href={`/blog/learn/${seriesSlug}/${module.slug}/${chapter.slug}`}
+                className="block"
+              >
+                <div className="grid gap-4 border-l border-[#d4a35f] bg-[#19130f] px-4 py-4 transition-colors hover:bg-[#1d1712] md:grid-cols-[3rem_1fr_auto] md:items-center">
+                  <span className="inline-flex h-10 w-10 items-center justify-center border border-[#3b2f23] text-sm font-semibold text-[#f5efe3]">
                     {index + 1}
                   </span>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                      {chapter.title}
-                    </h3>
+                  <div>
+                    <h3 className="text-lg font-semibold text-[#f5efe3]">{chapter.title}</h3>
                     {chapter.summary && (
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2 mt-1">
+                      <p className="mt-1 text-sm leading-7 text-[#b9ad9b]">
                         {chapter.summary}
                       </p>
                     )}
                   </div>
-                  <IconArrowRight
-                    size={18}
-                    className="text-zinc-400 group-hover:text-cyan-500 group-hover:translate-x-1 transition-all shrink-0"
-                  />
+                  <div className="flex items-center gap-2 text-sm uppercase tracking-[0.16em] text-[#f5dfb8]">
+                    Open
+                    <IconArrowRight size={16} />
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

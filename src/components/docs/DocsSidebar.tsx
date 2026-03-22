@@ -37,44 +37,40 @@ export function DocsSidebar({ series, routePath }: DocsSidebarProps) {
 
   return (
     <aside className="w-64 flex-shrink-0">
-      <div className="sticky top-24 overflow-y-auto max-h-[calc(100vh-8rem)]">
-        {/* Series Title */}
+      <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
         <div className="mb-6">
           <Link
             href={`/blog/${routePath}`}
-            className="flex items-center gap-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+            className="flex items-center gap-2 text-lg font-semibold text-[#f5efe3] transition-colors hover:text-[#f5dfb8]"
           >
             <IconBook size={20} />
             {series.title}
           </Link>
         </div>
 
-        {/* Modules */}
         <nav className="space-y-2">
           {series.modules.map((module) => {
             const isExpanded = expandedModules.includes(module.slug);
 
             return (
               <div key={module.slug}>
-                {/* Module Header */}
                 <button
                   onClick={() => toggleModule(module.slug)}
-                  className="w-full flex items-center gap-2 px-3 py-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors"
+                  className="flex w-full items-center gap-2 border-l border-[#3b2f23] px-3 py-3 text-sm font-semibold text-[#f5efe3] transition-colors hover:border-[#5d4a34] hover:bg-[#15110d]"
                 >
                   {getModuleIcon(module.slug)}
                   <span className="flex-1 text-left">{module.title}</span>
                   <IconChevronDown
                     size={16}
                     className={cn(
-                      "text-zinc-400 transition-transform",
+                      "text-[#8f806c] transition-transform",
                       isExpanded && "rotate-180"
                     )}
                   />
                 </button>
 
-                {/* Module Chapters */}
                 {isExpanded && (
-                  <div className="ml-4 mt-1 space-y-0.5 border-l border-zinc-200 dark:border-zinc-700 pl-3">
+                  <div className="ml-4 mt-1 space-y-0.5 border-l border-[#3b2f23] pl-3">
                     {module.chapters.map((chapter, index) => {
                       const chapterPath = `/blog/${routePath}/${module.slug}/${chapter.slug}`;
                       const isActive = pathname === chapterPath;
@@ -84,18 +80,18 @@ export function DocsSidebar({ series, routePath }: DocsSidebarProps) {
                           key={chapter.slug}
                           href={chapterPath}
                           className={cn(
-                            "flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors",
+                            "flex items-center gap-2 px-2 py-2 text-sm transition-colors",
                             isActive
-                              ? "text-cyan-600 dark:text-cyan-400 font-medium bg-cyan-50 dark:bg-cyan-950/30"
-                              : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
+                              ? "bg-[#15110d] font-semibold text-[#f5dfb8]"
+                              : "text-[#b9ad9b] hover:bg-[#15110d]/70 hover:text-[#f5efe3]"
                           )}
                         >
                           <span
                             className={cn(
-                              "text-xs font-medium",
+                              "text-xs font-semibold",
                               isActive
-                                ? "text-cyan-600 dark:text-cyan-400"
-                                : "text-zinc-400 dark:text-zinc-500"
+                                ? "text-[#d4a35f]"
+                                : "text-[#8f806c]"
                             )}
                           >
                             {index + 1}.

@@ -1,41 +1,95 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import React from 'react';
-import { CardSpotlight } from './card-spotlight';
+import { MDXRemote } from "next-mdx-remote/rsc";
+import React from "react";
+import { CardSpotlight } from "./card-spotlight";
 
 const components = {
   h1: (props: any) => (
-    <h1 {...props} className="text-3xl font-bold mt-8 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 to-zinc-600 dark:from-zinc-100 dark:to-zinc-400" />
+    <h1
+      {...props}
+      className="mt-10 mb-6 text-4xl font-semibold tracking-[-0.04em] text-[#f5efe3]"
+    />
   ),
   h2: (props: any) => (
-    <h2 {...props} className="text-2xl font-bold mt-8 mb-4 text-zinc-800 dark:text-zinc-100 border-l-4 border-cyan-500 pl-4" />
+    <h2
+      {...props}
+      className="mt-14 mb-5 border-t border-[rgba(209,153,72,0.18)] pt-6 text-3xl font-semibold tracking-[-0.035em] text-[#f5efe3]"
+    />
   ),
   h3: (props: any) => (
-    <h3 {...props} className="text-xl font-extrabold mt-6 mb-3 text-zinc-800 dark:text-zinc-100" />
+    <h3
+      {...props}
+      className="mt-10 mb-4 text-2xl font-semibold tracking-[-0.03em] text-[#f5efe3]"
+    />
   ),
   h4: (props: any) => (
-    <h4 {...props} className="text-lg font-bold mt-4 mb-2 text-zinc-800 dark:text-zinc-100" />
+    <h4
+      {...props}
+      className="mt-8 mb-3 font-mono text-sm font-semibold uppercase tracking-[0.24em] text-[#d4a35f]"
+    />
   ),
   p: (props: any) => (
-    <p {...props} className="text-zinc-600 dark:text-zinc-300 mb-4 leading-relaxed" />
+    <p
+      {...props}
+      className="mb-5 text-[1.05rem] leading-8 text-[#b9ad9b]"
+    />
   ),
   ul: (props: any) => (
-    <ul {...props} className="list-disc list-inside mb-4 space-y-2 text-zinc-600 dark:text-zinc-300" />
+    <ul
+      {...props}
+      className="mb-6 space-y-3 pl-0 text-[#b9ad9b] marker:text-transparent"
+    />
+  ),
+  ol: (props: any) => (
+    <ol
+      {...props}
+      className="mb-6 space-y-4 pl-0 text-[#b9ad9b] marker:text-transparent"
+    />
   ),
   li: (props: any) => (
-      <li {...props} className="ml-4" />
+    <li
+      {...props}
+      className="relative pl-7 before:absolute before:left-0 before:top-[0.8em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-[#d19948]"
+    />
   ),
   strong: (props: any) => (
-    <strong {...props} className="font-extrabold text-cyan-600 dark:text-cyan-400" />
+    <strong
+      {...props}
+      className="font-semibold text-[#f5efe3]"
+    />
+  ),
+  a: (props: any) => (
+    <a
+      {...props}
+      className="ui-link underline decoration-[rgba(209,153,72,0.4)] underline-offset-4 transition hover:text-[#f2c983]"
+    />
   ),
   blockquote: (props: any) => (
-    <blockquote {...props} className="border-l-4 border-cyan-500 pl-4 py-2 italic bg-cyan-50/30 dark:bg-cyan-900/10 rounded-r-lg my-6 text-zinc-700 dark:text-zinc-300" />
+    <blockquote
+      {...props}
+      className="my-8 border-l-2 border-[#d19948] bg-[rgba(212,163,95,0.08)] px-6 py-5 text-lg italic leading-8 text-[#d7ccbc]"
+    />
   ),
-  CardSpotlight: CardSpotlight,
-  // Add more custom components here
+  code: (props: any) => (
+    <code
+      {...props}
+      className="rounded-md border border-[#3b2f23] bg-[#15110d] px-2 py-1 font-mono text-[0.92em] text-[#f2c983]"
+    />
+  ),
+  pre: (props: any) => (
+    <pre
+      {...props}
+      className="my-8 overflow-x-auto rounded-[1.5rem] border border-[#3b2f23] bg-black/80 p-5 text-sm text-[#e7dccf] shadow-[0_16px_40px_rgba(0,0,0,0.24)]"
+    />
+  ),
+  hr: (props: any) => (
+    <hr
+      {...props}
+      className="my-10 border-0 border-t border-[rgba(209,153,72,0.16)]"
+    />
+  ),
+  CardSpotlight,
 };
 
 export function PortfolioMDXRemote({ source }: { source: string }) {
-  return (
-    <MDXRemote source={source} components={components} />
-  );
+  return <MDXRemote source={source} components={components} />;
 }

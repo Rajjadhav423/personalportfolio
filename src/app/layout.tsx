@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { portfolioData } from "@/data/portfolio";
 import React from "react";
 import { FloatingNav } from "@/components/ui/FloatingNav";
@@ -35,14 +34,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark">
       <body
         className={`${spaceGrotesk.variable} ${ibmPlexMono.variable} antialiased`}
       >
-        <ThemeProvider>
-          <FloatingNav />
-          {children}
-        </ThemeProvider>
+        <FloatingNav />
+        {children}
       </body>
     </html>
   );

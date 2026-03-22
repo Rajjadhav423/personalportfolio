@@ -1,7 +1,6 @@
 import { getBlogPost, getBlogPosts } from "@/lib/blog";
 import { PortfolioMDXRemote } from "@/components/ui/MDXRemote";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { IconCalendar, IconArrowLeft, IconClock } from "@tabler/icons-react";
+import { IconArrowLeft, IconCalendar, IconClock } from "@tabler/icons-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { portfolioData } from "@/data/portfolio";
@@ -13,9 +12,14 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const post = getBlogPost(slug);
+
   if (!post) {
     return;
   }
@@ -28,12 +32,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       title,
       description,
-      type: 'article',
+      type: "article",
       publishedTime: post.metadata.publishedAt,
       images: image ? [{ url: image }] : undefined,
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
       images: image ? [image] : undefined,
@@ -41,7 +45,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const post = getBlogPost(slug);
 
@@ -49,50 +57,94 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     notFound();
   }
 
-  return (
-    <main className="min-h-screen pt-32 pb-16 px-4 bg-slate-50 dark:bg-zinc-950 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none" />
+  const publishedDate = new Date(post.metadata.publishedAt).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+  );
 
-      <article className="max-w-3xl mx-auto relative z-10">
+  return (
+    <main className="relative min-h-screen overflow-hidden px-4 pb-20 pt-32">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(209,153,72,0.08),transparent_28%),linear-gradient(180deg,rgba(209,153,72,0.05),transparent_20%,transparent_82%,rgba(209,153,72,0.04))]" />
+
+      <article className="relative z-10 mx-auto max-w-5xl">
         <Link
           href="/blog"
-          className="inline-flex items-center text-sm text-zinc-500 dark:text-zinc-400 hover:text-cyan-600 dark:hover:text-cyan-400 mb-8 transition-colors group"
+          className="mb-10 inline-flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[#d4a35f] transition hover:text-[#f2c983]"
         >
-          <IconArrowLeft size={16} className="mr-1 group-hover:-translate-x-1 transition-transform" /> Back to Blog
+          <IconArrowLeft size={16} />
+          Return to Archive
         </Link>
 
-        <header className="mb-10">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400 mb-6 pb-2 leading-tight">
-            {post.metadata.title}
-          </h1>
-
-          <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400 border-b border-zinc-200 dark:border-white/10 pb-8">
-            <div className="flex items-center gap-1">
-              <IconCalendar size={18} />
-              <time dateTime={post.metadata.publishedAt}>
-                {new Date(post.metadata.publishedAt).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </time>
-            </div>
-            {/* Add reading time calculation if desired later */}
-            {post.metadata.tags && (
-              <div className="flex gap-2 ml-auto">
-                {post.metadata.tags.map(tag => (
-                  <span key={tag} className="text-xs px-2 py-1 rounded-full bg-cyan-100/50 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300">
-                    {tag}
-                  </span>
-                ))}
+        <header className="grid gap-8 border border-[rgba(209,153,72,0.14)] bg-[linear-gradient(180deg,rgba(24,16,10,0.9),rgba(10,10,10,0.96))] px-6 py-8 shadow-[0_30px_80px_rgba(0,0,0,0.28)] md:grid-cols-[1.6fr_0.8fr] md:px-10">
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <div className="text-[0.72rem] uppercase tracking-[0.36em] text-[#d4a35f]">
+                Field Note
               </div>
-            )}
+              <h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.05em] text-[#f5efe3] md:text-6xl">
+                {post.metadata.title}
+              </h1>
+              <p className="max-w-2xl text-base leading-8 text-[#b9ad9b] md:text-lg">
+                {post.metadata.summary}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              {(post.metadata.tags ?? []).map((tag) => (
+                <span
+                  key={tag}
+                  className="border border-[rgba(209,153,72,0.2)] bg-[rgba(209,153,72,0.06)] px-3 py-2 text-[0.68rem] uppercase tracking-[0.18em] text-[#d4a35f]"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-4 self-start border border-white/8 bg-black/35 p-5">
+            <div>
+              <div className="text-[0.68rem] uppercase tracking-[0.28em] text-[#d4a35f]">
+                Published
+              </div>
+              <div className="mt-3 flex items-center gap-3 text-sm text-[#d7ccbc]">
+                <IconCalendar size={18} className="text-[#d19948]" />
+                <time dateTime={post.metadata.publishedAt}>{publishedDate}</time>
+              </div>
+            </div>
+
+            <div>
+              <div className="text-[0.68rem] uppercase tracking-[0.28em] text-[#d4a35f]">
+                Read Mode
+              </div>
+              <div className="mt-3 flex items-center gap-3 text-sm text-[#d7ccbc]">
+                <IconClock size={18} className="text-[#d19948]" />
+                Long-form briefing
+              </div>
+            </div>
           </div>
         </header>
 
-        <div className="prose prose-zinc dark:prose-invert prose-lg max-w-none prose-headings:font-extrabold prose-headings:text-zinc-800 dark:prose-headings:text-zinc-100 prose-a:text-cyan-600 dark:prose-a:text-cyan-400 hover:prose-a:text-cyan-500 prose-strong:font-black prose-strong:text-cyan-600 dark:prose-strong:text-cyan-400 prose-img:rounded-xl prose-img:shadow-lg prose-img:border prose-img:border-zinc-200 dark:prose-img:border-zinc-800">
-          <PortfolioMDXRemote source={post.content} />
+        <div className="grid gap-10 border-x border-b border-[rgba(209,153,72,0.12)] bg-[linear-gradient(180deg,rgba(30,20,13,0.24),rgba(10,10,10,0.62))] px-6 py-10 md:grid-cols-[0.72fr_1.45fr] md:px-10">
+          <aside className="space-y-5">
+            <div className="border border-[rgba(209,153,72,0.12)] bg-black/30 p-5">
+              <div className="text-[0.68rem] uppercase tracking-[0.32em] text-[#d4a35f]">
+                Briefing
+              </div>
+              <p className="mt-4 text-sm leading-7 text-[#b9ad9b]">
+                A long-form note from the archive. This article follows the same
+                operational reading system as the rest of the site instead of
+                the older neon blog template.
+              </p>
+            </div>
+          </aside>
+
+          <div className="docs-prose">
+            <PortfolioMDXRemote source={post.content} />
+          </div>
         </div>
       </article>
     </main>

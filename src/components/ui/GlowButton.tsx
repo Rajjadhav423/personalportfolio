@@ -49,7 +49,7 @@ export function GlowButton({
     ghost: cn(
       "bg-transparent",
       "text-[#d8ccba]",
-      "font-medium",
+      "font-semibold",
       "border border-[#3f3328]",
       "hover:border-[#d4a35f]/30 hover:bg-[#211913]"
     ),
@@ -57,7 +57,7 @@ export function GlowButton({
 
   const baseStyles = cn(
     "inline-flex items-center justify-center gap-2",
-    "rounded-none uppercase tracking-[0.18em]",
+    "rounded-none font-sans uppercase tracking-[0.18em]",
     "transition-all duration-200",
     sizeStyles[size],
     variantStyles[variant],

@@ -226,7 +226,7 @@ export const portfolioData = {
       tech: ["Next.js", "jsforce", "Salesforce API", "AI Integration", "Tailwind CSS"],
       date: "May 2025",
       features: ["Natural Language Query", "Schema Visualization", "Multi-Org Management", "Real-time Analytics"],
-      gradient: "from-cyan-500 to-blue-500",
+      gradient: "from-amber-500 to-orange-500",
     },
     {
       title: "Uber Clone - Ride Sharing App",

@@ -1,9 +1,8 @@
-import { getSeriesMetadata, getAllSeries, getSeriesChapterCount } from "@/lib/docs";
-import { notFound } from "next/navigation";
 import Link from "next/link";
-import { CardSpotlight } from "@/components/ui/card-spotlight";
-import { IconBook, IconArrowRight, IconClock, IconChevronDown } from "@tabler/icons-react";
+import { notFound } from "next/navigation";
+import { IconArrowRight, IconBook, IconClock } from "@tabler/icons-react";
 import { portfolioData } from "@/data/portfolio";
+import { getAllSeries, getSeriesChapterCount, getSeriesMetadata } from "@/lib/docs";
 import ModuleAccordion from "./ModuleAccordion";
 
 interface PageProps {
@@ -46,83 +45,88 @@ export default async function SeriesLandingPage({ params }: PageProps) {
   const firstChapter = firstModule?.chapters[0];
 
   return (
-    <main className="min-h-screen pt-24 pb-16 px-4 bg-slate-50 dark:bg-zinc-950 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
+    <main className="relative min-h-screen overflow-hidden px-4 pb-16 pt-28 md:px-6 lg:px-8">
+      <div className="pointer-events-none absolute inset-0 bg-grid opacity-20" />
+      <div className="pointer-events-none absolute right-0 top-0 h-[420px] w-[420px] rounded-full bg-[#7b5532]/14 blur-[140px]" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-[320px] w-[320px] rounded-full bg-[#d4a35f]/10 blur-[140px]" />
 
-      <div className="max-w-4xl mx-auto relative z-10">
-        {/* Breadcrumb */}
-        <div className="mb-6 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
-          <Link href="/blog" className="hover:text-cyan-600 dark:hover:text-cyan-400">
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="mb-6 flex items-center gap-2 text-sm text-[#8f806c]">
+          <Link href="/blog" className="hover:text-[#f5dfb8]">
             Blog
           </Link>
           <span>/</span>
-          <span className="text-zinc-900 dark:text-zinc-100">{series.title}</span>
+          <span className="text-[#d7ccbc]">{series.title}</span>
         </div>
 
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-cyan-500/10 text-cyan-500 mb-6">
-            <IconBook size={32} />
+        <section className="grid gap-10 border-t border-[#3b2f23] pt-8 lg:grid-cols-[0.42fr_0.58fr]">
+          <div>
+            <div className="font-mono text-[11px] uppercase tracking-[0.34em] text-[#d4a35f]">
+              Learning Series
+            </div>
+            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.06em] text-[#f5efe3] md:text-7xl">
+              {series.title}
+            </h1>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">
-            {series.title}
-          </h1>
-          <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
-            {series.description}
-          </p>
-          <div className="flex items-center justify-center gap-4 mt-6 text-sm text-zinc-500 dark:text-zinc-400">
-            <span className="flex items-center gap-1">
-              <IconBook size={16} />
-              {series.modules.length} Modules
-            </span>
-            <span className="flex items-center gap-1">
-              <IconBook size={16} />
-              {totalChapters} Chapters
-            </span>
-            <span className="flex items-center gap-1">
-              <IconClock size={16} />
-              ~{totalChapters * 10} min read
-            </span>
-          </div>
-        </div>
 
-        {/* Start Learning Button */}
-        {firstModule && firstChapter && (
-          <div className="text-center mb-12">
-            <Link
-              href={`/blog/learn/${seriesSlug}/${firstModule.slug}/${firstChapter.slug}`}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-medium rounded-lg transition-colors"
-            >
-              Start Learning
-              <IconArrowRight size={18} />
-            </Link>
-          </div>
-        )}
-
-        {/* Modules List */}
-        <div className="space-y-4">
-          {series.modules.map((module, moduleIndex) => (
-            <ModuleAccordion
-              key={module.slug}
-              module={module}
-              moduleIndex={moduleIndex}
-              seriesSlug={seriesSlug}
-              isFirstModule={moduleIndex === 0}
-            />
-          ))}
-        </div>
-
-        {/* Empty State */}
-        {series.modules.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-zinc-500 dark:text-zinc-400">
-              No modules yet. Check back soon!
+          <div className="space-y-6 lg:pt-4">
+            <p className="max-w-3xl text-lg leading-9 text-[#b9ad9b]">
+              {series.description}
             </p>
+
+            <div className="flex flex-wrap gap-3 text-sm">
+              <span className="border border-[#3b2f23] bg-[#15110d] px-3 py-1.5 text-[#d7ccbc]">
+                {series.modules.length} Modules
+              </span>
+              <span className="border border-[#3b2f23] bg-[#15110d] px-3 py-1.5 text-[#d7ccbc]">
+                {totalChapters} Chapters
+              </span>
+              <span className="inline-flex items-center gap-2 border border-[#3b2f23] bg-[#15110d] px-3 py-1.5 text-[#d7ccbc]">
+                <IconClock size={14} className="text-[#d4a35f]" />
+                ~{totalChapters * 10} min read
+              </span>
+            </div>
+
+            {firstModule && firstChapter && (
+              <Link
+                href={`/blog/learn/${seriesSlug}/${firstModule.slug}/${firstChapter.slug}`}
+                className="inline-flex items-center gap-2 border border-[#d4a35f]/30 bg-[#d4a35f] px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#17120f] transition-colors hover:bg-[#e1b16a]"
+              >
+                Start Learning
+                <IconArrowRight size={16} />
+              </Link>
+            )}
           </div>
-        )}
+        </section>
+
+        <section className="mt-14 border-t border-[#3b2f23] pt-8">
+          <div className="mb-8">
+            <div className="font-mono text-[11px] uppercase tracking-[0.34em] text-[#d4a35f]">
+              Module Index
+            </div>
+            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-[#f5efe3]">
+              Training Structure
+            </h2>
+          </div>
+
+          <div className="space-y-5">
+            {series.modules.map((module, moduleIndex) => (
+              <ModuleAccordion
+                key={module.slug}
+                module={module}
+                moduleIndex={moduleIndex}
+                seriesSlug={seriesSlug}
+                isFirstModule={moduleIndex === 0}
+              />
+            ))}
+          </div>
+
+          {series.modules.length === 0 && (
+            <div className="py-12 text-center text-[#8f806c]">
+              No modules yet. Check back soon!
+            </div>
+          )}
+        </section>
       </div>
     </main>
   );

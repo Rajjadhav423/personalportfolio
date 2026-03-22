@@ -5,7 +5,6 @@ import gsap from "gsap";
 import Link from "next/link";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
   { name: "About", link: "/#about" },
@@ -119,7 +118,7 @@ export function FloatingNav() {
   return (
     <>
       <nav ref={navRef} className="fixed inset-x-0 top-0 z-50">
-        <div className="hidden items-center justify-between border-t border-[#4a3928] bg-[#17120f]/96 px-6 py-4 backdrop-blur md:flex lg:px-10">
+        <div className="hidden items-center border-t border-[#4a3928] bg-[#17120f]/96 px-6 py-4 backdrop-blur md:flex lg:px-10">
           <div className="flex items-center gap-8 lg:gap-10">
             {navItems.map((item) => {
               const isActive = activeSection === item.link.replace("/#", "");
@@ -130,7 +129,7 @@ export function FloatingNav() {
                   href={item.link}
                   target={item.link.endsWith(".pdf") ? "_blank" : undefined}
                   className={cn(
-                    "relative py-1 text-[11px] font-semibold uppercase tracking-[0.24em] transition-colors duration-300",
+                    "ui-nav relative py-1 transition-colors duration-300",
                     isActive ? "text-[#f5dfb8]" : "text-[#d9cfbf] hover:text-[#f5dfb8]"
                   )}
                 >
@@ -142,26 +141,22 @@ export function FloatingNav() {
               );
             })}
           </div>
-          <ThemeToggle />
         </div>
 
         <div className="flex items-center justify-between px-4 pt-4 md:hidden">
-          <Link href="/" className="nav-mobile-logo gradient-text px-4 py-2 text-xl font-bold">
+          <Link href="/" className="nav-mobile-logo gradient-text px-4 py-2 text-xl font-semibold tracking-[-0.05em]">
             RJ
           </Link>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="nav-mobile-button relative z-[60] p-3"
-            >
-              {mobileMenuOpen ? (
-                <IconX size={24} className="text-[#f5dfb8]" />
-              ) : (
-                <IconMenu2 size={24} className="nav-icon" />
-              )}
-            </button>
-          </div>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="nav-mobile-button relative z-[60] p-3"
+          >
+            {mobileMenuOpen ? (
+              <IconX size={24} className="text-[#f5dfb8]" />
+            ) : (
+              <IconMenu2 size={24} className="nav-icon" />
+            )}
+          </button>
         </div>
       </nav>
 
@@ -186,7 +181,7 @@ export function FloatingNav() {
                   >
                     <span
                       className={cn(
-                        "text-4xl font-bold tracking-tight transition-all duration-300 sm:text-5xl",
+                        "text-4xl font-semibold tracking-[-0.05em] transition-all duration-300 sm:text-5xl",
                         isActive
                           ? "text-[#f5dfb8]"
                           : "text-[#f1e7d7] group-hover:text-[#f5dfb8]"

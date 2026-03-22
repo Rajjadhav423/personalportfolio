@@ -132,7 +132,7 @@ export function Contact() {
 
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-[#d7ccbc]">
+                  <label htmlFor="name" className="mb-2 block text-sm font-semibold text-[#d7ccbc]">
                     Name
                   </label>
                   <input
@@ -149,7 +149,7 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-[#d7ccbc]">
+                  <label htmlFor="email" className="mb-2 block text-sm font-semibold text-[#d7ccbc]">
                     Email
                   </label>
                   <input
@@ -166,7 +166,7 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="mb-2 block text-sm font-medium text-[#d7ccbc]">
+                  <label htmlFor="message" className="mb-2 block text-sm font-semibold text-[#d7ccbc]">
                     Message
                   </label>
                   <textarea

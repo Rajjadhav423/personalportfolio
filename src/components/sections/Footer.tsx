@@ -52,7 +52,7 @@ export function Footer() {
               viewport={{ once: true }}
               className="text-center sm:text-left"
             >
-              <h3 className="gradient-text mb-1 text-xl font-bold sm:mb-2 sm:text-2xl">
+              <h3 className="gradient-text mb-1 text-xl font-semibold tracking-[-0.05em] sm:mb-2 sm:text-2xl">
                 Rajesh Jadhav
               </h3>
               <p className="text-xs text-[#8f806c] sm:text-sm">
