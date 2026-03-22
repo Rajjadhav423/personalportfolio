@@ -35,40 +35,30 @@ export function GlowButton({
   };
 
   const variantStyles = {
-    // PRIMARY: Neumorphic raised style
     primary: cn(
-      "bg-slate-100 dark:bg-slate-800",
-      "text-slate-800 dark:text-slate-100",
+      "border border-[#d4a35f]/30 bg-[#d4a35f] text-[#17120f]",
       "font-semibold",
-      "shadow-[5px_5px_10px_rgba(0,0,0,0.1),-5px_-5px_10px_rgba(255,255,255,0.9)]",
-      "dark:shadow-[5px_5px_10px_rgba(0,0,0,0.4),-5px_-5px_10px_rgba(60,60,60,0.2)]",
-      "active:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.1),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]",
-      "dark:active:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.3),inset_-3px_-3px_6px_rgba(60,60,60,0.2)]"
+      "shadow-[0_18px_40px_rgba(212,163,95,0.18)]",
+      "hover:bg-[#e1b16a]"
     ),
-    // SECONDARY: Neumorphic inset style
     secondary: cn(
-      "bg-slate-100 dark:bg-slate-800",
-      "text-slate-700 dark:text-slate-200",
+      "border border-[#d4a35f]/20 bg-[#231c16]/80 text-[#f5efe3]",
       "font-semibold",
-      "shadow-[inset_3px_3px_6px_rgba(0,0,0,0.08),inset_-3px_-3px_6px_rgba(255,255,255,0.9)]",
-      "dark:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.25),inset_-3px_-3px_6px_rgba(60,60,60,0.15)]",
-      "active:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.12),inset_-4px_-4px_8px_rgba(255,255,255,0.9)]",
-      "dark:active:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.35),inset_-4px_-4px_8px_rgba(60,60,60,0.2)]"
+      "hover:border-[#d4a35f]/35 hover:bg-[#2a221b]"
     ),
-    // GHOST: Flat minimal
     ghost: cn(
       "bg-transparent",
-      "text-slate-700 dark:text-slate-300",
+      "text-[#d8ccba]",
       "font-medium",
-      "border border-slate-200 dark:border-slate-700",
-      "hover:bg-slate-50 dark:hover:bg-slate-800/50"
+      "border border-[#3f3328]",
+      "hover:border-[#d4a35f]/30 hover:bg-[#211913]"
     ),
   };
 
   const baseStyles = cn(
     "inline-flex items-center justify-center gap-2",
-    "rounded-2xl",
-    "transition-shadow duration-150",
+    "rounded-none uppercase tracking-[0.18em]",
+    "transition-all duration-200",
     sizeStyles[size],
     variantStyles[variant],
     fullWidth && "w-full",

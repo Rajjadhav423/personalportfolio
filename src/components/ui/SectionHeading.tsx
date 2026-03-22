@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
@@ -9,28 +10,61 @@ interface SectionHeadingProps {
   className?: string;
 }
 
-export function SectionHeading({ title, subtitle, className }: SectionHeadingProps) {
+export function SectionHeading({
+  title,
+  subtitle,
+  className,
+}: SectionHeadingProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = rootRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+
+        gsap.fromTo(
+          element.children,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.08,
+            ease: "power3.out",
+          }
+        );
+
+        observer.disconnect();
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
-      className={cn("text-center mb-10 md:mb-16 px-4", className)}
-    >
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 tracking-tight">
-        <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-500">
-          {title}
-        </span>
+    <div ref={rootRef} className={cn("mb-10 px-4 text-center md:mb-16", className)}>
+      <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.4em] text-[#d4a35f] opacity-0">
+        Mission Segment
+      </div>
+      <h2 className="mb-4 text-3xl font-semibold tracking-[-0.04em] text-[#f5efe3] opacity-0 sm:text-4xl md:mb-6 md:text-5xl">
+        {title}
       </h2>
       {subtitle && (
-        <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="mx-auto max-w-2xl text-sm leading-relaxed text-[#b9ad9b] opacity-0 sm:text-base md:text-lg">
           {subtitle}
         </p>
       )}
-      <div className="mt-4 md:mt-6 flex justify-center">
-        <div className="h-1 w-20 md:w-24 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-80 rounded-full blur-[1px]" />
+      <div className="mt-5 flex items-center justify-center gap-3 opacity-0 md:mt-7">
+        <div className="h-px w-12 bg-[#5d4a34]" />
+        <div className="h-2 w-2 rounded-full bg-[#d4a35f]" />
+        <div className="h-px w-12 bg-[#5d4a34]" />
       </div>
-    </motion.div>
+    </div>
   );
 }

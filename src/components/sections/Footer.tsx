@@ -1,15 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  IconBrandLinkedin,
-  IconBrandGithub,
-  IconMail,
-  IconHeart,
-  IconBrandMedium,
-} from "@tabler/icons-react";
-import { portfolioData } from "@/data/portfolio";
+import { IconBrandGithub, IconBrandLinkedin, IconBrandMedium, IconMail } from "@tabler/icons-react";
 import Link from "next/link";
+import { portfolioData } from "@/data/portfolio";
 
 const socialLinks = [
   {
@@ -46,31 +40,26 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative py-8 md:py-12 border-t border-zinc-200 dark:border-white/10 bg-slate-50 dark:bg-zinc-950 transition-colors duration-300">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-100 dark:from-zinc-950 to-transparent" />
+    <footer className="relative border-t border-[#34291f] bg-[#120e0b] py-8 transition-colors duration-300 md:py-12">
+      <div className="absolute inset-0 bg-gradient-to-t from-[#120e0b] to-transparent" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
-        <div className="flex flex-col gap-8 mb-8">
-          {/* Top Row - Logo and Social */}
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-            {/* Logo/Name */}
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col gap-8">
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-center sm:text-left"
             >
-              <h3 className="text-xl sm:text-2xl font-bold gradient-text mb-1 sm:mb-2">
+              <h3 className="gradient-text mb-1 text-xl font-bold sm:mb-2 sm:text-2xl">
                 Rajesh Jadhav
               </h3>
-              <p className="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm">
+              <p className="text-xs text-[#8f806c] sm:text-sm">
                 Software Developer | Full Stack Engineer
               </p>
             </motion.div>
 
-            {/* Social Links */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -84,16 +73,15 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 sm:p-3 rounded-full border border-zinc-300 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 group shadow-sm dark:shadow-none"
+                  className="group border border-[#3b2f23] bg-[#17120f] p-2.5 transition-all duration-300 hover:border-[#d4a35f]/50 hover:bg-[#1f1914] sm:p-3"
                   aria-label={social.label}
                 >
-                  <social.icon size={18} className="sm:w-5 sm:h-5 text-zinc-600 dark:text-zinc-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400" />
+                  <social.icon size={18} className="text-[#d7ccbc] group-hover:text-[#f5dfb8] sm:h-5 sm:w-5" />
                 </a>
               ))}
             </motion.div>
           </div>
 
-          {/* Navigation Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +93,7 @@ export function Footer() {
               <Link
                 key={idx}
                 href={link.href}
-                className="text-zinc-600 dark:text-zinc-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors text-xs sm:text-sm"
+                className="text-xs text-[#b9ad9b] transition-colors hover:text-[#f5dfb8] sm:text-sm"
               >
                 {link.name}
               </Link>
@@ -113,10 +101,8 @@ export function Footer() {
           </motion.div>
         </div>
 
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-zinc-300 dark:via-white/10 to-transparent mb-6 sm:mb-8" />
+        <div className="mb-6 h-px bg-gradient-to-r from-transparent via-[#3b2f23] to-transparent sm:mb-8" />
 
-        {/* Copyright */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -124,7 +110,7 @@ export function Footer() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <p className="text-zinc-500 dark:text-zinc-500 text-xs sm:text-sm flex items-center justify-center gap-1 flex-wrap">
+          <p className="flex flex-wrap items-center justify-center gap-1 text-xs text-[#8f806c] sm:text-sm">
             <span>© {portfolioData.personal.name}. All rights reserved.</span>
           </p>
         </motion.div>

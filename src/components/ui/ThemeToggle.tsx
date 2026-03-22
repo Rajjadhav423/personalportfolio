@@ -1,52 +1,67 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "framer-motion";
-import { IconSun, IconMoon } from "@tabler/icons-react";
-import { useState, useEffect } from "react";
+import { IconMoon, IconSun } from "@tabler/icons-react";
 
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const iconRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return (
-      <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 animate-pulse" />
+  useEffect(() => {
+    if (!mounted || !iconRef.current) return;
+
+    gsap.fromTo(
+      iconRef.current,
+      { y: -10, opacity: 0, rotate: -18 },
+      { y: 0, opacity: 1, rotate: 0, duration: 0.28, ease: "power2.out" }
     );
+  }, [mounted, resolvedTheme]);
+
+  if (!mounted) {
+    return <div className="h-10 w-10 animate-pulse bg-zinc-100 dark:bg-zinc-800" />;
   }
 
   const isDark = resolvedTheme === "dark";
 
   return (
-    <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+    <button
+      ref={buttonRef}
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-white/50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 backdrop-blur-sm shadow-sm hover:border-cyan-500/50 dark:hover:border-cyan-400/50 transition-colors group overflow-hidden"
+      onMouseEnter={() => {
+        if (!buttonRef.current) return;
+        gsap.to(buttonRef.current, { scale: 1.05, duration: 0.18, ease: "power2.out" });
+      }}
+      onMouseLeave={() => {
+        if (!buttonRef.current) return;
+        gsap.to(buttonRef.current, { scale: 1, duration: 0.18, ease: "power2.out" });
+      }}
+      onMouseDown={() => {
+        if (!buttonRef.current) return;
+        gsap.to(buttonRef.current, { scale: 0.95, duration: 0.12, ease: "power2.out" });
+      }}
+      onMouseUp={() => {
+        if (!buttonRef.current) return;
+        gsap.to(buttonRef.current, { scale: 1.05, duration: 0.12, ease: "power2.out" });
+      }}
+      className="group relative flex h-10 w-10 items-center justify-center overflow-hidden border border-[#3f3328] bg-[#1c1611]/85 backdrop-blur-sm transition-colors hover:border-[#d4a35f]/50"
       aria-label="Toggle theme"
     >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={isDark ? "dark" : "light"}
-          initial={{ y: -20, opacity: 0, rotate: -90 }}
-          animate={{ y: 0, opacity: 1, rotate: 0 }}
-          exit={{ y: 20, opacity: 0, rotate: 90 }}
-          transition={{ duration: 0.2 }}
-        >
-          {isDark ? (
-            <IconMoon className="w-5 h-5 text-cyan-400" />
-          ) : (
-             <IconSun className="w-5 h-5 text-amber-500" />
-          )}
-        </motion.div>
-      </AnimatePresence>
-      
-      {/* Glow effect on hover */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-    </motion.button>
+      <span ref={iconRef} className="inline-flex">
+        {isDark ? (
+          <IconMoon className="h-5 w-5 text-[#d4a35f]" />
+        ) : (
+          <IconSun className="h-5 w-5 text-amber-400" />
+        )}
+      </span>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#d4a35f]/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+    </button>
   );
 }

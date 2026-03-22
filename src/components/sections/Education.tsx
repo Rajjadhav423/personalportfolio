@@ -1,166 +1,152 @@
 "use client";
 
-import { portfolioData } from "@/data/portfolio";
 import { motion } from "framer-motion";
+import { IconBook, IconCertificate, IconSchool } from "@tabler/icons-react";
+import { portfolioData } from "@/data/portfolio";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { CardSpotlight } from "@/components/ui/card-spotlight";
-import { IconSchool, IconBook, IconCertificate } from "@tabler/icons-react";
 
 export function Education() {
   return (
-    <section id="education" className="py-16 md:py-24 relative overflow-hidden">
-      {/* Background - Matching Hero color scheme */}
+    <section id="education" className="section-panel relative overflow-hidden px-4 py-16 md:px-6 md:py-24 lg:px-8">
       <div className="absolute inset-0 bg-grid opacity-20" />
-      <div className="absolute top-1/4 right-1/4 w-48 md:w-96 h-48 md:h-96 bg-cyan-400/10 dark:bg-cyan-500/10 rounded-full blur-[100px] md:blur-[150px]" />
-      <div className="absolute bottom-1/4 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-400/10 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+      <div className="absolute right-1/4 top-1/4 h-48 w-48 rounded-full bg-[#d4a35f]/10 blur-[100px] md:h-96 md:w-96 md:blur-[150px]" />
+      <div className="absolute bottom-1/4 left-1/4 h-48 w-48 rounded-full bg-[#7b5532]/14 blur-[100px] md:h-96 md:w-96 md:blur-[150px]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl">
         <SectionHeading
           title="Education & Certifications"
-          subtitle="Academic foundation and professional credentials that back my expertise"
+          subtitle="Structured as background, credentials, and signal rather than another repeated content card."
         />
 
-        {/* Main Education Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mb-12 md:mb-16"
-        >
-          <CardSpotlight className="p-6 sm:p-8 md:p-10 max-w-4xl mx-auto border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50">
-            <div className="flex flex-col sm:flex-row gap-5 sm:gap-8 items-start relative z-20">
-              <motion.div 
-                className="p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 shrink-0"
-                whileHover={{ scale: 1.05, rotate: [0, -3, 3, 0] }}
-                transition={{ duration: 0.3 }}
-              >
-                <IconSchool size={36} className="text-neutral-700 dark:text-neutral-300" />
-              </motion.div>
-              <div className="flex-1">
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-2">
-                  {portfolioData.education.degree}
-                </h3>
-                <p className="text-neutral-700 dark:text-neutral-300 text-base sm:text-lg mb-3">
-                  {portfolioData.education.university}
-                </p>
-                <div className="flex flex-wrap gap-3 sm:gap-4 text-sm mb-6">
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800/50 text-neutral-600 dark:text-neutral-400">
-                    {portfolioData.education.year}
-                  </span>
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800/50 text-neutral-900 dark:text-white font-semibold">
-                    {portfolioData.education.cgpa}
-                  </span>
-                </div>
-                
-                {/* Relevant Coursework */}
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="border-t border-[#4a3928] pt-8"
+          >
+            <div className="mb-6 font-mono text-[11px] uppercase tracking-[0.34em] text-[#d4a35f]">
+              Academic Track
+            </div>
+
+            <div className="relative pl-8">
+              <div className="absolute bottom-0 left-3 top-0 w-px bg-[#3b2f23]" />
+              <div className="absolute left-0 top-2 flex h-6 w-6 items-center justify-center border border-[#3b2f23] bg-[#15110d]">
+                <IconSchool size={14} className="text-[#d4a35f]" />
+              </div>
+
+              <div className="space-y-6">
                 <div>
-                  <h4 className="text-xs uppercase tracking-wider text-neutral-500 mb-3">Relevant Coursework</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {portfolioData.education.coursework.map((course, idx) => (
-                      <motion.span
-                        key={idx}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: idx * 0.08 }}
-                        viewport={{ once: true }}
-                        whileHover={{ y: -2 }}
-                        className="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium bg-neutral-50 dark:bg-neutral-800/70 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700/50 hover:border-neutral-300 dark:hover:border-neutral-600 transition-all cursor-default"
+                  <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#8f806c]">
+                    Degree
+                  </div>
+                  <h3 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.04em] text-[#f5efe3]">
+                    {portfolioData.education.degree}
+                  </h3>
+                </div>
+
+                <div className="border border-[#3b2f23] bg-[#15110d] p-5">
+                  <div className="text-lg text-[#d7ccbc]">{portfolioData.education.university}</div>
+                  <div className="mt-4 flex flex-wrap gap-3 text-sm">
+                    <span className="border border-[#3b2f23] px-3 py-1.5 text-[#d7ccbc]">
+                      {portfolioData.education.year}
+                    </span>
+                    <span className="border border-[#3b2f23] px-3 py-1.5 font-semibold text-[#f5efe3]">
+                      {portfolioData.education.cgpa}
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.22em] text-[#8f806c]">
+                    Relevant Coursework
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {portfolioData.education.coursework.map((course) => (
+                      <div
+                        key={course}
+                        className="border-l border-[#d4a35f] bg-[#15110d]/80 px-4 py-3 text-sm text-[#d7ccbc]"
                       >
                         {course}
-                      </motion.span>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
-          </CardSpotlight>
-        </motion.div>
+          </motion.div>
 
-        {/* Certifications Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-8"
-        >
-          <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-2">
-            Professional Certifications
-          </h3>
-          <p className="text-neutral-500 dark:text-neutral-400 text-sm">
-            Industry-recognized credentials
-          </p>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <div className="flex items-center justify-between border-b border-[#3b2f23] pb-4">
+              <div>
+                <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#d4a35f]">
+                  Certification Board
+                </div>
+                <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-[#f5efe3]">
+                  Verified Credentials
+                </h3>
+              </div>
+              <div className="text-sm uppercase tracking-[0.18em] text-[#8f806c]">
+                06 Total
+              </div>
+            </div>
 
-        {/* Certifications Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {portfolioData.education.certifications.map((cert, idx) => {
-            const Icon = cert.title.includes("Salesforce") ? IconCertificate : IconBook;
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                viewport={{ once: true }}
-                className="group"
-              >
-                <CardSpotlight className="p-5 sm:p-6 h-full border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50">
-                  <div className="flex items-start gap-4 relative z-20">
-                    <motion.div 
-                      className="p-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 shrink-0 group-hover:scale-105 transition-transform duration-300"
-                    >
-                      <Icon size={20} className="text-neutral-700 dark:text-neutral-300" />
-                    </motion.div>
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-semibold text-neutral-900 dark:text-white text-sm sm:text-base mb-1.5 line-clamp-2">
-                        {cert.title}
-                      </h4>
-                      <p className="text-neutral-500 dark:text-neutral-400 text-xs sm:text-sm mb-2">
-                        {cert.issuer}
-                      </p>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800/50 text-neutral-600 dark:text-neutral-400">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {portfolioData.education.certifications.map((cert, idx) => {
+                const Icon = cert.title.includes("Salesforce") ? IconCertificate : IconBook;
+
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: idx * 0.06 }}
+                    viewport={{ once: true }}
+                    className="border border-[#3b2f23] bg-[#17120f] p-5"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="border border-[#3b2f23] bg-[#15110d] p-2.5">
+                        <Icon size={18} className="text-[#d4a35f]" />
+                      </div>
+                      <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8f806c]">
                         {cert.year}
-                      </span>
+                      </div>
                     </div>
-                  </div>
-                </CardSpotlight>
-              </motion.div>
-            );
-          })}
-        </div>
 
-        {/* Summary Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-12 md:mt-16 flex flex-wrap justify-center gap-8 md:gap-16"
-        >
-          {[
-            { value: "B.Tech", label: "IT Degree" },
-            { value: "3", label: "Salesforce Certs" },
-            { value: "6", label: "Total Certifications" },
-          ].map((stat, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 + idx * 0.1 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-1">
-                {stat.value}
-              </div>
-              <div className="text-sm text-neutral-500 dark:text-neutral-400">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                    <h4 className="mt-5 text-lg font-semibold leading-snug text-[#f5efe3]">
+                      {cert.title}
+                    </h4>
+                    <p className="mt-2 text-sm text-[#b9ad9b]">{cert.issuer}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="grid gap-4 border-t border-[#3b2f23] pt-6 sm:grid-cols-3">
+              {[
+                { value: "B.Tech", label: "IT Degree" },
+                { value: "3", label: "Salesforce Certs" },
+                { value: "6", label: "Total Certifications" },
+              ].map((stat) => (
+                <div key={stat.label} className="border border-[#3b2f23] bg-[#15110d] p-5">
+                  <div className="text-3xl font-semibold tracking-[-0.05em] text-[#f5efe3]">
+                    {stat.value}
+                  </div>
+                  <div className="mt-2 text-xs uppercase tracking-[0.18em] text-[#8f806c]">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,84 +1,42 @@
 "use client";
 
-import { portfolioData } from "@/data/portfolio";
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { GlowButton } from "@/components/ui/GlowButton";
-import { CardSpotlight } from "@/components/ui/card-spotlight";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import {
-  IconMail,
-  IconPhone,
-  IconBrandLinkedin,
   IconBrandGithub,
-  IconSend,
   IconBrandLeetcode,
+  IconBrandLinkedin,
   IconBrandMedium,
   IconCheck,
-  IconX,
   IconLoader2,
+  IconMail,
+  IconPhone,
+  IconSend,
+  IconX,
 } from "@tabler/icons-react";
+import { portfolioData } from "@/data/portfolio";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { GlowButton } from "@/components/ui/GlowButton";
 
-// EmailJS credentials from environment variables
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
 const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
 const contactInfo = [
-  {
-    icon: IconMail,
-    label: "Email",
-    value: portfolioData.personal.email,
-    href: `mailto:${portfolioData.personal.email}`,
-    color: "cyan",
-  },
-  {
-    icon: IconPhone,
-    label: "Phone",
-    value: portfolioData.personal.phone,
-    href: `tel:${portfolioData.personal.phone}`,
-    color: "purple",
-  },
-  {
-    icon: IconBrandLinkedin,
-    label: "LinkedIn",
-    value: portfolioData.personal.name,
-    href: portfolioData.personal.linkedin,
-    color: "blue",
-  },
-  {
-    icon: IconBrandGithub,
-    label: "GitHub",
-    value: "GitHub Profile",
-    href: portfolioData.personal.github,
-    color: "gray",
-  },
-  {
-    icon: IconBrandLeetcode,
-    label: "LeetCode",
-    value: "LeetCode Profile",
-    href: "https://leetcode.com/u/jadhavraj423/",
-    color: "orange",
-  },
-  {
-    icon: IconBrandMedium,
-    label: "Medium",
-    value: "Medium Profile",
-    href: portfolioData.personal.medium,
-    color: "orange",
-  },
+  { icon: IconMail, label: "Email", value: portfolioData.personal.email, href: `mailto:${portfolioData.personal.email}` },
+  { icon: IconPhone, label: "Phone", value: portfolioData.personal.phone, href: `tel:${portfolioData.personal.phone}` },
+  { icon: IconBrandLinkedin, label: "LinkedIn", value: portfolioData.personal.name, href: portfolioData.personal.linkedin },
+  { icon: IconBrandGithub, label: "GitHub", value: "GitHub Profile", href: portfolioData.personal.github },
+  { icon: IconBrandLeetcode, label: "LeetCode", value: "LeetCode Profile", href: "https://leetcode.com/u/jadhavraj423/" },
+  { icon: IconBrandMedium, label: "Medium", value: "Medium Profile", href: portfolioData.personal.medium },
 ];
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
 export function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -94,101 +52,87 @@ export function Contact() {
         formRef.current!,
         EMAILJS_PUBLIC_KEY
       );
-
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
-      
-      // Reset status after 5 seconds
       setTimeout(() => setStatus("idle"), 5000);
     } catch (error) {
       console.error("EmailJS Error:", error);
       setStatus("error");
       setErrorMessage("Failed to send message. Please try again or email me directly.");
-      
-      // Reset status after 5 seconds
       setTimeout(() => setStatus("idle"), 5000);
     }
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 section-gradient relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-grid opacity-20" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] md:w-[800px] h-[200px] md:h-[400px] bg-gradient-to-t from-cyan-400/15 dark:from-cyan-500/20 to-transparent rounded-full blur-[80px] md:blur-[100px]" />
+    <section id="contact" className="section-panel relative overflow-hidden px-4 py-16 md:px-6 md:py-24 lg:px-8">
+      <div className="absolute inset-0 bg-grid opacity-15" />
+      <div className="absolute left-0 top-1/3 h-72 w-72 rounded-full bg-[#d4a35f]/8 blur-[140px]" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl">
         <SectionHeading
           title="Get In Touch"
-          subtitle="Let's work together on your next project"
+          subtitle="Handled as an operations layout, not another boxed content block."
         />
 
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
-          {/* Contact Info */}
+        <div className="grid gap-10 lg:grid-cols-[0.42fr_0.58fr]">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.45 }}
             viewport={{ once: true }}
-            className="space-y-4 sm:space-y-6 order-2 lg:order-1"
+            className="border-t border-[#3b2f23] pt-8"
           >
-            <div className="mb-6 md:mb-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white mb-3 sm:mb-4">
-                Let&apos;s Connect
-              </h3>
-              <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
-                I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
-              </p>
-            </div>
+            <h3 className="text-4xl font-semibold tracking-[-0.04em] text-[#f5efe3]">
+              Let&apos;s Connect
+            </h3>
+            <p className="mt-4 max-w-md text-base leading-8 text-[#b9ad9b]">
+              I&apos;m always open to discussing new projects, creative ideas, and product opportunities where engineering can create leverage.
+            </p>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4">
+            <div className="mt-8 space-y-3">
               {contactInfo.map((info, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
+                <motion.a
+                  key={info.label}
+                  href={info.href}
+                  target={info.href.startsWith("http") ? "_blank" : undefined}
+                  rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
+                  transition={{ delay: idx * 0.05 }}
                   viewport={{ once: true }}
+                  className="group grid grid-cols-[3.25rem_1fr] items-center border border-[#3b2f23] bg-[#15110d]/80 transition-colors hover:border-[#5d4a34]"
                 >
-                  <CardSpotlight className="p-0">
-                    <a
-                      href={info.href}
-                      target={info.href.startsWith("http") ? "_blank" : undefined}
-                      rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 group relative z-20"
-                    >
-                      <div className={`p-2 sm:p-3 rounded-lg ${
-                        info.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-400 group-hover:bg-cyan-500/20' :
-                        info.color === 'purple' ? 'bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20' :
-                        info.color === 'blue' ? 'bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20' :
-                        'bg-neutral-500/10 text-neutral-400 group-hover:bg-neutral-500/20'
-                      } transition-colors`}>
-                        <info.icon size={20} className="sm:w-6 sm:h-6" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-neutral-500 text-xs sm:text-sm">{info.label}</p>
-                        <p className="text-neutral-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors text-sm sm:text-base truncate">
-                          {info.value}
-                        </p>
-                      </div>
-                    </a>
-                  </CardSpotlight>
-                </motion.div>
+                  <div className="flex h-full items-center justify-center border-r border-[#3b2f23] text-[#d4a35f]">
+                    <info.icon size={20} />
+                  </div>
+                  <div className="px-4 py-4">
+                    <div className="text-xs uppercase tracking-[0.18em] text-[#8f806c]">
+                      {info.label}
+                    </div>
+                    <div className="mt-1 text-sm text-[#f5efe3] group-hover:text-[#f5dfb8]">
+                      {info.value}
+                    </div>
+                  </div>
+                </motion.a>
               ))}
             </div>
           </motion.div>
 
-          {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.45, delay: 0.08 }}
             viewport={{ once: true }}
-            className="order-1 lg:order-2 lg:mt-32"
+            className="lg:pl-6"
           >
-            <CardSpotlight className="p-4 sm:p-6 md:p-8">
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 relative z-20">
+            <div className="border-l border-[#d4a35f] bg-[#12100d]/90 p-6 md:p-8">
+              <div className="mb-6 font-mono text-[11px] uppercase tracking-[0.32em] text-[#d4a35f]">
+                Direct Message Channel
+              </div>
+
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-400 mb-2">
+                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-[#d7ccbc]">
                     Name
                   </label>
                   <input
@@ -197,7 +141,7 @@ export function Contact() {
                     name="from_name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="input-field w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base"
+                    className="input-field w-full rounded-none px-4 py-3 text-base"
                     placeholder="Your name"
                     required
                     disabled={status === "loading"}
@@ -205,7 +149,7 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-400 mb-2">
+                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-[#d7ccbc]">
                     Email
                   </label>
                   <input
@@ -214,7 +158,7 @@ export function Contact() {
                     name="from_email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="input-field w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base"
+                    className="input-field w-full rounded-none px-4 py-3 text-base"
                     placeholder="your@email.com"
                     required
                     disabled={status === "loading"}
@@ -222,7 +166,7 @@ export function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-neutral-700 dark:text-neutral-400 mb-2">
+                  <label htmlFor="message" className="mb-2 block text-sm font-medium text-[#d7ccbc]">
                     Message
                   </label>
                   <textarea
@@ -230,25 +174,24 @@ export function Contact() {
                     name="message"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    rows={4}
-                    className="input-field w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg resize-none text-sm sm:text-base"
-                    placeholder="Your message..."
+                    rows={6}
+                    className="input-field w-full resize-none rounded-none px-4 py-3 text-base"
+                    placeholder="Tell me what you're building..."
                     required
                     disabled={status === "loading"}
                   />
                 </div>
 
-                {/* Status Messages */}
                 <AnimatePresence>
                   {status === "success" && (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400"
+                      className="flex items-center gap-2 border border-green-500/20 bg-green-500/10 p-3 text-green-400"
                     >
                       <IconCheck size={18} />
-                      <span className="text-sm">Message sent successfully! I'll get back to you soon.</span>
+                      <span className="text-sm">Message sent successfully! I&apos;ll get back to you soon.</span>
                     </motion.div>
                   )}
                   {status === "error" && (
@@ -256,7 +199,7 @@ export function Contact() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400"
+                      className="flex items-center gap-2 border border-red-500/20 bg-red-500/10 p-3 text-red-400"
                     >
                       <IconX size={18} />
                       <span className="text-sm">{errorMessage}</span>
@@ -283,7 +226,7 @@ export function Contact() {
                   )}
                 </GlowButton>
               </form>
-            </CardSpotlight>
+            </div>
           </motion.div>
         </div>
       </div>

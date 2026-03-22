@@ -1,56 +1,57 @@
 "use client";
 
-import { portfolioData } from "@/data/portfolio";
 import { motion } from "framer-motion";
+import { portfolioData } from "@/data/portfolio";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { CardSpotlight } from "@/components/ui/card-spotlight";
 
 export function Skills() {
   return (
-    <section id="skills" className="py-16 md:py-24 section-gradient relative overflow-hidden">
-      {/* Background - Matching Hero color scheme */}
-      <div className="absolute inset-0 bg-grid opacity-30" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-purple-400/10 dark:bg-purple-500/10 rounded-full blur-[100px] md:blur-[150px]" />
+    <section id="skills" className="section-panel relative overflow-hidden px-4 py-16 md:px-6 md:py-24 lg:px-8">
+      <div className="absolute inset-0 bg-grid opacity-25" />
+      <div className="absolute left-10 top-10 h-56 w-56 rounded-full bg-[#d4a35f]/8 blur-[120px]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl">
         <SectionHeading
           title="Technical Skills"
-          subtitle="Technologies and tools I work with to bring ideas to life"
+          subtitle="Organized as capability lanes instead of repeated cards."
         />
 
-        {/* Skills Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="space-y-5">
           {portfolioData.skills.map((category, idx) => (
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              key={category.title}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              transition={{ duration: 0.45, delay: idx * 0.06 }}
               viewport={{ once: true }}
+              className="grid gap-5 border-t border-[#3b2f23] py-5 md:grid-cols-[16rem_1fr]"
             >
-              <CardSpotlight className="h-full p-6 rounded-2xl border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black/50">
-                <div className="relative z-20">
-                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#8f806c]">
+                    {String(idx + 1).padStart(2, "0")}
+                  </div>
+                  <h3 className="mt-3 text-xl font-semibold text-[#f5efe3]">
                     {category.title}
                   </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, skillIdx) => (
-                      <span
-                        key={skillIdx}
-                        className="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium 
-                          bg-neutral-50 dark:bg-neutral-800/70 
-                          text-neutral-700 dark:text-neutral-300 
-                          border border-neutral-200 dark:border-neutral-700/50 
-                          hover:border-neutral-300 dark:hover:border-neutral-600 
-                          transition-colors cursor-default"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
                 </div>
-              </CardSpotlight>
+                <div className="mt-1 h-px w-10 bg-[#d4a35f] md:hidden" />
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                {category.skills.map((skill, skillIdx) => (
+                  <motion.span
+                    key={skill}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: idx * 0.05 + skillIdx * 0.025 }}
+                    viewport={{ once: true }}
+                    className="border border-[#3b2f23] bg-[#15110d]/80 px-4 py-2 text-sm text-[#d7ccbc]"
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>

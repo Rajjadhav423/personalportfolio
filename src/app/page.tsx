@@ -12,7 +12,7 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="relative">
+    <main className="page-shell relative">
       <Hero />
       <About />
       <Skills />

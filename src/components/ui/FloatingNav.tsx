@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { IconMenu2, IconX } from "@tabler/icons-react";
-import { ThemeToggle } from "./ThemeToggle";
+import React, { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import Link from "next/link";
+import { IconMenu2, IconX } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
   { name: "About", link: "/#about" },
@@ -23,11 +23,14 @@ export function FloatingNav() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const mobileOverlayRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       if (currentScrollY < 100) {
         setVisible(true);
       } else if (currentScrollY > lastScrollY) {
@@ -36,11 +39,13 @@ export function FloatingNav() {
       } else {
         setVisible(true);
       }
-      
+
       setLastScrollY(currentScrollY);
 
-      // Determine active section
-      const sections = navItems.filter(item => item.link.startsWith("/#")).map(item => item.link.replace("/#", ""));
+      const sections = navItems
+        .filter((item) => item.link.startsWith("/#"))
+        .map((item) => item.link.replace("/#", ""));
+
       for (const section of sections.reverse()) {
         const element = document.getElementById(section);
         if (element) {
@@ -57,15 +62,53 @@ export function FloatingNav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // Lock body scroll when menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+    if (!navRef.current) return;
+
+    gsap.to(navRef.current, {
+      y: visible ? 0 : -100,
+      opacity: visible ? 1 : 0,
+      duration: 0.28,
+      ease: "power2.out",
+    });
+  }, [visible]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "unset";
+
+    if (!mobileOverlayRef.current || !mobileMenuRef.current) {
+      return () => {
+        document.body.style.overflow = "unset";
+      };
     }
+
+    if (mobileMenuOpen) {
+      gsap.set(mobileOverlayRef.current, { display: "block" });
+      gsap.fromTo(
+        mobileOverlayRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.25, ease: "power2.out" }
+      );
+      gsap.fromTo(
+        mobileMenuRef.current.children,
+        { opacity: 0, x: -24 },
+        { opacity: 1, x: 0, stagger: 0.06, duration: 0.3, ease: "power2.out" }
+      );
+    } else {
+      gsap.to(mobileOverlayRef.current, {
+        opacity: 0,
+        duration: 0.2,
+        ease: "power2.out",
+        onComplete: () => {
+          if (mobileOverlayRef.current) {
+            gsap.set(mobileOverlayRef.current, { display: "none" });
+          }
+        },
+      });
+    }
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [mobileMenuOpen]);
 
@@ -75,144 +118,102 @@ export function FloatingNav() {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        <motion.nav
-          initial={{ opacity: 1, y: -100 }}
-          animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="fixed top-4 inset-x-0 z-50 px-4"
-        >
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-center gap-4">
-            <div className="nav-bar flex items-center justify-center space-x-1 px-4 py-3 rounded-full">
-              {navItems.map((item, idx) => (
+      <nav ref={navRef} className="fixed inset-x-0 top-0 z-50">
+        <div className="hidden items-center justify-between border-t border-[#4a3928] bg-[#17120f]/96 px-6 py-4 backdrop-blur md:flex lg:px-10">
+          <div className="flex items-center gap-8 lg:gap-10">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.link.replace("/#", "");
+
+              return (
                 <Link
-                  key={idx}
+                  key={item.name}
                   href={item.link}
-                  className={cn(
-                    "relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
-                    activeSection === item.link.replace("/#", "")
-                      ? "text-cyan-600 dark:text-cyan-400"
-                      : "nav-link"
-                  )}
                   target={item.link.endsWith(".pdf") ? "_blank" : undefined}
-                >
-                  {activeSection === item.link.replace("/#", "") && (
-                    <motion.div
-                      layoutId="activeSection"
-                      className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
+                  className={cn(
+                    "relative py-1 text-[11px] font-semibold uppercase tracking-[0.24em] transition-colors duration-300",
+                    isActive ? "text-[#f5dfb8]" : "text-[#d9cfbf] hover:text-[#f5dfb8]"
                   )}
-                  <span className="relative z-10">{item.name}</span>
+                >
+                  {item.name}
+                  {isActive && (
+                    <span className="absolute -bottom-4 left-0 h-px w-full bg-[#d4a35f]" />
+                  )}
                 </Link>
-              ))}
-            </div>
+              );
+            })}
+          </div>
+          <ThemeToggle />
+        </div>
+
+        <div className="flex items-center justify-between px-4 pt-4 md:hidden">
+          <Link href="/" className="nav-mobile-logo gradient-text px-4 py-2 text-xl font-bold">
+            RJ
+          </Link>
+          <div className="flex items-center gap-2">
             <ThemeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="nav-mobile-button relative z-[60] p-3"
+            >
+              {mobileMenuOpen ? (
+                <IconX size={24} className="text-[#f5dfb8]" />
+              ) : (
+                <IconMenu2 size={24} className="nav-icon" />
+              )}
+            </button>
           </div>
+        </div>
+      </nav>
 
-          {/* Mobile Navigation Header */}
-          <div className="md:hidden flex justify-between items-center">
-            <Link href="/" className="nav-mobile-logo text-xl font-bold gradient-text px-4 py-2 rounded-full">
-              RJ
-            </Link>
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="nav-mobile-button p-3 rounded-full relative z-[60]"
-              >
-                {mobileMenuOpen ? (
-                  <IconX size={24} className="text-cyan-600 dark:text-cyan-400" />
-                ) : (
-                  <IconMenu2 size={24} className="nav-icon" />
-                )}
-              </button>
-            </div>
-          </div>
-        </motion.nav>
-      </AnimatePresence>
+      <div ref={mobileOverlayRef} className="fixed inset-0 z-40 hidden opacity-0 md:hidden">
+        <div
+          className="absolute inset-0 bg-[#140f0c]/95 backdrop-blur-md"
+          onClick={handleNavClick}
+        />
 
-      {/* Full Screen Mobile Menu Overlay */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 md:hidden"
-          >
-            {/* Backdrop */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-white/95 dark:bg-zinc-950/98 backdrop-blur-md"
-              onClick={handleNavClick}
-            />
-            
-            {/* Menu Content */}
-            <div className="relative h-full flex flex-col justify-center px-8">
-              {/* Navigation Items */}
-              <nav className="space-y-2">
-                {navItems.map((item, idx) => {
-                  const isActive = activeSection === item.link.replace("/#", "");
-                  return (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: -40 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -40 }}
-                      transition={{ delay: idx * 0.08, duration: 0.4 }}
+        <div ref={mobileMenuRef} className="relative flex h-full flex-col justify-center px-8">
+          <nav className="space-y-2">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.link.replace("/#", "");
+
+              return (
+                <div key={item.name}>
+                  <Link
+                    href={item.link}
+                    onClick={handleNavClick}
+                    target={item.link.endsWith(".pdf") ? "_blank" : undefined}
+                    className="group flex items-center py-3"
+                  >
+                    <span
+                      className={cn(
+                        "text-4xl font-bold tracking-tight transition-all duration-300 sm:text-5xl",
+                        isActive
+                          ? "text-[#f5dfb8]"
+                          : "text-[#f1e7d7] group-hover:text-[#f5dfb8]"
+                      )}
                     >
-                      <Link
-                        href={item.link}
-                        onClick={handleNavClick}
-                        target={item.link.endsWith(".pdf") ? "_blank" : undefined}
-                        className="group flex items-center py-3"
-                      >
-                        <span className={cn(
-                          "text-4xl sm:text-5xl font-bold tracking-tight transition-all duration-300",
-                          isActive 
-                            ? "text-cyan-600 dark:text-cyan-400" 
-                            : "text-zinc-800 dark:text-zinc-200 group-hover:text-cyan-600 dark:group-hover:text-cyan-400"
-                        )}>
-                          {item.name}
-                        </span>
-                        
-                        {/* Animated underline */}
-                        <motion.div 
-                          className={cn(
-                            "ml-4 h-[2px] bg-gradient-to-r from-cyan-500 to-purple-500 transition-all duration-300",
-                            isActive ? "w-12" : "w-0 group-hover:w-8"
-                          )}
-                        />
-                        
-
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </nav>
-
-              {/* Bottom Info */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
-                className="absolute bottom-12 left-8 right-8"
-              >
-                <div className="flex items-center justify-between text-sm text-zinc-500 dark:text-zinc-500">
-                  <span>© 2025 Rajesh Jadhav</span>
-                  <span className="font-mono">Full Stack Developer</span>
+                      {item.name}
+                    </span>
+                    <span
+                      className={cn(
+                        "ml-4 h-[2px] bg-[#d4a35f] transition-all duration-300",
+                        isActive ? "w-12" : "w-0 group-hover:w-8"
+                      )}
+                    />
+                  </Link>
                 </div>
-              </motion.div>
+              );
+            })}
+          </nav>
+
+          <div className="absolute bottom-12 left-8 right-8">
+            <div className="flex items-center justify-between text-sm text-[#8f806c]">
+              <span>© 2026 Rajesh Jadhav</span>
+              <span className="font-mono">Full Stack Developer</span>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
