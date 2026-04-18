@@ -1,0 +1,6 @@
+{
+  "title": "Java Architecture",
+  "description": "Understand how Java code is compiled and executed internally with JVM components, memory areas, and class loading.",
+  "icon": "⚙️",
+  "order": 1
+}

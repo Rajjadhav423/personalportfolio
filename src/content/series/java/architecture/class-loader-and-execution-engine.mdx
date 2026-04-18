@@ -1,0 +1,93 @@
+---
+title: Class Loader and Execution Engine
+order: 4
+summary: Understand Class Loader phases and how Interpreter and JIT Compiler execute Java bytecode.
+---
+
+# Class Loader and Execution Engine
+
+This chapter covers two core JVM internals from your diagrams:
+
+- Class Loader Subsystem
+- Execution Engine
+
+## 1. Class Loader Subsystem
+
+Class Loader is responsible for bringing class bytecode into JVM runtime.
+
+![Class loader subsystem](/images/java/ClassLoader.png)
+
+### Three major phases
+
+1. **Loading**
+2. **Linking**
+3. **Initialization**
+
+## 2. Loading Stage
+
+Class loader fetches `.class` bytecode and creates runtime class representation.
+
+### Common class loaders
+
+- Bootstrap Class Loader
+- Extension (Platform) Class Loader
+- Application Class Loader
+
+## 3. Linking Stage
+
+Linking has three sub-steps:
+
+1. **Verify**: Bytecode validation for safety/correctness.
+2. **Prepare**: Allocate memory for static fields with default values.
+3. **Resolve**: Convert symbolic references to direct references.
+
+## 4. Initialization Stage
+
+- Assign explicit static variable values.
+- Execute static blocks in class initialization order.
+
+## 5. Execution Engine
+
+Execution engine runs bytecode after class loading and verification.
+
+![Execution engine internals](/images/java/ExecutionEngine.png)
+
+### Core parts
+
+1. **Interpreter**
+   - Executes bytecode line-by-line.
+   - Fast startup, slower repeated execution.
+
+2. **JIT Compiler (Just-In-Time)**
+   - Detects hot code (frequently executed code paths).
+   - Converts bytecode to native machine code.
+   - Improves runtime performance significantly.
+
+3. **Garbage Collector**
+   - Reclaims memory from unreachable objects.
+
+4. **Security and Runtime Services**
+   - Includes safety and profiling support in JVM runtime.
+
+## 6. JNI and Native Libraries
+
+- JNI (Java Native Interface) allows Java code to call native code (C/C++ etc.).
+- Native Method Libraries provide OS-level native implementations.
+
+## 7. Runtime Flow Summary
+
+```text
+Class Loader -> Memory Areas -> Execution Engine
+                         <-> JNI <-> Native Libraries
+```
+
+## 8. Quick Interview Answers
+
+**Q: What are Class Loader phases?**  
+Loading, Linking (Verify/Prepare/Resolve), Initialization.
+
+**Q: Why does JVM use both Interpreter and JIT?**  
+Interpreter gives quick startup; JIT optimizes hot code for high performance during long execution.
+
+**Q: What is role of JNI?**  
+JNI is a bridge between Java runtime and native platform libraries.

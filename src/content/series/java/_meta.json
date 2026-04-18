@@ -1,0 +1,15 @@
+{
+  "title": "Java Programming",
+  "description": "Start your Java journey from core runtime architecture to practical coding fundamentals. This series builds strong conceptual foundations before moving to OOP, collections, and backend development.",
+  "icon": "☕",
+  "publishedAt": "2026-04-18",
+  "tags": ["Java", "JVM", "JRE", "JDK", "Programming"],
+  "modules": [
+    {
+      "slug": "architecture",
+      "title": "Java Architecture (JDK, JRE, JVM)",
+      "icon": "🏗️",
+      "order": 1
+    }
+  ]
+}

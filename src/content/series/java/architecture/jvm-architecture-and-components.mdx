@@ -1,0 +1,77 @@
+---
+title: JVM Architecture and Components
+order: 2
+summary: Understand JVM as an abstract machine and the relationship among JVM, JRE, and JDK.
+---
+
+# JVM Architecture and Components
+
+## 1. What is Virtual Machine?
+
+A **virtual machine** is a software simulation of a physical machine that can execute programs.
+
+### Common categories
+
+1. **System/Hardware VM**
+   - Runs full operating systems (example: VMware, VirtualBox).
+2. **Process/Application VM**
+   - Runs a single program in an isolated runtime (example: JVM).
+
+JVM belongs to the **application/process VM** category.
+
+## 2. What is JVM?
+
+JVM (Java Virtual Machine) is an abstract runtime machine that executes Java bytecode.
+
+![JVM architecture](/images/java/JVM.png)
+
+### Main responsibilities
+
+- Load bytecode
+- Verify bytecode
+- Execute bytecode
+- Provide runtime services (memory, garbage collection, native integration)
+
+## 3. JVM, JRE, JDK Difference
+
+| Term | Full Form | Contains | Primary Use |
+|------|-----------|----------|-------------|
+| JVM | Java Virtual Machine | Runtime execution engine | Execute bytecode |
+| JRE | Java Runtime Environment | JVM + core Java libraries + runtime files | Run Java apps |
+| JDK | Java Development Kit | JRE + developer tools (`javac`, `javadoc`, etc.) | Develop and run Java apps |
+
+### Formula view
+
+- `JRE = JVM + Runtime Libraries`
+- `JDK = JRE + Development Tools`
+
+![JRE vs JVM vs JDK](/images/java/JRE.png)
+
+## 4. High-Level JVM Internal Blocks
+
+1. Class Loader Subsystem
+2. Runtime Memory Areas
+3. Execution Engine
+4. JNI (Java Native Interface)
+5. Native Method Libraries
+
+You will explore each in next chapters.
+
+## 5. Platform Independence vs JVM Dependency
+
+- Java source is compiled once to bytecode.
+- Bytecode is platform-independent.
+- JVM implementation is platform-specific.
+
+That is why Java is called: **"Write Once, Run Anywhere"** (with compatible JVM).
+
+## 6. Quick Interview Answer
+
+**Q: What is JVM?**  
+JVM is an abstract machine that provides runtime environment to execute Java bytecode.
+
+**Q: Is JVM system VM or process VM?**  
+JVM is an application/process-based virtual machine.
+
+**Q: Difference between JDK, JRE, JVM?**  
+JDK is for development, JRE is for runtime, JVM is core execution engine inside JRE.

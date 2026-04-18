@@ -1,0 +1,86 @@
+---
+title: Java Compile and Execution Flow
+order: 1
+summary: Learn the role of compiler, what happens in compilation, and what happens during JVM execution phase.
+---
+
+# Java Compile and Execution Flow
+
+This chapter answers the first interview-style questions you collected:
+
+- What is the role of compiler?
+- What happens in Java compilation phase?
+- What happens in execution phase?
+
+![Java compile and execute flow](/images/java/compilePhase.png)
+
+## 1. Role of Java Compiler (`javac`)
+
+Java compiler (`javac`) converts human-readable Java source code (`.java`) into platform-independent bytecode (`.class`).
+
+### What compiler does
+
+1. Syntax checking
+2. Type checking
+3. Semantic checking (class/method/variable references)
+4. Bytecode generation
+
+## 2. What Happens in Compilation Phase?
+
+When you run:
+
+```bash
+javac Test.java
+```
+
+compiler performs:
+
+1. **Syntax Validation**
+   - Verifies Java grammar, keyword usage, braces, method signatures, class declarations.
+   - Java is case-sensitive, so identifiers and keywords must match exact case.
+
+2. **Type Validation (Strong Typing)**
+   - Ensures assigned values match declared data types.
+   - Example: assigning text to an `int` is rejected at compile time.
+
+3. **Comment Ignoring**
+   - Comments are skipped by compiler and do not affect bytecode output.
+
+4. **Bytecode Generation**
+   - Produces `.class` file containing JVM bytecode.
+
+## 3. What Happens in Execution Phase?
+
+When you run:
+
+```bash
+java Test
+```
+
+JVM performs:
+
+1. **Bytecode Loading** via Class Loader.
+2. **Bytecode Verification** for security and correctness.
+3. **Memory Allocation** for class metadata, objects, stacks, etc.
+4. **Execution** by Interpreter + JIT Compiler.
+
+## 4. End-to-End Example
+
+```text
+Test.java --(javac)--> Test.class --(java + JVM)--> Output
+```
+
+- `javac` creates bytecode.
+- JVM loads and verifies bytecode.
+- Execution engine runs code and prints output.
+
+## 5. Quick Interview Answer
+
+**Q: What is compiler role in Java?**  
+Compiler checks code correctness and converts `.java` source file into `.class` bytecode for JVM execution.
+
+**Q: What happens in compilation phase?**  
+Syntax check, type check, comment ignoring, bytecode generation.
+
+**Q: What happens in execution phase?**  
+Class loading, bytecode verification, memory setup, and execution using interpreter/JIT.

@@ -1,0 +1,92 @@
+---
+title: Memory Areas in JVM
+order: 3
+summary: Learn the 5 JVM memory areas and what data is stored in Method Area, Heap, and Stack.
+---
+
+# Memory Areas in JVM
+
+JVM uses runtime memory areas to organize code, objects, and thread execution.
+
+## Total 5 Main Memory Areas
+
+1. Method Area
+2. Heap Area
+3. Stack Area
+4. PC Register
+5. Native Method Stack (Native Method Area)
+
+![JVM memory areas](/images/java/MemoryAreas.png)
+
+## 1. Method Area
+
+Stores class-level metadata loaded by class loader.
+
+### Data typically stored
+
+- `.class` structure information
+- Runtime constant pool
+- Method metadata
+- Static variables
+
+From your notes point of view:
+
+- `.class` file information
+- static variables
+
+## 2. Heap Area
+
+Stores all objects and arrays created during runtime.
+
+### Data typically stored
+
+- Objects
+- Arrays
+- Instance variables (as part of objects)
+
+This is shared by all threads and managed by garbage collector.
+
+## 3. Stack Area
+
+Each thread has its own JVM stack.
+
+### Data typically stored per stack frame
+
+- Current running method context
+- Local variables
+- Operand stack
+- Return information
+
+From your notes point of view:
+
+- Current running methods
+- Local variables
+
+## 4. PC (Program Counter) Register
+
+Each thread keeps a PC register holding address of current JVM instruction being executed.
+
+## 5. Native Method Stack
+
+Used when Java code calls native (non-Java) methods via JNI.
+
+## Memory Areas Quick Table
+
+| Area | Scope | Stores |
+|------|-------|--------|
+| Method Area | Shared | Class metadata, static data |
+| Heap | Shared | Objects, arrays |
+| Stack | Per-thread | Method frames, local variables |
+| PC Register | Per-thread | Current instruction pointer |
+| Native Method Stack | Per-thread | Native method execution data |
+
+## Typical Interview Questions
+
+**Q: What data is stored in Method Area?**  
+Class information and static variables.
+
+**Q: What data is stored in Heap Area?**  
+Objects, arrays, and object instance state.
+
+**Q: What data is stored in Stack Area?**  
+Current running method frames and local variables.

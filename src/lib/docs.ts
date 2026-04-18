@@ -32,7 +32,8 @@ function getMDXFiles(dir: string) {
 }
 
 function readMDXFile(filePath: string) {
-  const rawContent = fs.readFileSync(filePath, 'utf-8');
+  // Strip UTF-8 BOM so gray-matter always reads frontmatter correctly.
+  const rawContent = fs.readFileSync(filePath, 'utf-8').replace(/^\uFEFF/, '');
   return matter(rawContent);
 }
 
